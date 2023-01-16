@@ -21,7 +21,9 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
 
-  game = new Game();
+  game = new Game(0, "","");
+
+  
 }
 
 /**
