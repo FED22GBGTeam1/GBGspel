@@ -11,6 +11,7 @@ class Building extends Gameobject {
 
     public update() {
         
+        
     }
 
     public draw() {
