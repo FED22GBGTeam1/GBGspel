@@ -1,4 +1,4 @@
-abstract class Gameobject {
+class Gameobject {
     public position: p5.Vector;
     protected size: p5.Vector;
     protected image: p5.Image;
