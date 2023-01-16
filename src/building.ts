@@ -1,4 +1,4 @@
-// import { Gameobject } from './gameobject.ts'
+// import { Gameobject } from './gameobject.ts' ?
 
 class Building extends Gameobject {
     // Gör att man kan stänga av dödligheten vid krock (powerup).
