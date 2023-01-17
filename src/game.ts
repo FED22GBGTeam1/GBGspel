@@ -1,21 +1,54 @@
 class Game {
-  private highScore: number;
-  private activeScene:string;
-  private music:string;
+  // private gameOver: GameOver;
+  // private highScore: number;
+  public activeScene: string;
+  // private music:string;
   
-  constructor (highScore: number, activeScene:string, music:string) {
-    this.highScore = highScore;
-    this.activeScene = activeScene;
-    this.music = music;
-  }
+   constructor (activeScene: string) {
+  //   this.highScore = 0;
+     this.activeScene = activeScene;
+     activeScene = "startScene";
+  //   this.music = "music";
+  //   this.gameOver = new GameOver()
+
+   }
+
+   
+
 
   public update() {
+  
+    let canvas = document.getElementById("defaultCanvas0");
+    canvas?.addEventListener("click", () => {
+      if (this.activeScene = "gameOverScene") {
+        this.activeScene = "startScene";
+      }
+      console.log("hej");
+      this.activeScene = "playingGameScene";
+    })
+
+  }
+  
+  public draw() {
+    switch(this.activeScene) {
+      case "startScene":
+        startScene.draw()
+        break;
+      case "playingGameScene":
+        playingGameScene.draw()
+        break;
+      case "gameOver":
+        gameOverScene.draw();
+        break;
+      default:  
+      //console.log("scene doesn't exist")     
+    }
    
     
-  }
-
-  public draw() {
-    background('darkblue');
+    // character.update();
+    // character.draw();
+    // building.draw();
+    // building.update();
   }
 
   public openInstructions(){
@@ -27,11 +60,10 @@ class Game {
   public toggleMusic() {
 
   }
+
 }
 
-
-    
-    
+ 
     // this.drawText();
     // if (this.isCircleVisible) {
     //   this.drawCircle();

@@ -35,15 +35,13 @@ class Building extends Gameobject {
   
         if (this.deadlyCollision) {
           this.x = width;
-          noLoop();
-  
-          background("gray");
-          let s = "You lost"
-          textSize(32);
-          fill(50);
-          text(s, 100, 100, 200, 200);
+          game.activeScene = "gameOver";
+          console.log(game.activeScene)
+          console.log(this.deadlyCollision);
+        //   noLoop();
+          
         }
-  
+        
       }
   
   

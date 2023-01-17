@@ -1,7 +1,18 @@
- class StartPage {
+ class StartScene {
     
     constructor(){
+      
 
+    }
+
+    public update() {
+     
+    }
+
+
+
+    public draw() {
+      background("blue");
     }
 
     public renderStartPage() {

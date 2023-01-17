@@ -1,4 +1,4 @@
-class GameScene {
+class PlayingGameScene {
 //   private score: number;
 //   private distance: number;
 //   private fishAmount: number;
@@ -16,12 +16,12 @@ class GameScene {
 //   private timeElapsed: number;
 
 //   constructor(
-//     score: number,
-//     distance: number,
-//     fishAmount: number,
-//     isGameOver: boolean,
-//     isGamePaused: boolean,
-//     currentSpeed: number
+//     score: 0,
+//     distance: 0,
+//     fishAmount: 0,
+//     isGameOver: false,
+//     isGamePaused: false,
+//     currentSpeed: currentSpeed
 //   ) {
 //     this.score = score;
 //     this.distance = distance;
@@ -34,6 +34,7 @@ class GameScene {
 //     this.gameObjects = [];
 //     this.backgroundObjects = [];
 //     this.timeElapsed = 0;
+
     
 //   }
   public update() {
@@ -41,7 +42,12 @@ class GameScene {
     // this.spawnObjects();
   }
   public draw() {
-    
+    background("green");
+    character.draw();
+    character.update();
+    building.draw();
+    building.update();
+
     //Rita ut spelobjekt och bakgrundsobjekt, samt karaktär
   }
 //   public spawnObjects() {
