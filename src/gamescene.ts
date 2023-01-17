@@ -13,6 +13,8 @@ class GameScene {
   private gameObjects: Gameobject[];
   private backgroundObjects: Gameobject[];
 
+  private timeElapsed: number;
+
   constructor(
     score: number,
     distance: number,
@@ -31,15 +33,21 @@ class GameScene {
     this.acceleration = 0;
     this.gameObjects = [];
     this.backgroundObjects = [];
+    this.timeElapsed = 0;
+    
   }
   public update() {
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause. 
-
+    this.spawnObjects();
   }
   public draw() {
     //Rita ut spelobjekt och bakgrundsobjekt, samt karaktär
   }
   public spawnObjects() {
+    this.timeElapsed += deltaTime
+    if (this.timeElapsed > 1000) {
+
+    }
     //spawna nya spelobjekt
   }
   public detectCollision() {

@@ -1,20 +1,24 @@
 class Game {
+  private gameOver: GameOver;
   private highScore: number;
   private activeScene:string;
   private music:string;
   
-  constructor (highScore: number, activeScene:string, music:string) {
-    this.highScore = highScore;
-    this.activeScene = activeScene;
-    this.music = music;
+  constructor () {
+    this.highScore = 0;
+    this.activeScene = "start";
+    this.music = "music";
+    this.gameOver = new GameOver()
+
   }
 
   public update() {
    
-    
+    this.gamescene.update()
   }
 
   public draw() {
+    this.cloud.draw()
     background('darkblue');
   }
 
