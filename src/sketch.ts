@@ -8,8 +8,8 @@ let gameHandler: GameHandler;
 
 let character: Character;
 let building: Building;
-let weee: any;
-let wooo: any;
+let weee: p5.SoundFile;
+let wooo: p5.SoundFile;
 let canPlay = true;
 
 

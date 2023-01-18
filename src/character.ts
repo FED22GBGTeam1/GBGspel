@@ -16,12 +16,11 @@ class Character extends Gameobject {
 
     if (keyIsDown(UP_ARROW) && this.y > 0) {
       this.y -= 10;
-      this.playWeeeSound();
+      this.playSound(weee);
     }
     if (keyIsDown(DOWN_ARROW) && this.y + this.size.y < height) {
       this.y += 10;
-      this.playWoooSound();
-
+      this.playSound(wooo);
     }
 
     if (this.position === character.position) {
@@ -36,9 +35,9 @@ class Character extends Gameobject {
       image(this.image, this.x, this.y, this.size.x, this.size.y);  
   }
 
-  public playWeeeSound() {
+  public playSound(sound: p5.SoundFile) {
     if (canPlay) {
-      weee.play();
+      sound.play();
       canPlay = false;
       setTimeout(() => {
         canPlay = true;
@@ -46,16 +45,6 @@ class Character extends Gameobject {
 
     }
   }
-
-  public playWoooSound() {
-    if (canPlay) {
-      wooo.play();
-      canPlay = false;
-      setTimeout(() => {
-        canPlay = true;
-      }, 3000);
-
-    }
-  }
+  
 }
 
