@@ -47,13 +47,13 @@ class PlayingGameScene {
     // this.spawnObjects();
   }
   public draw() {
-    background("green");
+    background(50, 145, 300);
     character.draw();
     character.update();
 
-    
-    if(random(1) < 0.01) {
-      blocks.push(new Building(createVector(windowWidth, windowHeight-400), createVector(200,400), "./assets/building.png", 5, true))
+
+    if(random(2) < 0.01) {
+      blocks.push(new Building(createVector(windowWidth, windowHeight-400), createVector(random(150,200),random(200,400)), "./assets/building.png", random(5,10), true))
     }
     
     for(building of blocks) {
