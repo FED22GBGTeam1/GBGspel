@@ -44,7 +44,6 @@ class Building extends Gameobject {
         
       }
   
-  
       public draw() {
         // super.draw();
         image(this.image, this.x, this.y, this.size.x, this.size.y);  

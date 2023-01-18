@@ -33,7 +33,3 @@ class Character extends Gameobject {
   }
 }
 
-
-
-
-
