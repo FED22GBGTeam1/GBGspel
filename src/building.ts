@@ -6,7 +6,6 @@ class Building extends Gameobject {
     public y: number;
     protected deadlyCollision: boolean;
     
-    
       // Gör att man kan stänga av dödligheten vid krock (powerup)
       // private deadlyCollision: boolean;
   
