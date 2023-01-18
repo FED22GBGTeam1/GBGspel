@@ -5,6 +5,7 @@ let gameOverScene: GameOverScene;
 
 let gameHandler: GameHandler;
 
+
 let character: Character;
 let building: Building;
 
@@ -42,6 +43,7 @@ function setup() {
   playingGameScene = new PlayingGameScene();
   gameOverScene = new GameOverScene();
   gameHandler = new GameHandler();
+
   
 
 }
