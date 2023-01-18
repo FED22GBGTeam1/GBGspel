@@ -8,6 +8,9 @@ let gameHandler: GameHandler;
 
 let character: Character;
 let building: Building;
+let weee: any;
+let wooo: any;
+let canPlay = true;
 
 
 // function mouseClicked(event:string) {
@@ -22,6 +25,9 @@ let building: Building;
  * 
  */
 function preload() {
+
+  weee = loadSound('assets/weee.mp3');
+  wooo = loadSound('assets/wooo.mp3');
 
  
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
@@ -56,7 +62,7 @@ function setup() {
 function draw() {
   gameHandler.draw();
   gameHandler.update();
-  // game.update();
+   // game.update();
   // game.draw();
   
   // character.update();
@@ -66,6 +72,7 @@ function draw() {
   // building.mousePressed();
 
 }
+
 
 /**
  *  Built in windowResize listener function in P5
