@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /// <reference path="gameobject.ts"/>
 
 class Building extends Gameobject {
@@ -47,14 +46,3 @@ class Building extends Gameobject {
         image(this.image, this.x, this.y, this.size.x, this.size.y);  
       }
   }
-=======
-class Building extends Gameobject {
-    // Gör att man kan stänga av dödligheten vid krock (powerup)
-    private deadlyCollision: boolean;
-
-    constructor(position: p5.Vector, size: p5.Vector, imagePath: string, velocity: number, deadlyCollision: boolean) {
-        super(position, size, imagePath, velocity);
-        this.deadlyCollision = deadlyCollision;
-    }
-}
->>>>>>> main
