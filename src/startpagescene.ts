@@ -1,10 +1,7 @@
 class StartPageScene{
-  
-  public highScore: IGame;
 
+  constructor(){
 
-  constructor(highScore: IGame){
-     this.highScore = highScore;
 
    }
 
@@ -29,5 +26,3 @@ class StartPageScene{
     }
     
  }
-
- const testGame = new GameHandler();

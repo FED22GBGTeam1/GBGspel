@@ -1,14 +1,16 @@
 /// <reference path="gameobject.ts" />
 
 class Character extends Gameobject {
+  public isAlive: boolean
   
   public x: number;
   public y: number;
 
-  constructor(position: p5.Vector, size: p5.Vector, imagePath: string, velocity: number) {
+  constructor(position: p5.Vector, size: p5.Vector, imagePath: string, velocity: number, isAlive:boolean) {
       super(position, size, imagePath, velocity);
       this.x = position.x;
       this.y = position.y;
+      this.isAlive = true;
   }
 
 
@@ -26,6 +28,7 @@ class Character extends Gameobject {
     }
 
   }
+
 
 
   public draw() {

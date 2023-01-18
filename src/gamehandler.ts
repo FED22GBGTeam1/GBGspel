@@ -5,21 +5,16 @@ class GameHandler implements IGame {
   //Ska bytas till highScore istället för nummer.
   public highScore: number;
   public activeScene: any;
-  public gameScene: string;
 
   constructor() {
     this.highScore = 0;
-    this.activeScene = "startScene";
-    this.gameScene = "gameScene";
+    this.activeScene = "playingGameScene";
     //this.music = "music";¨
   }
 
   public update() {
   
-    let canvas = document.getElementById("defaultCanvas0");
-    canvas?.addEventListener("click", () => {
-      this.activeScene = "playingGameScene";
-      }); 
+
   }
 
   public draw() {
