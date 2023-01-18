@@ -1,6 +1,5 @@
 class GameHandler implements IGame {
 
-  private startPageScene: StartPageScene;
   //private music: string;
 
   //Ska bytas till highScore istället för nummer.
@@ -9,9 +8,8 @@ class GameHandler implements IGame {
   public gameScene: string;
 
   constructor() {
-    this.startPageScene = new StartPageScene();
     this.highScore = 0;
-    this.activeScene = "start";
+    this.activeScene = "startScene";
     this.gameScene = "gameScene";
     //this.music = "music";¨
   }
@@ -21,9 +19,7 @@ class GameHandler implements IGame {
     let canvas = document.getElementById("defaultCanvas0");
     canvas?.addEventListener("click", () => {
       this.activeScene = "playingGameScene";
-
-      });
-    
+      }); 
   }
 
   public draw() {

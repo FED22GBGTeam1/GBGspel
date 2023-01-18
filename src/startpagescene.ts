@@ -31,4 +31,3 @@ class StartPageScene{
  }
 
  const testGame = new GameHandler();
- const testStartPage = new StartPageScene();
