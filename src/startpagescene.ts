@@ -1,9 +1,12 @@
- class StartScene {
-    
-    constructor(){
-      
+class StartPageScene{
+  
+  public highScore: IGame;
 
-    }
+
+  constructor(highScore: IGame){
+     this.highScore = highScore;
+
+   }
 
     public update() {
      
@@ -26,3 +29,6 @@
     }
     
  }
+
+ const testGame = new GameHandler();
+ const testStartPage = new StartPageScene();

@@ -1,20 +1,15 @@
 class GameOverScene {
 
-    
     constructor(){
    
-
     }
 
     public update() {
-        let canvas = document.getElementById("defaultCanvas0");
-        canvas?.addEventListener("click", () => {
-          console.log("TJOBRE");
-   
-          game.activeScene = "startScene";
-        })
-     
+
     }
+
+    
+
     public draw() {
       background("red");
       let s = "You lost"
@@ -24,6 +19,11 @@ class GameOverScene {
     }
 
     public playAgain() {
-        
+      setTimeout(reload, 2000);
     }    
 }
+
+const reload = function() {
+  location.reload();
+}
+

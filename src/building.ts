@@ -35,10 +35,7 @@ class Building extends Gameobject {
   
         if (this.deadlyCollision) {
           this.x = width;
-          game.activeScene = "gameOver";
-          console.log(game.activeScene)
-          console.log(this.deadlyCollision);
-        //   noLoop();
+          gameHandler.activeScene = "gameOverScene";
           
         }
         

@@ -1,6 +1,7 @@
 /// <reference path="gameobject.ts" />
 
 class Character extends Gameobject {
+  
   public x: number;
   public y: number;
 

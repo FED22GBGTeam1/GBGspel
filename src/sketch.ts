@@ -1,9 +1,9 @@
 //---- GLOBAL VARIABLES ----//
-let startScene: StartScene;
+let startPageScene: StartPageScene;
 let playingGameScene: PlayingGameScene;
 let gameOverScene: GameOverScene;
 
-let game: Game;
+let gameHandler: GameHandler;
 
 let character: Character;
 let building: Building;
@@ -35,14 +35,13 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
-  //background('gray');
+
   character = new Character(createVector(50,300), createVector(150, 150), "./assets/boat.png", 0);
   building = new Building(createVector(windowWidth, windowHeight-400), createVector(200,400), "./assets/building.png", 5, false);
-  
-  startScene = new StartScene();
+  startPageScene = new StartPageScene();
   playingGameScene = new PlayingGameScene();
   gameOverScene = new GameOverScene();
-  game = new Game("startScene");
+  gameHandler = new GameHandler();
   
 
 }
@@ -53,8 +52,8 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-  game.draw();
-  game.update();
+  gameHandler.draw();
+  gameHandler.update();
   // game.update();
   // game.draw();
   
