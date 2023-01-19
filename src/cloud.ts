@@ -7,7 +7,7 @@ class Cloud extends Gameobject {
     }
 
 
-
+    
 }
 
 

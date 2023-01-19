@@ -1,4 +1,4 @@
 interface IGame {
   highScore: number;
-  activeScene: string;
+  playAgain(): void;
 }

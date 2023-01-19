@@ -1,28 +1,19 @@
-class StartPageScene{
+class StartPageScene {
+  private game: IGame
+  
+  constructor(game: IGame) {
+    this.game = game;
+  }
 
-  constructor(){
+  public update() {
+    // this.game.playAgain()
+  }
 
+  public draw() {
+    background("blue");
+  }
 
-   }
-
-    public update() {
-     
-    }
-
-
-
-    public draw() {
-      background("blue");
-    }
-
-    public renderStartPage() {
-        
-    }
-    public playGame() {
-
-    }
-    public displayCredits() {
-        
-    }
-    
- }
+  public renderStartPage() {}
+  public playGame() {}
+  public displayCredits() {}
+}

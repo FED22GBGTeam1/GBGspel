@@ -1,13 +1,6 @@
 //---- GLOBAL VARIABLES ----//
-let startPageScene: StartPageScene;
-let playingGameScene: PlayingGameScene;
-let gameOverScene: GameOverScene;
-
 let gameHandler: GameHandler;
 
-
-let character: Character;
-let building: Building;
 let weee: p5.SoundFile;
 let wooo: p5.SoundFile;
 let canPlay = true;
@@ -43,14 +36,9 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
 
-  character = new Character(createVector(50,300), createVector(175, 125), "./assets/katt.png", 0,true);
-  startPageScene = new StartPageScene();
-  playingGameScene = new PlayingGameScene();
-  gameOverScene = new GameOverScene();
-  gameHandler = new GameHandler();
-
+  // configure default volume
   
-
+  gameHandler = new GameHandler();
 }
 
 /**
@@ -59,8 +47,8 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-  gameHandler.draw();
   gameHandler.update();
+  gameHandler.draw();
    // game.update();
   // game.draw();
   

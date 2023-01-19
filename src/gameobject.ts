@@ -12,15 +12,13 @@ abstract class Gameobject {
         this.velocity = velocity
     }
 
-    public update() {
-        
+    public update(startingSpeed: number) {
+        this.position.add(startingSpeed, 0);
     }
 
     public draw() {
         //ritar ut bilden vid objectets position och med samma storlek som objektet(?)
-        image(this.image, this.position.x, this.position.y, this.size.x, this.size.y);  
-        
-
+        image(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
     }
   
 }
