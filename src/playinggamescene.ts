@@ -8,17 +8,19 @@ class PlayingGameScene {
   //   public isGameOver: boolean;
   //   public isGamePaused: boolean;
 
-  private startingSpeed: number;
+  public startingSpeed: number;
   //   private currentSpeed: number;
   //   private acceleration: number;
+  public position: p5.Vector;
 
   //   private gameObjects: Gameobject[];
   //   private backgroundObjects: Gameobject[];
 
   //   private timeElapsed: number;
 
-  constructor(startingSpeed: number) {
-    this.startingSpeed = 2;
+  constructor() {
+    this.startingSpeed = 3;
+    this.position = createVector(0, 0)
   }
   //     score: 0,
   //     distance: 0,
@@ -50,10 +52,9 @@ class PlayingGameScene {
     if (random(2) < 0.01) {
       blocks.push(
         new Building(
-          createVector(windowWidth, windowHeight - 400),
+          createVector(windowWidth, windowHeight-200),
           createVector(random(150, 200), random(200, 400)),
-          "./assets/building.png",
-          random(5, 10),
+          "./assets/building.png", playingGameScene.startingSpeed,
           true
         )
       );
@@ -64,7 +65,13 @@ class PlayingGameScene {
       building.update();
     }
 
+
   }
+  /*public moveForward() {
+    this.position.x -= this.startingSpeed;
+
+  }
+  */
   //   public spawnObjects() {
   //     this.timeElapsed += deltaTime
   //     if (this.timeElapsed > 1000) {

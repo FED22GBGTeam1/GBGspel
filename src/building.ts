@@ -24,7 +24,7 @@ class Building extends Gameobject {
   }
 
   public update() {
-    this.x -= this.velocity;
+    this.x -= playingGameScene.startingSpeed;
 
     if (this.x + this.size.x < 0) {
       this.x = width;
