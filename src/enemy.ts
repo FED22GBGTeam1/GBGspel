@@ -12,7 +12,10 @@ class Enemy extends Gameobject{
         deadlyCollision: boolean,
 
     ) {
-        super(position, size, imagePath, velocity, deadlyCollision);
+        super(position, size, imagePath, velocity);
+        this.deadlyCollision = false;
+        this.velocity = velocity;
+        this.size = size;
     }
 }
 
