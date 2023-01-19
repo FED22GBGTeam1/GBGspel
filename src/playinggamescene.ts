@@ -1,63 +1,85 @@
+let blocks: Building[] = [];
+
 class PlayingGameScene {
-//   private score: number;
-//   private distance: number;
-//   private fishAmount: number;
+  //   private score: number;
+  //   private distance: number;
+  //   private fishAmount: number;
 
-//   public isGameOver: boolean;
-//   public isGamePaused: boolean;
+  //   public isGameOver: boolean;
+  //   public isGamePaused: boolean;
 
-//   private startingSpeed: number;
-//   private currentSpeed: number;
-//   private acceleration: number;
+  public startingSpeed: number;
+  //   private currentSpeed: number;
+  //   private acceleration: number;
+  public position: p5.Vector;
 
-//   private gameObjects: Gameobject[];
-//   private backgroundObjects: Gameobject[];
+  //   private gameObjects: Gameobject[];
+  //   private backgroundObjects: Gameobject[];
 
-//   private timeElapsed: number;
+  //   private timeElapsed: number;
 
-//   constructor(
-//     score: 0,
-//     distance: 0,
-//     fishAmount: 0,
-//     isGameOver: false,
-//     isGamePaused: false,
-//     currentSpeed: currentSpeed
-//   ) {
-//     this.score = score;
-//     this.distance = distance;
-//     this.fishAmount = fishAmount;
-//     this.isGameOver = isGameOver;
-//     this.isGamePaused = isGamePaused;
-//     this.currentSpeed = currentSpeed;
-//     this.startingSpeed = currentSpeed;
-//     this.acceleration = 0;
-//     this.gameObjects = [];
-//     this.backgroundObjects = [];
-//     this.timeElapsed = 0;
+  constructor() {
+    this.startingSpeed = 3;
+    this.position = createVector(0, 0)
+  }
+  //     score: 0,
+  //     distance: 0,
+  //     fishAmount: 0,
+  //     isGameOver: false,
+  //     isGamePaused: false,
+  //     currentSpeed: currentSpeed
+  //     this.score = score;
+  //     this.distance = distance;
+  //     this.fishAmount = fishAmount;
+  //     this.isGameOver = isGameOver;
+  //     this.isGamePaused = isGamePaused;
+  //     this.currentSpeed = currentSpeed;
 
-    
-//   }
+  //     this.acceleration = 0;
+  //     this.gameObjects = [];
+  //     this.backgroundObjects = [];
+  //     this.timeElapsed = 0;
+
   public update() {
-    //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause. 
+    //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
   }
   public draw() {
-    background("green");
+    background(50, 145, 300);
     character.draw();
     character.update();
-    building.draw();
-    building.update();
 
-    //Rita ut spelobjekt och bakgrundsobjekt, samt karaktär
+    if (random(2) < 0.01) {
+      blocks.push(
+        new Building(
+          createVector(windowWidth, windowHeight-200),
+          createVector(random(150, 200), random(200, 400)),
+          "./assets/building.png", playingGameScene.startingSpeed,
+          true
+        )
+      );
+    }
+
+    for (building of blocks) {
+      building.draw();
+      building.update();
+    }
+
+
   }
-//   public spawnObjects() {
-//     this.timeElapsed += deltaTime
-//     if (this.timeElapsed > 1000) {
+  /*public moveForward() {
+    this.position.x -= this.startingSpeed;
 
-//     }
-//     //spawna nya spelobjekt
-//   }
-//   public detectCollision() {
-//     //upptäck kollision mellan spelare och byggnader/fiender
-//   }
+  }
+  */
+  //   public spawnObjects() {
+  //     this.timeElapsed += deltaTime
+  //     if (this.timeElapsed > 1000) {
+
+  //     }
+  //     //spawna nya spelobjekt
+  //   }
+  //   public detectCollision() {
+  //     //upptäck kollision mellan spelare och byggnader/fiender
+  //   }
 }
