@@ -1,8 +1,9 @@
-class Gameobject {
+abstract class Gameobject {
     public position: p5.Vector;
     protected size: p5.Vector;
     protected image: p5.Image;
     protected velocity: number;
+    
 
     constructor(position: p5.Vector, size: p5.Vector, imagePath: string, velocity: number) {
         this.position = position;
@@ -11,14 +12,13 @@ class Gameobject {
         this.velocity = velocity
     }
 
-    public update() {
-        
+    public update(startingSpeed: number) {
+        this.position.add(startingSpeed, 0);
     }
 
     public draw() {
         //ritar ut bilden vid objectets position och med samma storlek som objektet(?)
-        image(this.image, this.position.x, this.position.y, this.size.x, this.size.y);  
-
+        image(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
     }
   
 }

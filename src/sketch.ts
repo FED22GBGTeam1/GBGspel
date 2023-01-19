@@ -1,13 +1,28 @@
 //---- GLOBAL VARIABLES ----//
-let game: Game;
-// let sound: p5.SoundFile
+let gameHandler: GameHandler;
+
+let weee: p5.SoundFile;
+let wooo: p5.SoundFile;
+let canPlay = true;
+
+
+// function mouseClicked(event:string) {
+//   console.log(event)
+// }
+
 
 /**
  * Built in preload function in P5
  * This is a good place to load assets such as
  * sound files, images etc...
+ * 
  */
 function preload() {
+
+  weee = loadSound('assets/weee.mp3');
+  wooo = loadSound('assets/wooo.mp3');
+
+ 
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
 }
 
@@ -21,9 +36,9 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
 
-  game = new Game(0, "","");
-
+  // configure default volume
   
+  gameHandler = new GameHandler();
 }
 
 /**
@@ -32,9 +47,19 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-  game.update();
-  game.draw();
+  gameHandler.update();
+  gameHandler.draw();
+   // game.update();
+  // game.draw();
+  
+  // character.update();
+  // character.draw();
+  // building.draw();
+  // building.update();
+  // building.mousePressed();
+
 }
+
 
 /**
  *  Built in windowResize listener function in P5
