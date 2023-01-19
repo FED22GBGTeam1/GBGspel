@@ -22,9 +22,11 @@ class Character extends Gameobject {
   public update() {
     if (keyIsDown(UP_ARROW) && this.y > 0) {
       this.y -= 10;
+      this.playSound(weee);
     }
     if (keyIsDown(DOWN_ARROW) && this.y + this.size.y < height) {
       this.y += 10;
+      this.playSound(wooo);
     }
 
     if (this.position === character.position) {
@@ -36,4 +38,16 @@ class Character extends Gameobject {
     // super.draw();
     image(this.image, this.x, this.y, this.size.x, this.size.y);
   }
+
+  public playSound(sound: p5.SoundFile) {
+    if (canPlay) {
+      sound.play();
+      canPlay = false;
+      setTimeout(() => {
+        canPlay = true;
+      }, 3000);
+
+    }
+  }
+  
 }
