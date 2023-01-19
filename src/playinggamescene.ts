@@ -55,19 +55,13 @@ class PlayingGameScene {
     for (const gameObject of this.gameObjects) {
       gameObject.update(this.startingSpeed);
     }
-
   }
-
   public draw() {
     background(50, 145, 300);
     this.character.draw();
-
-
     for (const gameObject of this.gameObjects) {
       gameObject.draw();
     }
-
-    
   }
   /*public moveForward() {
     this.position.x -= this.startingSpeed;
