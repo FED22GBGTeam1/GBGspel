@@ -23,6 +23,15 @@ class Character extends Gameobject {
       this.position.y += 10;
       this.playSound(wooo);
     }
+    /*if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width) {
+      this.position.x += 10;
+      this.playSound(wooo);
+    }
+    if (keyIsDown(LEFT_ARROW) && this.position.x + this.size.x < width) {
+      this.position.x -= 10;
+      this.playSound(wooo);
+    }
+    */
   }
 
   public playSound(sound: p5.SoundFile) {

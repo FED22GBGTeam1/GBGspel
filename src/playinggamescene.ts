@@ -18,7 +18,7 @@ class PlayingGameScene {
   //   private timeElapsed: number;
 
   constructor() {
-    this.startingSpeed = 3;
+    this.startingSpeed = 4;
     this.position = createVector(0, 0)
     this.character = new Character(createVector(50,300), createVector(175, 125), "./assets/katt.png", 0);
     this.gameObjects = [];
@@ -45,20 +45,17 @@ class PlayingGameScene {
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
-    if (random(2) < 0.01) {
+    if (random(2) < 0.015) {
       this.gameObjects.push(
-        new Building(
-          createVector(windowWidth, windowHeight-200),
-          createVector(random(150, 200), random(200, 400)),
-          "./assets/building.png", this.startingSpeed,
-          true
-        )
-      );
+        new Building(createVector(windowWidth,windowHeight-random(50, 700)),
+        createVector(random(150, 350), 700),
+        "assets/building.png", 0)
+      )
     }
-    
     for (const gameObject of this.gameObjects) {
       gameObject.update(this.startingSpeed);
     }
+
   }
 
   public draw() {
@@ -69,6 +66,8 @@ class PlayingGameScene {
     for (const gameObject of this.gameObjects) {
       gameObject.draw();
     }
+
+    
   }
   /*public moveForward() {
     this.position.x -= this.startingSpeed;
