@@ -7,6 +7,10 @@ class StartPageScene {
 
   public update() {
     // this.game.playAgain()
+    let canvas = document.getElementById("defaultCanvas0");
+    canvas?.addEventListener("click", () => {
+      gameHandler.activeScene = "play";
+      });
   }
 
   public draw() {
