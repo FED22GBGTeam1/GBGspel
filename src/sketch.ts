@@ -37,8 +37,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
 
-  character = new Character(createVector(50,300), createVector(150, 150), "./assets/boat.png", 0);
-  building = new Building(createVector(windowWidth, windowHeight-400), createVector(200,400), "./assets/building.png", 5, false);
+  character = new Character(createVector(50,300), createVector(175, 125), "./assets/katt.png", 0,true);
   startPageScene = new StartPageScene();
   playingGameScene = new PlayingGameScene();
   gameOverScene = new GameOverScene();
