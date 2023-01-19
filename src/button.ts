@@ -17,10 +17,7 @@ class Button {
       const rightSide = this.position.x + this.size.x;
       const topSide = this.position.y;
       const bottomSide = this.position.y + this.size.y;
-      console.log(leftSide);
-      console.log(rightSide);
-      console.log(topSide);
-      console.log(bottomSide);
+
       if (mouseX > leftSide && mouseX < rightSide && mouseY > topSide && mouseY < bottomSide) {
         gameHandler.activeScene = "play";
       }
