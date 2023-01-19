@@ -17,6 +17,7 @@ class PlayingGameScene {
 
   //   private timeElapsed: number;
 
+
   constructor() {
     this.startingSpeed = 3;
     this.position = createVector(0, 0)
