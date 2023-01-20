@@ -27,13 +27,13 @@ class Button {
   public draw() {
     push()
     
+    textAlign(CENTER)//gör den något?
     fill('red')
     rect(this.position.x, this.position.y, this.size.x, this.size.y);
 
-    fill("black");
-    textSize(28);
-    textAlign(CENTER, CENTER)
-    text(this.text, this.position.x+100, this.position.y+50);
+    fill('black')
+    text(this.text, this.position.x, this.position.y, this.size.x, this.size.y);
+    
 
     pop();
   }
