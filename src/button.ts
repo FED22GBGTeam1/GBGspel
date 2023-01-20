@@ -3,25 +3,36 @@ class Button {
   private position: p5.Vector;
   private size: p5.Vector;
   private mouseWasPressed: boolean;
+  private color: string;
 
   constructor(text: string, position: p5.Vector, size: p5.Vector) {
     this.text = text;
     this.position = position;
     this.size = size;
     this.mouseWasPressed = false;
+    this.color = "white";
   }
 
   public update() {
+
+    
+    const leftSide = this.position.x;
+    const rightSide = this.position.x + this.size.x;
+    const topSide = this.position.y;
+    const bottomSide = this.position.y + this.size.y;
+
+
+    // hover-effect:
+    if (mouseX > leftSide && mouseX < rightSide && mouseY > topSide && mouseY < bottomSide) {
+      this.color = "lightgray";
+    } else {
+      this.color = "white";
+    }
+
     // hur vet jag om användaren tryckte på knappen?
     const isMousePressed = !this.mouseWasPressed && mouseIsPressed;
-    // const isMouseReleased = this.mouseWasPressed && !mouseIsPressed;
 
     if (isMousePressed) {
-
-      const leftSide = this.position.x;
-      const rightSide = this.position.x + this.size.x;
-      const topSide = this.position.y;
-      const bottomSide = this.position.y + this.size.y;
 
       if (mouseX > leftSide && mouseX < rightSide && mouseY > topSide && mouseY < bottomSide) {
         return true;
@@ -34,8 +45,8 @@ class Button {
 
   public draw() {
     push()
-    
-    fill('white')
+
+    fill(this.color);
     rect(this.position.x, this.position.y, this.size.x, this.size.y, 20);
 
     fill('black')
