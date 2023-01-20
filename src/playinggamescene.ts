@@ -12,7 +12,7 @@ class PlayingGameScene {
   //   private acceleration: number;
   public position: p5.Vector;
   private gameObjects: Gameobject[];
-  //   private backgroundObjects: Gameobject[];
+  private backgroundObjects: Gameobject[];
   private character: Character;
 
   //   private timeElapsed: number;
@@ -22,6 +22,7 @@ class PlayingGameScene {
     this.position = createVector(0, 0)
     this.character = new Character(createVector(50,300), createVector(175, 125), "./assets/katt.png", 0);
     this.gameObjects = [];
+    this.backgroundObjects = [];
   }
   //     score: 0,
   //     distance: 0,
@@ -38,7 +39,6 @@ class PlayingGameScene {
 
   //     this.acceleration = 0;
   //     this.gameObjects = [];
-  //     this.backgroundObjects = [];
   //     this.timeElapsed = 0;
 
   public update() {
@@ -52,18 +52,46 @@ class PlayingGameScene {
         "assets/building.png", 0)
       )
     }
+    this.createClouds();
+    this.updateEntities();
+    this.detectCollision();
+  }
+
+  private updateEntities() {
     for (const gameObject of this.gameObjects) {
       gameObject.update(this.startingSpeed);
     }
-    this.detectCollision();
+    for (const backgroundObject of this.backgroundObjects) {
+      backgroundObject.update(this.startingSpeed);
+    }
   }
+
+  private createClouds() {
+    if (random(2) < 0.015) {
+      this.backgroundObjects.push(new Cloud(
+        new p5.Vector(width, random(height/3)),
+        new p5.Vector(random(50, 150), random(50, 150)),
+        random(3),
+        random(3)
+      ));
+    }
+  }
+
   public draw() {
     background(50, 145, 300);
     this.character.draw();
+    this.drawEntities();
+  }
+
+  private drawEntities() {
     for (const gameObject of this.gameObjects) {
       gameObject.draw();
     }
+    for (const backgroundObject of this.backgroundObjects) {
+      backgroundObject.draw();
+    }
   }
+
   /*public moveForward() {
     this.position.x -= this.startingSpeed;
 
@@ -76,7 +104,7 @@ class PlayingGameScene {
   //     }
   //     //spawna nya spelobjekt
   //   }
-  public detectCollision() {
+  private detectCollision() {
     //upptäck kollision mellan spelare och byggnader/fiender
 
     for (const gameObject of this.gameObjects ) {

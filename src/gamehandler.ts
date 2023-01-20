@@ -58,7 +58,6 @@ class GameHandler implements IGame {
         break;
       default:  
     }
-   
   }
 
   public toggleMusic() {
