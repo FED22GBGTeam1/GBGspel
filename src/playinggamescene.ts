@@ -55,6 +55,7 @@ class PlayingGameScene {
     for (const gameObject of this.gameObjects) {
       gameObject.update(this.startingSpeed);
     }
+    this.detectCollision();
   }
   public draw() {
     background(50, 145, 300);
@@ -77,24 +78,20 @@ class PlayingGameScene {
   //   }
   public detectCollision() {
     //upptäck kollision mellan spelare och byggnader/fiender
-    // if (this.x + this.size.x < 0) {
-    //   this.x = width;
-    //   this.y = random(0, height);
-    // }
 
-    // if (
-    //   this.character.x + 110 > this.x &&
-    //   this.character.x < this.x + this.size.x &&
-    //   this.character.y + 120 > this.y &&
-    //   this.character.y < this.y + this.size.y
-    // ) {
-    //   this.deadlyCollision = true;
-    // }
-
-    // if (this.deadlyCollision) {
-    //   character.isAlive = false
-    //   this.x = width;
-    //   gameHandler.activeScene = "gameOverScene";
-    // }
+    for (const gameObject of this.gameObjects ) {
+      if (
+        this.character.position.x + 110 > gameObject.position.x &&
+        this.character.position.x < gameObject.position.x + gameObject.size.x &&
+        this.character.position.y + 120 > gameObject.position.y &&
+        this.character.position.y < gameObject.position.y + gameObject.size.y
+      ) {
+        this.character. isAlive = false;
+      }
+    }
+     
+    if (this.character.isAlive === false) {
+      gameHandler.activeScene = "over";
+    }
   }
 }

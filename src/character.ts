@@ -2,16 +2,16 @@
 
 class Character extends Gameobject {
   // public isAlive: boolean;
+  public isAlive: boolean;
 
   constructor(
     position: p5.Vector,
     size: p5.Vector,
     imagePath: string,
     velocity: number,
-    // isAlive: boolean
   ) {
     super(position, size, imagePath, velocity);
-    // this.isAlive = true;
+     this.isAlive = true;
   }
 
   public update() {
