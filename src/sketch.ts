@@ -31,6 +31,7 @@ function preload() {
   };
   weee = loadSound('assets/weee.mp3');
   wooo = loadSound('assets/wooo.mp3');
+  
 
  
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
