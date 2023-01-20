@@ -2,16 +2,16 @@
 
 class Character extends Gameobject {
   // public isAlive: boolean;
+  public isAlive: boolean;
 
   constructor(
     position: p5.Vector,
     size: p5.Vector,
     imagePath: string,
     velocity: number,
-    // isAlive: boolean
   ) {
     super(position, size, imagePath, velocity);
-    // this.isAlive = true;
+     this.isAlive = true;
   }
 
   public update() {
@@ -23,6 +23,15 @@ class Character extends Gameobject {
       this.position.y += 10;
       this.playSound(wooo);
     }
+    if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width) {
+      this.position.x += 10;
+      this.playSound(wooo);
+    }
+    if (keyIsDown(LEFT_ARROW) && this.position.x > 0) {
+      this.position.x -= 10;
+      this.playSound(wooo);
+    }
+    
   }
 
   public playSound(sound: p5.SoundFile) {
