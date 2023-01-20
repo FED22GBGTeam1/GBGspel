@@ -26,6 +26,11 @@ class GameHandler implements IGame {
     this.activeScene = "play";
   }
 
+  public goToStart() {
+    this.startPageScene = new StartPageScene(this);
+    this.activeScene = "start";
+  }
+
   /** Gör förändringar på klassens attribut */
   public update() {
     switch(this.activeScene) {
@@ -37,6 +42,7 @@ class GameHandler implements IGame {
         this.trackTime();
         break;
       case "over":
+        this.gameOverScene.startMenu();
         this.gameOverScene.update();
         this.stopTimeTracking();
         break;
@@ -66,7 +72,6 @@ class GameHandler implements IGame {
 
   private trackTime() {
     let elapsedTime = Date.now() - this.startTime;
-    console.log(elapsedTime);
   }
 
   //Ska användas för att stanna timern när man får gameover.
