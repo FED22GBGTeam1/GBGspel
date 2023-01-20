@@ -1,10 +1,11 @@
 class GameHandler implements IGame {
 
   //private music: string;
-
+  
   //Ska bytas till highScore istället för nummer.
   public highScore: number;
   public activeScene: "start" | "play" | "over";
+  private startTime: number;
 
   private startPageScene: StartPageScene;
   private playingGameScene: PlayingGameScene;
@@ -13,6 +14,7 @@ class GameHandler implements IGame {
   constructor() {
     this.highScore = 0;
     this.activeScene = "start";
+    this.startTime = Date.now();
     //this.music = "music";
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene();
@@ -32,9 +34,11 @@ class GameHandler implements IGame {
         break;
       case "play":
         this.playingGameScene.update()
+        this.trackTime();
         break;
       case "over":
         this.gameOverScene.update();
+        this.stopTimeTracking();
         break;
       default:  
     }
@@ -59,6 +63,16 @@ class GameHandler implements IGame {
 
   public toggleMusic() {
 
+  }
+
+  private trackTime() {
+    let elapsedTime = Date.now() - this.startTime;
+    console.log(elapsedTime);
+  }
+
+  //Ska användas för att stanna timern när man får gameover.
+  private stopTimeTracking() {
+    
   }
 
 }

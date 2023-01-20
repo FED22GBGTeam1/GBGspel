@@ -11,14 +11,13 @@ class Building extends Gameobject {
     size: p5.Vector,
     imagePath: string,
     velocity: number,
-    deadlyCollision: boolean
   ) {
     super(position, size, imagePath, velocity);
     this.deadlyCollision = false;
     this.size = size;
-    this.velocity = velocity;
+    this.deadlyCollision = true
+    this.velocity = 0
   }
-
   public update(startingSpeed: number) {
     super.update(startingSpeed);
     // gör extra saker för just Building

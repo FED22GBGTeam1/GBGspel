@@ -1,6 +1,6 @@
 abstract class Gameobject {
     public position: p5.Vector;
-    protected size: p5.Vector;
+    public size: p5.Vector;
     protected image: p5.Image;
     protected velocity: number;
     
@@ -13,7 +13,7 @@ abstract class Gameobject {
     }
 
     public update(startingSpeed: number) {
-        this.position.add(startingSpeed, 0);
+        this.position.sub(startingSpeed, 0);
     }
 
     public draw() {
