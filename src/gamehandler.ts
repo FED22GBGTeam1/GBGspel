@@ -38,6 +38,7 @@ class GameHandler implements IGame {
         break;
       case "over":
         this.gameOverScene.update();
+        this.stopTimeTracking();
         break;
       default:  
     }
@@ -54,7 +55,6 @@ class GameHandler implements IGame {
         break;
       case "over":
         this.gameOverScene.draw();
-        this.stopTimeTracking();
         break;
       default:  
     }
