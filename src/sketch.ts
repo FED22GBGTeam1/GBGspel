@@ -1,9 +1,16 @@
 //---- GLOBAL VARIABLES ----//
 let gameHandler: GameHandler;
 
+interface Sounds {
+  weee: p5.SoundFile;
+  wooo: p5.SoundFile;
+}
+let sounds: Sounds;
+
 let weee: p5.SoundFile;
 let wooo: p5.SoundFile;
 let canPlay = true;
+
 
 
 // function mouseClicked(event:string) {
@@ -18,9 +25,13 @@ let canPlay = true;
  * 
  */
 function preload() {
-
+  sounds = {
+    weee: loadSound('assets/weee.mp3'),
+    wooo: loadSound('assets/wooo.mp3'),
+  };
   weee = loadSound('assets/weee.mp3');
   wooo = loadSound('assets/wooo.mp3');
+  
 
  
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
