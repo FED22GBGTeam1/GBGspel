@@ -16,7 +16,7 @@ class GameHandler implements IGame {
     //this.music = "music";
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene();
-    this.gameOverScene = new GameOverScene();
+    this.gameOverScene = new GameOverScene(this);
   }
 
   public playAgain() {

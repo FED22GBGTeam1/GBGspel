@@ -14,10 +14,10 @@ class Button {
     if (mouseIsPressed) {
       const leftSide = this.position.x;
       const rightSide = this.position.x + this.size.x;
-      const topSide = this.position.y + this.size.y;
+      const topSide = this.position.y;
       const bottomSide = this.position.y + this.size.y;
       if (mouseX > leftSide && mouseX < rightSide && mouseY > topSide && mouseY < bottomSide) {
-        // CLICK!!!!
+        gameHandler.activeScene ='play'
       }
     }
   }
@@ -25,12 +25,12 @@ class Button {
   public draw() {
     push()
     
+    textAlign(CENTER)//gör den något?
     fill('red')
     rect(this.position.x, this.position.y, this.size.x, this.size.y);
-    textAlign(CENTER, CENTER)
-    text(this.text, this.position.x, this.position.y);
-
-
+    fill('black')
+    text(this.text, this.position.x, this.position.y, this.size.x, this.size.y);
+    
     pop();
   }
 }
