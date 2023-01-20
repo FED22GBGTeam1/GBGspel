@@ -10,7 +10,10 @@ class StartPageScene {
 
   public update() {
 
-    this.startButton.update();
+    const wasPressed = this.startButton.update();
+    if (wasPressed) {
+      this.game.playAgain()
+    }
     // // this.game.playAgain()
     // let canvas = document.getElementById("defaultCanvas0");
     // canvas?.addEventListener("click", () => {

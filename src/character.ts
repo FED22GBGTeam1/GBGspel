@@ -3,6 +3,7 @@
 class Character extends Gameobject {
   // public isAlive: boolean;
   public isAlive: boolean;
+  private soundTimeout: number;
 
   constructor(
     position: p5.Vector,
@@ -12,9 +13,12 @@ class Character extends Gameobject {
   ) {
     super(position, size, imagePath, velocity);
      this.isAlive = true;
+     this.soundTimeout = 2000;
   }
 
   public update() {
+    this.soundTimeout -= deltaTime;
+    
     if (keyIsDown(UP_ARROW) && this.position.y > 0) {
       this.position.y -= 10;
       this.playSound(weee);
@@ -35,13 +39,9 @@ class Character extends Gameobject {
   }
 
   public playSound(sound: p5.SoundFile) {
-    if (canPlay) {
+    if (this.soundTimeout < 0) {
       sound.play();
-      canPlay = false;
-      setTimeout(() => {
-        canPlay = true;
-      }, 3000);
-
+      this.soundTimeout = 2000;
     }
   }
   
