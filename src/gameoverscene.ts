@@ -4,12 +4,6 @@ class GameOverScene {
    
     }
 
-    public update() {
-
-    }
-
-    
-
     public draw() {
       background("red");
       let s = "You lost"
