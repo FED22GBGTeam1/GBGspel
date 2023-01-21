@@ -21,19 +21,19 @@ class Character extends Gameobject {
     
     if (keyIsDown(UP_ARROW) && this.position.y > 0) {
       this.position.y -= 10;
-      this.playSound(weee);
+      //this.playSound(weee);
     }
     if (keyIsDown(DOWN_ARROW) && this.position.y + this.size.y < height) {
       this.position.y += 10;
-      this.playSound(wooo);
+      //this.playSound(wooo);
     }
     if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width) {
       this.position.x += 10;
-      this.playSound(wooo);
+      //this.playSound(wooo);
     }
     if (keyIsDown(LEFT_ARROW) && this.position.x > 0) {
       this.position.x -= 10;
-      this.playSound(wooo);
+      //this.playSound(wooo);
     }
     
   }

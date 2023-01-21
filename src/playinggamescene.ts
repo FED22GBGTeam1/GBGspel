@@ -14,6 +14,7 @@ class PlayingGameScene {
   private gameObjects: Gameobject[];
   private backgroundObjects: Gameobject[];
   private character: Character;
+  private animation : animatedObject
 
   //   private timeElapsed: number;
 
@@ -23,6 +24,7 @@ class PlayingGameScene {
     this.character = new Character(createVector(50,300), createVector(175, 90), "./assets/katt.png", 0);
     this.gameObjects = [];
     this.backgroundObjects = [];
+    this.animation = new animatedObject(createVector(50,300), createVector(400, 300), "./assets/animation.png", 0, 4,150)
   }
   //     score: 0,
   //     distance: 0,
@@ -45,6 +47,7 @@ class PlayingGameScene {
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
+
     this.createClouds();
     this.createBuildings();
     this.updateEntities();
@@ -83,7 +86,10 @@ class PlayingGameScene {
   public draw() {
     background(50, 145, 300);
     this.character.draw();
+    this.animation.update();
+    this.animation.draw();
     this.drawEntities();
+
   }
 
   private drawEntities() {
@@ -93,6 +99,7 @@ class PlayingGameScene {
     for (const backgroundObject of this.backgroundObjects) {
       backgroundObject.draw();
     }
+    
   }
   private detectCollision() {
     //upptäck kollision mellan spelare och byggnader/fiender

@@ -13,7 +13,7 @@ class GameHandler implements IGame {
 
   constructor() {
     this.highScore = 0;
-    this.activeScene = "start";
+    this.activeScene = "play";
     this.startTime = Date.now();
     //this.music = "music";
     this.startPageScene = new StartPageScene(this);
@@ -72,7 +72,6 @@ class GameHandler implements IGame {
 
   private trackTime() {
     let elapsedTime = Date.now() - this.startTime;
-    console.log(elapsedTime);
   }
 
   //Ska användas för att stanna timern när man får gameover.
