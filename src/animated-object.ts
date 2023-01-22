@@ -2,9 +2,9 @@
 
 class animatedObject extends Gameobject {
   private frameCounter: number;
-  public frameDuration: number;
-  private lastFrameTime: number;
-  private frame: number;
+  protected frameDuration: number;
+  protected lastFrameTime: number;
+  protected frame: number;
   public totalFrames: number;
 
   constructor(

@@ -38,16 +38,26 @@ class Character extends animatedObject {
       this.playSound(wooo);
     }
 
-
   }
   public draw() {
     super.draw();
-
     if (this.isAlive === false) {
       this.image = loadImage('assets/exp.png');
       this.frameDuration = 90
     }
-  }
+    if (keyIsPressed) {
+      if (key === " " && this.isAlive === true ) {
+        this.image = images.shoot
+        this.frameDuration = 270
+        this.totalFrames = 4 
+        setTimeout(() => {
+          this.image = loadImage("./assets/fly.png")
+          this.frameDuration = 80
+          this.totalFrames = 8
+        }, 350); 
+
+    }
+  }}
 
   public playSound(sound: p5.SoundFile) {
     if (this.soundTimeout < 0) {
