@@ -79,8 +79,8 @@ class PlayingGameScene {
 
   public draw() {
     background(50, 145, 300);
-    this.character.draw();
     this.drawEntities();
+    this.character.draw();
   }
 
   private drawEntities() {
