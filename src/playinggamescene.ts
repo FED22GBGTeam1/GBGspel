@@ -14,17 +14,17 @@ class PlayingGameScene {
   private gameObjects: Gameobject[];
   private backgroundObjects: Gameobject[];
   private character: Character;
-  private animation : animatedObject
+  //private animation : animatedObject
 
   //   private timeElapsed: number;
 
   constructor() {
-    this.startingSpeed = 4;
+    this.startingSpeed = 5;
     this.position = createVector(0, 0)
-    this.character = new Character(createVector(50,300), createVector(175, 90), "./assets/katt.png", 10);
+    this.character = new Character(createVector(50,300), createVector(195, 100), "./assets/fly.png", 10, 8, 80);
     this.gameObjects = [];
     this.backgroundObjects = [];
-    this.animation = new animatedObject(createVector(50,300), createVector(195, 100), "./assets/fly.png", 0, 8,90)
+    //this.animation = new animatedObject(createVector(50,300), createVector(195, 100), "./assets/fly.png", 0, 8,90)
   }
   //     score: 0,
   //     distance: 0,
@@ -47,7 +47,7 @@ class PlayingGameScene {
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
-    this.animation.update();
+    //this.animation.update();
 
     this.createClouds();
     this.createBuildings();
@@ -87,7 +87,7 @@ class PlayingGameScene {
   public draw() {
     background(50, 145, 300);
     this.character.draw();
-    this.animation.draw();
+    //this.animation.draw();
     this.drawEntities();
 
   }
@@ -114,8 +114,12 @@ class PlayingGameScene {
         this.character. isAlive = false;
       }
     } 
+    
     if (this.character.isAlive === false) {
-      gameHandler.activeScene = "over";
+      this.startingSpeed = 0
+      setTimeout(() => {
+        gameHandler.activeScene = "over";
+      }, 450);
     }
   }
 }

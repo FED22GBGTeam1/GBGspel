@@ -18,7 +18,7 @@ interface Images {
   fisk: p5.Image;
   fluffyCloud: p5.Image;
   katt: p5.Image;
-  animation: p5.Image;
+  explosion:p5.Image;
 }
 let images: Images;
 
@@ -49,7 +49,7 @@ function preload() {
     fisk: loadImage('assets/fisk.jpg'),
     fluffyCloud: loadImage('assets/fluffyCloud.png'),
     katt: loadImage('assets/katt.png'),
-    animation: loadImage('assets/animation.png')
+    explosion: loadImage('assets/exp.png'),
     };
 
 
