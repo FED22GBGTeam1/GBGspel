@@ -76,9 +76,6 @@ class PlayingGameScene {
         new p5.Vector(width, random(height/4)),
         new p5.Vector(random(50, 150), random(50, 150)),
 
-        new p5.Vector(width, random(height/3)),
-        new p5.Vector(random(150, 300), random(100, 250)),
-
         random(3),
         random(3)
       ));
