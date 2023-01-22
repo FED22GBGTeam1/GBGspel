@@ -20,7 +20,7 @@ class PlayingGameScene {
   constructor() {
     this.startingSpeed = 4;
     this.position = createVector(0, 0)
-    this.character = new Character(createVector(50,300), createVector(175, 125), "./assets/katt.png", 0);
+    this.character = new Character(createVector(50,300), createVector(175, 90), "./assets/katt.png", 0);
     this.gameObjects = [];
     this.backgroundObjects = [];
   }
@@ -45,14 +45,8 @@ class PlayingGameScene {
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
-    if (random(2) < 0.015) {
-      this.gameObjects.push(
-        new Building(createVector(windowWidth,windowHeight-random(50, 700)),
-        createVector(random(150, 350), 700),
-        "assets/building.png", 0)
-      )
-    }
     this.createClouds();
+    this.createBuildings();
     this.updateEntities();
     this.detectCollision();
   }
@@ -65,12 +59,26 @@ class PlayingGameScene {
       backgroundObject.update(this.startingSpeed);
     }
   }
+  private createBuildings() {
+    if (random(2) < 0.015) {
+      this.gameObjects.push(
+        new Building(createVector(windowWidth,windowHeight-random(50, 700)),
+        createVector(random(150, 350), 700),
+        "assets/building.png", 0)
+      )
+    }
+  }
 
   private createClouds() {
     if (random(2) < 0.030) {
       this.backgroundObjects.push(new Cloud(
+
         new p5.Vector(width, random(height/4)),
         new p5.Vector(random(50, 150), random(50, 150)),
+
+        new p5.Vector(width, random(height/3)),
+        new p5.Vector(random(150, 300), random(100, 250)),
+
         random(3),
         random(3)
       ));
@@ -91,33 +99,19 @@ class PlayingGameScene {
       backgroundObject.draw();
     }
   }
-
-  /*public moveForward() {
-    this.position.x -= this.startingSpeed;
-
-  }
-  */
-  //   public spawnObjects() {
-  //     this.timeElapsed += deltaTime
-  //     if (this.timeElapsed > 1000) {
-
-  //     }
-  //     //spawna nya spelobjekt
-  //   }
   private detectCollision() {
     //upptäck kollision mellan spelare och byggnader/fiender
 
     for (const gameObject of this.gameObjects ) {
       if (
-        this.character.position.x + 110 > gameObject.position.x &&
+        this.character.position.x + this.character.size.x > gameObject.position.x &&
         this.character.position.x < gameObject.position.x + gameObject.size.x &&
-        this.character.position.y + 120 > gameObject.position.y &&
+        this.character.position.y + this.character.size.y > gameObject.position.y &&
         this.character.position.y < gameObject.position.y + gameObject.size.y
       ) {
         this.character. isAlive = false;
       }
-    }
-     
+    } 
     if (this.character.isAlive === false) {
       gameHandler.activeScene = "over";
     }
