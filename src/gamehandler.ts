@@ -15,7 +15,7 @@ class GameHandler implements IGame {
 
   constructor() {
     this.highScore = 0;
-    this.activeScene = "over";
+    this.activeScene = "start";
     this.startTime = Date.now();
     this.elapsedTime = 2;
     this.collectedFish = 12;
