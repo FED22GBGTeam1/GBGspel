@@ -70,10 +70,15 @@ class PlayingGameScene {
   }
 
   private createClouds() {
-    if (random(2) < 0.015) {
+    if (random(2) < 0.030) {
       this.backgroundObjects.push(new Cloud(
+
+        new p5.Vector(width, random(height/4)),
+        new p5.Vector(random(50, 150), random(50, 150)),
+
         new p5.Vector(width, random(height/3)),
         new p5.Vector(random(150, 300), random(100, 250)),
+
         random(3),
         random(3)
       ));
@@ -82,8 +87,8 @@ class PlayingGameScene {
 
   public draw() {
     background(50, 145, 300);
-    this.character.draw();
     this.drawEntities();
+    this.character.draw();
   }
 
   private drawEntities() {
