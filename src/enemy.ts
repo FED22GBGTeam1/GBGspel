@@ -2,32 +2,25 @@
 
 
 class Enemy extends Gameobject{
-    protected deadlyCollision: boolean;
+     private oppositeMovementSpeed: number;
     
-    constructor(
-        position: p5.Vector,
-        size: p5.Vector,
-        imagePath: string,
-        velocity: number,
-        deadlyCollision: boolean,
+     constructor(
+        position: p5.Vector, 
+        size: p5.Vector, 
+        velocity: number, 
+        oppositeMovementSpeed: number
+        ) {
+        super(
+            position, 
+            size, "asset/se", 
+            velocity
+            )
+        this.oppositeMovementSpeed = oppositeMovementSpeed;
 
-    ) {
-        super(position, size, imagePath, velocity);
-        this.deadlyCollision = false;
-        this.velocity = velocity;
-        this.size = size;
     }
 }
 
-function draw(){
-    rect(200, 200,25)
-}
 
-for (let i = 0; i < 10; i++){
-    let enemy = {
-        x: random(0, width),
-    }
-}
 
 
 
