@@ -37,17 +37,17 @@ class Character extends Gameobject {
       this.position.y += this.speed;
       this.playSound(wooo);
     }
-    // if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width) {
-    //   this.position.x += 10;
-    //   this.playSound(wooo);
-    // }
-    // if (keyIsDown(LEFT_ARROW) && this.position.x > 0) {
-    //   this.position.x -= 10;
-    //   this.playSound(wooo);
-    // }
+    if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width) {
+      this.position.x += 10;
+      this.playSound(wooo);
+    }
+    if (keyIsDown(LEFT_ARROW) && this.position.x > 0) {
+      this.position.x -= 10;
+      this.playSound(wooo);
+    }
 
     if (!keyIsDown(UP_ARROW) && !keyIsDown(DOWN_ARROW)) {
-      this.speed = 3;
+      this.speed = 4;
     }
     
   }

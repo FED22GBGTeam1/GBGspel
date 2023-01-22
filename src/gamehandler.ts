@@ -47,7 +47,7 @@ class GameHandler implements IGame {
         break;
       case "over":
         this.gameOverScene.startMenu();
-        this.gameOverScene.playAgain();
+        this.gameOverScene.update();
         this.stopTimeTracking();
         break;
       default:  
