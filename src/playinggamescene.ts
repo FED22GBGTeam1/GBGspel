@@ -74,7 +74,7 @@ class PlayingGameScene {
       this.backgroundObjects.push(new Cloud(
 
         new p5.Vector(width, random(height/4)),
-        new p5.Vector(random(50, 150), random(50, 150)),
+        new p5.Vector(random(100, 150), random(100, 150)),
 
         random(3),
         random(3)
