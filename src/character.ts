@@ -20,19 +20,19 @@ class Character extends Gameobject {
     this.soundTimeout -= deltaTime;
     
     if (keyIsDown(UP_ARROW) && this.position.y > 0) {
-      this.position.y -= 10;
+      this.position.y -= this.velocity;
       //this.playSound(weee);
     }
     if (keyIsDown(DOWN_ARROW) && this.position.y + this.size.y < height) {
-      this.position.y += 10;
+      this.position.y += this.velocity;
       //this.playSound(wooo);
     }
     if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width) {
-      this.position.x += 10;
+      this.position.x += this.velocity;
       //this.playSound(wooo);
     }
     if (keyIsDown(LEFT_ARROW) && this.position.x > 0) {
-      this.position.x -= 10;
+      this.position.x -= this.velocity;
       //this.playSound(wooo);
     }
     

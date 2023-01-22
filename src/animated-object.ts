@@ -34,6 +34,22 @@ class animatedObject extends Gameobject {
       this.frame++;
       this.frame = this.frame % this.totalFrames;
     }
+    if (keyIsDown(87) && this.position.y > 0) {
+        this.position.y -= 10;
+        //this.playSound(weee);
+      }
+      if (keyIsDown(83) && this.position.y + this.size.y < height) {
+        this.position.y += 10;
+        //this.playSound(wooo);
+      }
+      if (keyIsDown(68) && this.position.x + this.size.x < width) {
+        this.position.x += 10;
+        //this.playSound(wooo);
+      }
+      if (keyIsDown(65) && this.position.x > 0) {
+        this.position.x -= 10;
+        //this.playSound(wooo);
+      }
   }
   public draw() {
     let frameWidth, frameHeight;
@@ -52,8 +68,8 @@ class animatedObject extends Gameobject {
       this.image,
       this.position.x,
       this.position.y,
-      frameWidth,
-      frameHeight,
+      this.size.x,
+      this.size.y,
       x,
       0,
       frameWidth,

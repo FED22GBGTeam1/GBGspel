@@ -21,10 +21,10 @@ class PlayingGameScene {
   constructor() {
     this.startingSpeed = 4;
     this.position = createVector(0, 0)
-    this.character = new Character(createVector(50,300), createVector(175, 90), "./assets/katt.png", 0);
+    this.character = new Character(createVector(50,300), createVector(175, 90), "./assets/katt.png", 10);
     this.gameObjects = [];
     this.backgroundObjects = [];
-    this.animation = new animatedObject(createVector(50,300), createVector(400, 300), "./assets/animation.png", 0, 4,150)
+    this.animation = new animatedObject(createVector(50,300), createVector(195, 100), "./assets/fly.png", 0, 8,90)
   }
   //     score: 0,
   //     distance: 0,
@@ -47,6 +47,7 @@ class PlayingGameScene {
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
+    this.animation.update();
 
     this.createClouds();
     this.createBuildings();
@@ -86,7 +87,6 @@ class PlayingGameScene {
   public draw() {
     background(50, 145, 300);
     this.character.draw();
-    this.animation.update();
     this.animation.draw();
     this.drawEntities();
 
