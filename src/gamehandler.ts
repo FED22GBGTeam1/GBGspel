@@ -18,12 +18,17 @@ class GameHandler implements IGame {
     //this.music = "music";
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene();
-    this.gameOverScene = new GameOverScene();
+    this.gameOverScene = new GameOverScene(this);
   }
 
   public playAgain() {
     this.playingGameScene = new PlayingGameScene();
     this.activeScene = "play";
+  }
+
+  public goToStart() {
+    this.startPageScene = new StartPageScene(this);
+    this.activeScene = "start";
   }
 
   /** Gör förändringar på klassens attribut */
@@ -37,6 +42,7 @@ class GameHandler implements IGame {
         this.trackTime();
         break;
       case "over":
+        this.gameOverScene.startMenu();
         this.gameOverScene.update();
         this.stopTimeTracking();
         break;
@@ -58,7 +64,6 @@ class GameHandler implements IGame {
         break;
       default:  
     }
-   
   }
 
   public toggleMusic() {

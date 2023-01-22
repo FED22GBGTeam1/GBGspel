@@ -1,9 +1,25 @@
 //---- GLOBAL VARIABLES ----//
 let gameHandler: GameHandler;
 
+interface Sounds {
+  weee: p5.SoundFile;
+  wooo: p5.SoundFile;
+}
+let sounds: Sounds;
+
 let weee: p5.SoundFile;
 let wooo: p5.SoundFile;
 let canPlay = true;
+
+interface Images {
+  boat: p5.Image;
+  buildings: p5.Image;
+  controls: p5.Image;
+  fisk: p5.Image;
+  fluffyCloud: p5.Image;
+  katt: p5.Image;
+}
+let images: Images;
 
 
 // function mouseClicked(event:string) {
@@ -18,9 +34,23 @@ let canPlay = true;
  * 
  */
 function preload() {
-
+  sounds = {
+    weee: loadSound('assets/weee.mp3'),
+    wooo: loadSound('assets/wooo.mp3'),
+  };
   weee = loadSound('assets/weee.mp3');
   wooo = loadSound('assets/wooo.mp3');
+  
+  images = {
+    boat: loadImage('assets/boat.png'),
+    buildings: loadImage('assets/building.png'),
+    controls: loadImage('assets/controls.png'),
+    fisk: loadImage('assets/fisk.jpg'),
+    fluffyCloud: loadImage('assets/fluffyCloud.png'),
+    katt: loadImage('assets/katt.png')
+    };
+
+
 
  
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
@@ -35,10 +65,10 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
-
   // configure default volume
   
   gameHandler = new GameHandler();
+  
 }
 
 /**
