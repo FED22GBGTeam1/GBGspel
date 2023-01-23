@@ -16,7 +16,7 @@ class Enemy extends Gameobject{
             'assets/seagull.png', 
             velocity
             )
-        this.oppositeMovementSpeed = oppositeMovementSpeed;
+        
 
     }
 }
