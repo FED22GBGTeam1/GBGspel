@@ -14,7 +14,7 @@ class PlayingGameScene {
   private backgroundObjects: Gameobject[];
   private character: Character;
   private fishes: Item[]; //ska det vata item?
-  private fishAmount: number;
+  public fishAmount: number;
   
 
   //   private timeElapsed: number;
@@ -152,15 +152,17 @@ class PlayingGameScene {
   }
 
   private collectedItem() {
-    for (const fish of this.fishes ) {
+    for (let i = 0; i < this.fishes.length; i++) {
       if (
-        this.character.position.x + this.character.size.x > fish.position.x &&
-        this.character.position.x < fish.position.x + fish.size.x &&
-        this.character.position.y + this.character.size.y > fish.position.y &&
-        this.character.position.y < fish.position.y + fish.size.y
+        this.character.position.x + this.character.size.x > this.fishes[i].position.x &&
+        this.character.position.x < this.fishes[i].position.x + this.fishes[i].size.x &&
+        this.character.position.y + this.character.size.y > this.fishes[i].position.y &&
+        this.character.position.y < this.fishes[i].position.y + this.fishes[i].size.y
       ) {
         this.fishAmount += 1;
         console.log(this.fishAmount);
+        this.fishes.splice(i, 1);
+        break;
       }
     }
   }
