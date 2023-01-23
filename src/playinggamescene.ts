@@ -252,6 +252,9 @@ class PlayingGameScene {
     }
   }
 
+  /**
+   * Checks for collision with collectable powerups.
+   */
   private collectedPowerup() {
     for (let i = 0; i < this.powerUps.length; i++) {
       if (
@@ -269,7 +272,9 @@ class PlayingGameScene {
   }
 
 
-  //När man plockar upp powerup så ändras boolean till true, delta time räknar ner och sätter den sedan till false,
+  /**
+   * Checks if the player have the immortal powerup active or not.
+   */
   private amIPowerful() {
     if (this.time < 0) {
       this.poweredUp = false;
