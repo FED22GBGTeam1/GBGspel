@@ -27,7 +27,8 @@ class animatedObject extends Gameobject {
     this.frame = 0;
   }
 
-  public update() {
+  public update(startingSpeed: number) {
+    super.update(startingSpeed);
     this.frameCounter++;
     if (this.frameCounter >= this.frameDuration) {
       this.frameCounter = 0;
