@@ -59,6 +59,7 @@ class Character extends animatedObject {
     }
     
   }
+}
   public draw() {
     super.draw();
     if (this.isAlive === false) {
