@@ -16,9 +16,14 @@ interface Images {
   buildings: p5.Image;
   controls: p5.Image;
   fisk: p5.Image;
-  fluffyCloud: p5.Image;
+  cloud1: p5.Image;
+  cloud2: p5.Image;
+  cloud3: p5.Image;
   katt: p5.Image;
-  enemy: p5.Image; 
+  shoot: p5.Image;
+  explosion:p5.Image;
+  animation:p5.Image;
+
 }
 let images: Images;
 
@@ -47,14 +52,15 @@ function preload() {
     buildings: loadImage('assets/building.png'),
     controls: loadImage('assets/controls.png'),
     fisk: loadImage('assets/fisk.jpg'),
-    fluffyCloud: loadImage('assets/fluffyCloud.png'),
-    katt: loadImage('assets/katt.png'),
+    cloud1: loadImage('assets/cloud1.png'),
+    cloud2: loadImage('assets/cloud2.png'),
+    cloud3: loadImage('assets/cloud3.png'),
+    katt: loadImage('assets/fly.png'),
+    animation: loadImage('assets/animation.png'),
+    shoot: loadImage('assets/cat-shoot.png'),
+    explosion: loadImage('assets/exp.png'),
     enemy: loadImage('assets/seagull.png')
     };
-
-
-
- 
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
 }
 
