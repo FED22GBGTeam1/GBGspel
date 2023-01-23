@@ -69,6 +69,7 @@ class PlayingGameScene {
     this.updateEntities();
     this.detectCollision();
     this.collectedItem();
+    this.acceleration += 0.01;
   }
 
   private updateEntities() {
