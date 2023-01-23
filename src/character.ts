@@ -56,7 +56,6 @@ class Character extends animatedObject {
         this.totalFrames = 4 
         setTimeout(() => {
           this.image = images.katt
-          console.log(this.image.width)
           this.frameDuration = 80
           this.totalFrames = 8
         }, 350); 

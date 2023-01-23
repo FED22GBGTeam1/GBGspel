@@ -14,6 +14,9 @@ class PlayingGameScene {
   private backgroundObjects: Gameobject[];
   private character: Character;
 
+ 
+ 
+
   private fishes: Item[]; //ska det vata item?
   public fishAmount: number;
 
@@ -34,11 +37,12 @@ class PlayingGameScene {
     );
     this.gameObjects = [];
     this.backgroundObjects = [];
+  
+
+
 
     this.fishes = [];
     this.fishAmount = 0;
-    
-
   }
   //     score: 0,
   //     distance: 0,
@@ -60,7 +64,6 @@ class PlayingGameScene {
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
-    //this.animation.update();
     this.createClouds();
     this.createBuildings();
     this.createEnemys();
@@ -80,6 +83,7 @@ class PlayingGameScene {
     for (const fish of this.fishes) {
       fish.update(this.startingSpeed);
     }
+
   }
   
   private createBuildings() {
@@ -133,10 +137,11 @@ class PlayingGameScene {
     if (random(2) < 0.015){
       this.gameObjects.push(new Enemy(
         new p5.Vector(width, random(height/3)),
-        new p5.Vector(random(50,150), random(50, 150)),
-
-        random(3),
-        //random(3),
+        new p5.Vector(100, 100),
+        "assets/seagull.png",
+        this.startingSpeed,
+        4,
+        200
       ))
     }
   }
@@ -156,6 +161,7 @@ class PlayingGameScene {
     background(50, 145, 300);
     this.drawEntities();
     this.character.draw();
+    
   }
 
   private drawEntities() {
@@ -186,6 +192,9 @@ class PlayingGameScene {
     }
     if (this.character.isAlive === false) {
       this.startingSpeed = 0;
+      for (const gameobject of this.gameObjects) {
+        gameobject.velocity = 0
+      } 
       setTimeout(() => {
         gameHandler.activeScene = "over";
       }, 450);
