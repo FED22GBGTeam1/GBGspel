@@ -2,7 +2,7 @@
 
 
 class Enemy extends Gameobject{
-     private oppositeMovementSpeed: number;
+     
     
      constructor(
         position: p5.Vector, 
