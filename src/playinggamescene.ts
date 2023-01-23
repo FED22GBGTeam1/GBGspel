@@ -55,7 +55,6 @@ class PlayingGameScene {
     // this.spawnObjects();
     this.character.update();
     //this.animation.update();
-
     this.createClouds();
     this.createBuildings();
     this.updateEntities();
@@ -82,7 +81,6 @@ class PlayingGameScene {
       );
     }
   }
-
   private createClouds() {
     if (random(2) < 0.004) {
       this.backgroundObjects.push(
@@ -147,7 +145,6 @@ class PlayingGameScene {
         this.character.isAlive = false;
       }
     }
-
     if (this.character.isAlive === false) {
       this.startingSpeed = 0;
       setTimeout(() => {

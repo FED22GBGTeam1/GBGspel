@@ -22,6 +22,7 @@ interface Images {
   katt: p5.Image;
   shoot: p5.Image;
   explosion:p5.Image;
+  animation:p5.Image;
 }
 let images: Images;
 
@@ -53,15 +54,11 @@ function preload() {
     cloud1: loadImage('assets/cloud1.png'),
     cloud2: loadImage('assets/cloud2.png'),
     cloud3: loadImage('assets/cloud3.png'),
-    katt: loadImage('assets/katt.png'),
+    katt: loadImage('assets/fly.png'),
+    animation: loadImage('assets/animation.png'),
     shoot: loadImage('assets/cat-shoot.png'),
     explosion: loadImage('assets/exp.png'),
     };
-  
-
-
-
- 
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
 }
 

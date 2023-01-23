@@ -42,7 +42,7 @@ class Character extends animatedObject {
   public draw() {
     super.draw();
     if (this.isAlive === false) {
-      this.image = loadImage('assets/exp.png');
+      this.image = images.explosion
       this.frameDuration = 90
     }
     if (keyIsPressed) {
@@ -51,11 +51,11 @@ class Character extends animatedObject {
         this.frameDuration = 270
         this.totalFrames = 4 
         setTimeout(() => {
-          this.image = loadImage("./assets/fly.png")
+          this.image = images.katt
+          console.log(this.image.width)
           this.frameDuration = 80
           this.totalFrames = 8
         }, 350); 
-
     }
   }}
 
