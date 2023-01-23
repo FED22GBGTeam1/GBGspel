@@ -22,6 +22,7 @@ interface Images {
   katt: p5.Image;
   shoot: p5.Image;
   explosion:p5.Image;
+  enemy: p5.Image;
   animation:p5.Image;
 
 }

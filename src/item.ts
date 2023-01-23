@@ -4,11 +4,6 @@ class Item extends Gameobject {
         super (position, size, imagePath, velocity)
     }
 
-    public itemCollected() {
-
-    }
-
-    
 }
 
 

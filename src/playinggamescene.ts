@@ -1,5 +1,6 @@
 
 class PlayingGameScene {
+
   //   private score: number;
   //   private distance: number;
 
@@ -9,17 +10,23 @@ class PlayingGameScene {
   public startingSpeed: number;
   private acceleration: number;
   //   private currentSpeed: number;
+
   public position: p5.Vector;
   private gameObjects: Gameobject[];
   private backgroundObjects: Gameobject[];
   private character: Character;
 
+ 
+ 
+
   private fishes: Item[]; //ska det vata item?
   public fishAmount: number;
+  private powerUps: Powerup[];
+  private poweredUp: Boolean;
 
+  private time: number;
 
   //   private timeElapsed: number;
-
 
   constructor() {
     this.startingSpeed = 5;
@@ -35,43 +42,55 @@ class PlayingGameScene {
     );
     this.gameObjects = [];
     this.backgroundObjects = [];
+  
+
+
 
     this.fishes = [];
     this.fishAmount = 0;
+
     this.acceleration = 0.1;
     
 
+
+
+    this.powerUps = [];
+    this.poweredUp = false;
+
+    this.time = 0;
   }
-  //     score: 0,
-  //     distance: 0,
-  //     isGameOver: false,
-  //     isGamePaused: false,
+
   //     currentSpeed: currentSpeed
-  //     this.score = score;
-  //     this.distance = distance;
-  //     this.fishAmount = fishAmount;
-  //     this.isGameOver = isGameOver;
-  //     this.isGamePaused = isGamePaused;
   //     this.currentSpeed = currentSpeed;
 
   //     this.gameObjects = [];
   //     this.timeElapsed = 0;
 
   public update() {
+    this.time -= deltaTime;
+
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
-    //this.animation.update();
     this.createClouds();
     this.createBuildings();
     this.createEnemys();
     this.createFish();
+    this.createPowerUp();
     this.updateEntities();
     this.detectCollision();
     this.collectedItem();
+
     this.acceleration += 0.0001;
+
+    this.collectedPowerup();
+    this.amIPowerful();
+
   }
 
+  /**
+   * Checks for updates to the different game objects.
+   */
   private updateEntities() {
     for (const gameObject of this.gameObjects) {
       gameObject.update(this.startingSpeed + this.acceleration);
@@ -82,8 +101,16 @@ class PlayingGameScene {
     for (const fish of this.fishes) {
       fish.update(this.startingSpeed + this.acceleration);
     }
+
+    for (const powerup of this.powerUps) {
+      powerup.update(this.startingSpeed);
+    }
+
   }
-  
+
+  /**
+   * Creates buildings and pushes them into an array.
+   */
   private createBuildings() {
     if (random(2) < 0.015) {
       this.gameObjects.push(
@@ -96,6 +123,10 @@ class PlayingGameScene {
       );
     }
   }
+
+  /**
+   * Create clouds and push them into an array.
+   */
   private createClouds() {
     if (random(2) < 0.004) {
       this.backgroundObjects.push(
@@ -131,33 +162,60 @@ class PlayingGameScene {
     }
   }
 
-  private createEnemys(){
-    if (random(2) < 0.015){
+  /**
+   * Creates enemies and pushes them into an array.
+   */
+  private createEnemys() {
+    if (random(2) < 0.015) {
       this.gameObjects.push(new Enemy(
         new p5.Vector(width, random(height/3)),
-        new p5.Vector(random(50,150), random(50, 150)),
+        new p5.Vector(100, 100),
+        "assets/seagull.png",
+        this.startingSpeed,
+        4,
+        200
 
-        random(3),
-        //random(3),
       ))
     }
   }
 
+  /**
+   * Creates fish and pushes them into an array.
+   */
   private createFish() {
-    if (random(2) < 0.012){
+    if (random(2) < 0.012) {
       this.fishes.push(new Item(
-        new p5.Vector(width, random(height/3)),
-        new p5.Vector(random(50,150), random (50, 150)),
+        new p5.Vector(width, random(height / 3)),
+        new p5.Vector(random(50, 150), random(50, 150)),
         "assets/fisk.jpg",
         random(3),
       ))
     }
   }
 
+  /**
+   * Creates powerups and pushes them into an array.
+   */
+  private createPowerUp() {
+    if (random(2) < 0.012) {
+      this.powerUps.push(new Powerup(
+        new p5.Vector(width, random(height / 3)),
+        new p5.Vector(random(50, 150), random(50, 150)),
+        "assets/boat.png",
+        random(3),
+        5000,
+      ))
+    }
+  }
+
+  /**
+   * Draws out the gamescene.
+   */
   public draw() {
     background(50, 145, 300);
     this.drawEntities();
     this.character.draw();
+    
   }
 
   private drawEntities() {
@@ -170,30 +228,44 @@ class PlayingGameScene {
     for (const fish of this.fishes) {
       fish.draw();
     }
+    for (const powerup of this.powerUps) {
+      powerup.draw();
+    }
   }
+
+  /**
+   * Checks for collisions with deadly objects.
+   */
   private detectCollision() {
     //upptäck kollision mellan spelare och byggnader/fiender
 
     for (const gameObject of this.gameObjects) {
       if (
         this.character.position.x + this.character.size.x >
-          gameObject.position.x &&
+        gameObject.position.x &&
         this.character.position.x < gameObject.position.x + gameObject.size.x &&
         this.character.position.y + this.character.size.y >
-          gameObject.position.y &&
+        gameObject.position.y &&
         this.character.position.y < gameObject.position.y + gameObject.size.y
-      ) {
-        this.character.isAlive = false;
+      ) {if (this.poweredUp === false) {
+          this.character.isAlive = false;
+        }
       }
     }
-    if (this.character.isAlive === false) {
+    if (this.character.isAlive === false && this.poweredUp === false) {
       this.startingSpeed = 0;
+      for (const gameobject of this.gameObjects) {
+        gameobject.velocity = 0
+      } 
       setTimeout(() => {
         gameHandler.activeScene = "over";
       }, 450);
     }
   }
 
+  /**
+   * Checks for collisions with collectable fish.
+   */
   private collectedItem() {
     for (let i = 0; i < this.fishes.length; i++) {
       if (
@@ -207,6 +279,35 @@ class PlayingGameScene {
         this.fishes.splice(i, 1);
         break;
       }
+    }
+  }
+
+  /**
+   * Checks for collision with collectable powerups.
+   */
+  private collectedPowerup() {
+    for (let i = 0; i < this.powerUps.length; i++) {
+      if (
+        this.character.position.x + this.character.size.x > this.powerUps[i].position.x &&
+        this.character.position.x < this.powerUps[i].position.x + this.powerUps[i].size.x &&
+        this.character.position.y + this.character.size.y > this.powerUps[i].position.y &&
+        this.character.position.y < this.powerUps[i].position.y + this.powerUps[i].size.y
+      ) {
+        this.powerUps.splice(i, 1);
+        this.time = 5000;
+        this.poweredUp = true;
+        break;
+      }
+    }
+  }
+
+
+  /**
+   * Checks if the player have the immortal powerup active or not.
+   */
+  private amIPowerful() {
+    if (this.time < 0) {
+      this.poweredUp = false;
     }
   }
 }
