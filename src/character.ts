@@ -33,21 +33,6 @@ class Character extends animatedObject {
     if (keyIsDown(DOWN_ARROW) && this.position.y + this.size.y < height && this.isAlive === true) {
       this.position.y += this.velocity;
 
-    
-    if (keyIsDown(UP_ARROW) && this.position.y > 0) {
-      if (this.speed < this.maxSpeed) {
-        this.speed += 0.1;
-      }
-      this.position.y -= this.speed;
-      this.playSound(weee);
-    }
-    if (keyIsDown(DOWN_ARROW) && this.position.y + this.size.y < height) {
-      if (this.speed < this.maxSpeed) {
-        this.speed += 0.1;
-      }
-      this.position.y += this.speed;
-
-      this.playSound(wooo);
     }
     if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width && this.isAlive === true) {
       this.position.x += this.velocity;
@@ -57,9 +42,7 @@ class Character extends animatedObject {
       this.position.x -= this.velocity;
       this.playSound(wooo);
     }
-    
   }
-}
   public draw() {
     super.draw();
     if (this.isAlive === false) {
