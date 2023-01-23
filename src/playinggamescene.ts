@@ -91,7 +91,6 @@ class PlayingGameScene {
       this.gameObjects.push(new Enemy(
         new p5.Vector(width, random(height/3)),
         new p5.Vector(random(50,150), random(50, 150)),
-        random(3),
         random(3)
       ))
     }
