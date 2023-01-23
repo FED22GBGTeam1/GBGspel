@@ -1,8 +1,16 @@
 
 class PlayingGameScene {
-  //   private currentSpeed: number;
-  //   private acceleration: number;
+
+  //   private score: number;
+  //   private distance: number;
+
+  //   public isGameOver: boolean;
+  //   public isGamePaused: boolean;
+
   public startingSpeed: number;
+  private acceleration: number;
+  //   private currentSpeed: number;
+
   public position: p5.Vector;
   private gameObjects: Gameobject[];
   private backgroundObjects: Gameobject[];
@@ -24,6 +32,7 @@ class PlayingGameScene {
 
   constructor() {
     this.startingSpeed = 5;
+    this.acceleration = 0;
     this.position = createVector(0, 0);
     this.character = new Character(
       createVector(50, 300),
@@ -40,6 +49,11 @@ class PlayingGameScene {
     this.fishes = [];
     this.fishAmount = 0;
 
+    this.acceleration = 0.1;
+    
+
+
+
     this.powerUps = [];
     this.poweredUp = false;
 
@@ -49,7 +63,6 @@ class PlayingGameScene {
   //     currentSpeed: currentSpeed
   //     this.currentSpeed = currentSpeed;
 
-  //     this.acceleration = 0;
   //     this.gameObjects = [];
   //     this.timeElapsed = 0;
 
@@ -68,9 +81,14 @@ class PlayingGameScene {
     this.updateEntities();
     this.detectCollision();
     this.collectedItem();
+
+    this.acceleration += 0.0001;
+
     this.collectedPowerup();
     this.amIPowerful();
+
     this.enemyCrash();
+
   }
 
   /**
@@ -78,13 +96,13 @@ class PlayingGameScene {
    */
   private updateEntities() {
     for (const gameObject of this.gameObjects) {
-      gameObject.update(this.startingSpeed);
+      gameObject.update(this.startingSpeed + this.acceleration);
     }
     for (const backgroundObject of this.backgroundObjects) {
-      backgroundObject.update(this.startingSpeed);
+      backgroundObject.update(this.startingSpeed + this.acceleration);
     }
     for (const fish of this.fishes) {
-      fish.update(this.startingSpeed);
+      fish.update(this.startingSpeed + this.acceleration);
     }
 
     for (const powerup of this.powerUps) {
