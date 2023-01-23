@@ -55,6 +55,7 @@ class PlayingGameScene {
 
   public update() {
     this.time -= deltaTime;
+    
 
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
@@ -292,6 +293,7 @@ class PlayingGameScene {
    * Checks for collision with collectable powerups.
    */
   private collectedPowerup() {
+
     for (let i = 0; i < this.powerUps.length; i++) {
       if (
         this.character.position.x + this.character.size.x > this.powerUps[i].position.x &&
@@ -302,6 +304,9 @@ class PlayingGameScene {
         this.powerUps.splice(i, 1);
         this.time = 5000;
         this.poweredUp = true;
+        if (this.poweredUp = true) {
+          this.character.image = images.kattPower
+        }
         break;
       }
     }

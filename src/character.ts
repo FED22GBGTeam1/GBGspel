@@ -51,13 +51,14 @@ class Character extends animatedObject {
     if (keyIsPressed) {
       if (key === " " && this.isAlive === true ) {
         this.image = images.shoot
-        this.frameDuration = 270
         this.totalFrames = 4 
+        this.frameDuration = 270
         setTimeout(() => {
           this.image = images.katt
           this.frameDuration = 80
           this.totalFrames = 8
         }, 350); 
+        
     }
   }}
 
