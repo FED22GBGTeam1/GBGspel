@@ -8,7 +8,7 @@ class Enemy extends Gameobject{
         position: p5.Vector, 
         size: p5.Vector, 
         velocity: number, 
-        oppositeMovementSpeed: number
+    
         ) {
         super(
             position, 
