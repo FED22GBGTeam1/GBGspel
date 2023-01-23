@@ -8,10 +8,7 @@ class Item extends Gameobject {
 
     }
 
-    public update() {
-
-    }
-
+    
 }
 
 

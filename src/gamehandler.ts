@@ -76,7 +76,7 @@ class GameHandler implements IGame {
 
   private trackTime() {
     this.elapsedTime = Date.now() - this.startTime;
-    console.log(this.elapsedTime);
+    //console.log(this.elapsedTime);
   }
 
   //Ska användas för att stanna timern när man får gameover.

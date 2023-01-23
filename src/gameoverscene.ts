@@ -49,9 +49,9 @@ class GameOverScene {
 
     this.calculateScore();
 
-    console.log(this.game.collectedFish.valueOf())
-    console.log(this.game.elapsedTime.valueOf());
-    console.log(this.finalScore);
+    // console.log(this.game.collectedFish.valueOf())
+    // console.log(this.game.elapsedTime.valueOf());
+    // console.log(this.finalScore);
 
   }
 
