@@ -80,7 +80,7 @@ class PlayingGameScene {
       backgroundObject.update(this.startingSpeed + this.acceleration);
     }
     for (const fish of this.fishes) {
-      fish.update(this.startingSpeed);
+      fish.update(this.startingSpeed + this.acceleration);
     }
   }
   
