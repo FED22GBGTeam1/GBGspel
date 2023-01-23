@@ -87,8 +87,8 @@ class PlayingGameScene {
   private createEnemys(){
     if (random(2) < 0.015){
       this.gameObjects.push(new Enemy(
-        new p5.Vector(width, random(height/2)),
-        new p5.Vector(random(150,300), random(100, 250)),
+        new p5.Vector(width, random(height/3)),
+        new p5.Vector(random(50,150), random(50, 150)),
         random(3),
         random(3)
       ))
