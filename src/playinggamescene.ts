@@ -2,7 +2,6 @@
 class PlayingGameScene {
   //   private score: number;
   //   private distance: number;
-  //   private fishAmount: number;
 
   //   public isGameOver: boolean;
   //   public isGamePaused: boolean;
@@ -14,6 +13,10 @@ class PlayingGameScene {
   private gameObjects: Gameobject[];
   private backgroundObjects: Gameobject[];
   private character: Character;
+
+  private fishes: Item[]; //ska det vata item?
+  public fishAmount: number;
+
 
   //   private timeElapsed: number;
 
@@ -32,10 +35,13 @@ class PlayingGameScene {
     this.gameObjects = [];
     this.backgroundObjects = [];
 
+    this.fishes = [];
+    this.fishAmount = 0;
+    
+
   }
   //     score: 0,
   //     distance: 0,
-  //     fishAmount: 0,
   //     isGameOver: false,
   //     isGamePaused: false,
   //     currentSpeed: currentSpeed
@@ -58,8 +64,10 @@ class PlayingGameScene {
     this.createClouds();
     this.createBuildings();
     this.createEnemys();
+    this.createFish();
     this.updateEntities();
     this.detectCollision();
+    this.collectedItem();
   }
 
   private updateEntities() {
@@ -69,7 +77,11 @@ class PlayingGameScene {
     for (const backgroundObject of this.backgroundObjects) {
       backgroundObject.update(this.startingSpeed);
     }
+    for (const fish of this.fishes) {
+      fish.update(this.startingSpeed);
+    }
   }
+  
   private createBuildings() {
     if (random(2) < 0.015) {
       this.gameObjects.push(
@@ -122,7 +134,20 @@ class PlayingGameScene {
       this.gameObjects.push(new Enemy(
         new p5.Vector(width, random(height/3)),
         new p5.Vector(random(50,150), random(50, 150)),
-        random(3)
+
+        random(3),
+        //random(3),
+      ))
+    }
+  }
+
+  private createFish() {
+    if (random(2) < 0.012){
+      this.fishes.push(new Item(
+        new p5.Vector(width, random(height/3)),
+        new p5.Vector(random(50,150), random (50, 150)),
+        "assets/fisk.jpg",
+        random(3),
       ))
     }
   }
@@ -139,6 +164,9 @@ class PlayingGameScene {
     }
     for (const backgroundObject of this.backgroundObjects) {
       backgroundObject.draw();
+    }
+    for (const fish of this.fishes) {
+      fish.draw();
     }
   }
   private detectCollision() {
@@ -161,6 +189,22 @@ class PlayingGameScene {
       setTimeout(() => {
         gameHandler.activeScene = "over";
       }, 450);
+    }
+  }
+
+  private collectedItem() {
+    for (let i = 0; i < this.fishes.length; i++) {
+      if (
+        this.character.position.x + this.character.size.x > this.fishes[i].position.x &&
+        this.character.position.x < this.fishes[i].position.x + this.fishes[i].size.x &&
+        this.character.position.y + this.character.size.y > this.fishes[i].position.y &&
+        this.character.position.y < this.fishes[i].position.y + this.fishes[i].size.y
+      ) {
+        this.fishAmount += 1;
+        console.log(this.fishAmount);
+        this.fishes.splice(i, 1);
+        break;
+      }
     }
   }
 }

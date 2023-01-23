@@ -49,9 +49,9 @@ class GameOverScene {
 
     this.calculateScore();
 
-    console.log(this.game.collectedFish.valueOf())
-    console.log(this.game.elapsedTime.valueOf());
-    console.log(this.finalScore);
+    console.log("test gameover = " + this.game.collectedFish.valueOf())
+    // console.log(this.game.elapsedTime.valueOf());
+    // console.log(this.finalScore);
 
   }
 
@@ -72,7 +72,7 @@ class GameOverScene {
 
     text("Final Score: " + this.finalScore.valueOf(), width / 2, height / 2 - 60);
 
-    //text("Fish: " + this.game.collectedFish.valueOf(), width / 2, height / 2 -140);
+    text("Fish: " + this.game.collectedFish.valueOf(), width / 2, height / 2 -140);
     pop()
   }
 }
