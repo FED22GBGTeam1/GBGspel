@@ -6,6 +6,8 @@ class GameHandler implements IGame {
   public highScore: number;
   public activeScene: "start" | "play" | "over";
   private startTime: number;
+  public elapsedTime: number;
+  public collectedFish: number;
 
   private startPageScene: StartPageScene;
   private playingGameScene: PlayingGameScene;
@@ -15,6 +17,8 @@ class GameHandler implements IGame {
     this.highScore = 0;
     this.activeScene = "play";
     this.startTime = Date.now();
+    this.elapsedTime = 2;
+    this.collectedFish = 12;
     //this.music = "music";
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene();
@@ -71,7 +75,9 @@ class GameHandler implements IGame {
   }
 
   private trackTime() {
+
     let elapsedTime = Date.now() - this.startTime;
+
   }
 
   //Ska användas för att stanna timern när man får gameover.

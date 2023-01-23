@@ -23,6 +23,7 @@ interface Images {
   shoot: p5.Image;
   explosion:p5.Image;
   animation:p5.Image;
+
 }
 let images: Images;
 
@@ -58,6 +59,7 @@ function preload() {
     animation: loadImage('assets/animation.png'),
     shoot: loadImage('assets/cat-shoot.png'),
     explosion: loadImage('assets/exp.png'),
+    enemy: loadImage('assets/seagull.png')
     };
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
 }

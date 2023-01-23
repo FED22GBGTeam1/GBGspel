@@ -4,6 +4,8 @@ class Character extends animatedObject {
   // public isAlive: boolean;
   public isAlive: boolean;
   private soundTimeout: number;
+  private speed: number;
+  private maxSpeed: number;
 
   constructor(
     position: p5.Vector,
@@ -17,16 +19,34 @@ class Character extends animatedObject {
       frameDuration)
      this.isAlive = true;
      this.soundTimeout = 2000;
+     this.speed = 4;
+     this.maxSpeed = 15;
   }
 
   public update() {
     this.soundTimeout -= deltaTime;
+
     if (keyIsDown(UP_ARROW) && this.position.y > 0 && this.isAlive === true) {
       this.position.y -= this.velocity;
       this.playSound(weee);
     }
     if (keyIsDown(DOWN_ARROW) && this.position.y + this.size.y < height && this.isAlive === true) {
       this.position.y += this.velocity;
+
+    
+    if (keyIsDown(UP_ARROW) && this.position.y > 0) {
+      if (this.speed < this.maxSpeed) {
+        this.speed += 0.1;
+      }
+      this.position.y -= this.speed;
+      this.playSound(weee);
+    }
+    if (keyIsDown(DOWN_ARROW) && this.position.y + this.size.y < height) {
+      if (this.speed < this.maxSpeed) {
+        this.speed += 0.1;
+      }
+      this.position.y += this.speed;
+
       this.playSound(wooo);
     }
     if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width && this.isAlive === true) {
@@ -37,7 +57,7 @@ class Character extends animatedObject {
       this.position.x -= this.velocity;
       this.playSound(wooo);
     }
-
+    
   }
   public draw() {
     super.draw();
