@@ -15,7 +15,7 @@ class GameHandler implements IGame {
 
   constructor() {
     this.highScore = 0;
-    this.activeScene = "start";
+    this.activeScene = "play";
     this.startTime = Date.now();
     this.elapsedTime = 2;
     this.collectedFish = 12;
@@ -75,8 +75,9 @@ class GameHandler implements IGame {
   }
 
   private trackTime() {
-    this.elapsedTime = Date.now() - this.startTime;
-    console.log(this.elapsedTime);
+
+    let elapsedTime = Date.now() - this.startTime;
+
   }
 
   //Ska användas för att stanna timern när man får gameover.
