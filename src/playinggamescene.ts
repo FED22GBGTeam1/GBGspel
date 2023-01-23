@@ -69,6 +69,7 @@ class PlayingGameScene {
     this.collectedItem();
     this.collectedPowerup();
     this.amIPowerful();
+    this.enemyCrash();
   }
 
   /**
@@ -257,6 +258,11 @@ class PlayingGameScene {
       this.startingSpeed = 0;
       for (const gameobject of this.gameObjects) {
         gameobject.velocity = 0
+        
+      } 
+      for (const enemy of this.enemies) {
+        enemy.velocity = 0
+        
       } 
       setTimeout(() => {
         gameHandler.activeScene = "over";
@@ -299,6 +305,24 @@ class PlayingGameScene {
         break;
       }
     }
+  }
+  private enemyCrash() {
+    for (let i = 0; i < this.enemies.length; i++) {
+      if (
+        this.character.position.x + this.character.size.x > this.enemies[i].position.x &&
+        this.character.position.x < this.enemies[i].position.x + this.enemies[i].size.x &&
+        this.character.position.y + this.character.size.y > this.enemies[i].position.y &&
+        this.character.position.y < this.enemies[i].position.y + this.enemies[i].size.y
+        && this.poweredUp === false
+      ) {
+        this.enemies[i].image = images.redExplosion
+        this.enemies[i].totalFrames = 8
+        this.enemies[i].framesDuration = 80
+        console.log("enemy deleted")
+        break;
+      }
+    }
+
   }
 
 

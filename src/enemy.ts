@@ -1,6 +1,7 @@
 /// <reference path="animated-object.ts" />
 
 class Enemy extends animatedObject{
+    framesDuration: any;
     constructor(
         position: p5.Vector,
         size: p5.Vector,
