@@ -14,6 +14,7 @@ class PlayingGameScene {
   private gameObjects: Gameobject[];
   private backgroundObjects: Gameobject[];
   private character: Character;
+  
 
   //   private timeElapsed: number;
 
@@ -24,6 +25,7 @@ class PlayingGameScene {
     this.character = new Character(createVector(50,300), createVector(175, 90), "./assets/katt.png", 0);
     this.gameObjects = [];
     this.backgroundObjects = [];
+    
   }
   //     score: 0,
   //     distance: 0,
@@ -48,6 +50,7 @@ class PlayingGameScene {
     this.character.update();
     this.createClouds();
     this.createBuildings();
+    this.createEnemys();
     this.updateEntities();
     this.detectCollision();
   }
@@ -78,6 +81,17 @@ class PlayingGameScene {
         random(3),
         random(3)
       ));
+    }
+  }
+
+  private createEnemys(){
+    if (random(2) < 0.015){
+      this.gameObjects.push(new Enemy(
+        new p5.Vector(width, random(height/2)),
+        new p5.Vector(random(150,300), random(100, 250)),
+        random(3),
+        random(3)
+      ))
     }
   }
 
