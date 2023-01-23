@@ -1,8 +1,8 @@
 abstract class Gameobject {
     public position: p5.Vector;
     public size: p5.Vector;
-    protected image: p5.Image;
-    protected velocity: number;
+    public image: p5.Image;
+    public velocity: number;
     
 
     constructor(position: p5.Vector, size: p5.Vector, imagePath: string, velocity: number) {
