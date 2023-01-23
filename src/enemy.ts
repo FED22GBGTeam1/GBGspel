@@ -12,9 +12,13 @@ class Enemy extends animatedObject{
         super(position, size, imagePath, velocity, totalFrames,
           frameDuration)
     }
-    update() {
-        super.update();
+    public update(startingSpeed: number) {
+        super.update(startingSpeed);
         this.position.sub(this.velocity, 0);
+
+        if (random(2) > 1) {
+            this.position.y += (random(3))
+        }    
     }
     draw() {
         super.draw();

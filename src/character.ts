@@ -25,7 +25,6 @@ class Character extends animatedObject {
 
   public update() {
     this.soundTimeout -= deltaTime;
-
     if (keyIsDown(UP_ARROW) && this.position.y > 0 && this.isAlive === true) {
       this.position.y -= this.velocity;
       this.playSound(weee);

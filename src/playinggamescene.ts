@@ -8,6 +8,8 @@ class PlayingGameScene {
   private backgroundObjects: Gameobject[];
   private character: Character;
 
+  private enemies: Enemy[];
+
  
  
 
@@ -33,10 +35,8 @@ class PlayingGameScene {
     );
     this.gameObjects = [];
     this.backgroundObjects = [];
+    this.enemies = [];
   
-
-
-
     this.fishes = [];
     this.fishAmount = 0;
 
@@ -87,6 +87,9 @@ class PlayingGameScene {
 
     for (const powerup of this.powerUps) {
       powerup.update(this.startingSpeed);
+    }
+    for (const enemy of this.enemies) {
+      enemy.update(this.startingSpeed);
     }
 
   }
@@ -150,14 +153,13 @@ class PlayingGameScene {
    */
   private createEnemys() {
     if (random(2) < 0.015) {
-      this.gameObjects.push(new Enemy(
+      this.enemies.push(new Enemy(
         new p5.Vector(width, random(height/3)),
         new p5.Vector(100, 100),
         "assets/seagull.png",
-        this.startingSpeed,
+        random(6),
         4,
         200
-
       ))
     }
   }
@@ -175,7 +177,6 @@ class PlayingGameScene {
       ))
     }
   }
-
   /**
    * Creates powerups and pushes them into an array.
    */
@@ -205,6 +206,9 @@ class PlayingGameScene {
     for (const gameObject of this.gameObjects) {
       gameObject.draw();
     }
+    for (const enemies of this.enemies) {
+      enemies.draw();
+    }
     for (const backgroundObject of this.backgroundObjects) {
       backgroundObject.draw();
     }
@@ -214,6 +218,7 @@ class PlayingGameScene {
     for (const powerup of this.powerUps) {
       powerup.draw();
     }
+
   }
 
   /**
@@ -235,6 +240,19 @@ class PlayingGameScene {
         }
       }
     }
+    for (const enemy of this.enemies) {
+      if (
+        this.character.position.x + this.character.size.x >
+        enemy.position.x &&
+        this.character.position.x < enemy.position.x + enemy.size.x &&
+        this.character.position.y + this.character.size.y >
+        enemy.position.y &&
+        this.character.position.y < enemy.position.y + enemy.size.y
+      ) {if (this.poweredUp === false) {
+          this.character.isAlive = false;
+        }
+      }
+    }
     if (this.character.isAlive === false && this.poweredUp === false) {
       this.startingSpeed = 0;
       for (const gameobject of this.gameObjects) {
@@ -245,7 +263,6 @@ class PlayingGameScene {
       }, 450);
     }
   }
-
   /**
    * Checks for collisions with collectable fish.
    */
