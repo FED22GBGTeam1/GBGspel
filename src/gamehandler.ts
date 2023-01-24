@@ -18,11 +18,12 @@ class GameHandler implements IGame {
     this.activeScene = "play";
     this.startTime = Date.now();
     this.elapsedTime = 2;
-    this.collectedFish = 12;
     //this.music = "music";
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene();
     this.gameOverScene = new GameOverScene(this);
+    this.collectedFish = this.playingGameScene.fishAmount;
+    
   }
 
   public playAgain() {
@@ -39,7 +40,7 @@ class GameHandler implements IGame {
   public update() {
     switch(this.activeScene) {
       case "start":
-        this.startPageScene.update()
+        this.startPageScene.playAgain()
         break;
       case "play":
         this.playingGameScene.update()
@@ -47,8 +48,10 @@ class GameHandler implements IGame {
         break;
       case "over":
         this.gameOverScene.startMenu();
-        this.gameOverScene.update();
+        this.gameOverScene.playAgain();
         this.stopTimeTracking();
+        this.collectedFish = this.playingGameScene.fishAmount;
+        //console.log('test 2 =' + this.collectedFish);
         break;
       default:  
     }
@@ -75,8 +78,8 @@ class GameHandler implements IGame {
   }
 
   private trackTime() {
-
-    let elapsedTime = Date.now() - this.startTime;
+    this.elapsedTime = Date.now() - this.startTime;
+    //console.log(this.elapsedTime);
 
   }
 

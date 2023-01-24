@@ -25,7 +25,6 @@ class Character extends animatedObject {
 
   public update() {
     this.soundTimeout -= deltaTime;
-
     if (keyIsDown(UP_ARROW) && this.position.y > 0 && this.isAlive === true) {
       this.position.y -= this.velocity;
       this.playSound(weee);
@@ -52,14 +51,14 @@ class Character extends animatedObject {
     if (keyIsPressed) {
       if (key === " " && this.isAlive === true ) {
         this.image = images.shoot
-        this.frameDuration = 270
         this.totalFrames = 4 
+        this.frameDuration = 270
         setTimeout(() => {
           this.image = images.katt
-          console.log(this.image.width)
           this.frameDuration = 80
           this.totalFrames = 8
         }, 350); 
+        
     }
   }}
 

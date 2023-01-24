@@ -8,7 +8,7 @@ class StartPageScene {
     this.startButton = new Button("Start Game!", createVector(width/2-100, height/2-50), createVector(200,100));
   }
 
-  public update() {
+  public playAgain() {
     
     const wasPressed = this.startButton.update();
     if (wasPressed) {
