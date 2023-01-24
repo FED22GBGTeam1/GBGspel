@@ -22,12 +22,15 @@ class GameOverScene {
     this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 + 100), createVector(200, 40));
   }
 
-  // public playAgain() {
-  //   const wasPressed = this.playAgainButton.update();
-  //   if (wasPressed) {
-  //     this.game.playAgain();
-  //   }
-  // }
+   /**
+   * method to update handle the playAgain button
+   */
+  public playAgain() {
+    const wasPressed = this.playAgainButton.update();
+    if (wasPressed) {
+      this.game.playAgain();
+    }
+  }
 
   //Till Lisa, varför kan startmenu vara en egen funktion, men playAgain måste ligga i update för att fungera? Se gamehandler, ~rad 24. (this)
 /**
@@ -49,15 +52,13 @@ class GameOverScene {
     return this.finalScore;
   }
 
-  /**
-   * method to update the state of gameOverScene
-   */
+ 
   public update() {
 
-    const wasPressed = this.playAgainButton.update();
-    if (wasPressed) {
-      this.game.playAgain();
-    }
+    // const wasPressed = this.playAgainButton.update();
+    // if (wasPressed) {
+    //   this.game.playAgain();
+    // }
 
     this.calculateScore();
 
