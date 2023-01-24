@@ -46,7 +46,7 @@ class GameHandler implements IGame {
   public update() {
     switch(this.activeScene) {
       case "start":
-        this.startPageScene.update()
+        this.startPageScene.playAgain()
         break;
       case "play":
         this.playingGameScene.update()
@@ -54,6 +54,7 @@ class GameHandler implements IGame {
         break;
       case "over":
         this.gameOverScene.startMenu();
+        this.gameOverScene.playAgain();
         this.gameOverScene.update();
         this.stopTimeTracking();
         this.collectedFish = this.playingGameScene.fishAmount;

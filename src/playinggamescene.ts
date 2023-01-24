@@ -16,6 +16,8 @@ class PlayingGameScene {
   private backgroundObjects: Gameobject[];
   private character: Character;
 
+  private enemies: Enemy[];
+
  
  
 
@@ -31,12 +33,11 @@ class PlayingGameScene {
    * Array of power ups.
    */
   private powerUps: Powerup[];
-  
-  private poweredUp: Boolean;
 
   private time: number;
 
   //   private timeElapsed: number;
+  //public timeElapsed: number
 
   constructor() {
     this.startingSpeed = 5;
@@ -52,10 +53,8 @@ class PlayingGameScene {
     );
     this.gameObjects = [];
     this.backgroundObjects = [];
+    this.enemies = [];
   
-
-
-
     this.fishes = [];
     this.fishAmount = 0;
 
@@ -65,19 +64,20 @@ class PlayingGameScene {
 
 
     this.powerUps = [];
-    this.poweredUp = false;
 
     this.time = 0;
   }
-
+  
   //     currentSpeed: currentSpeed
   //     this.currentSpeed = currentSpeed;
-
+  
   //     this.gameObjects = [];
-  //     this.timeElapsed = 0;
-
+  //     this.backgroundObjects = [];
+  
+  
   public update() {
     this.time -= deltaTime;
+    
 
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
@@ -90,11 +90,14 @@ class PlayingGameScene {
     this.updateEntities();
     this.detectCollision();
     this.collectedItem();
-
+    
     this.acceleration += 0.0001;
-
+    
     this.collectedPowerup();
     this.amIPowerful();
+    //this.updateCharacterImage();  
+    
+    this.enemyCrash();
 
   }
 
@@ -114,6 +117,9 @@ class PlayingGameScene {
 
     for (const powerup of this.powerUps) {
       powerup.update(this.startingSpeed);
+    }
+    for (const enemy of this.enemies) {
+      enemy.update(this.startingSpeed);
     }
 
   }
@@ -166,8 +172,8 @@ class PlayingGameScene {
           "assets/cloud3.png",
           random(3),
           random(3)
-        )
-      );
+          )
+          );
 
     }
   }
@@ -177,14 +183,13 @@ class PlayingGameScene {
    */
   private createEnemys() {
     if (random(2) < 0.015) {
-      this.gameObjects.push(new Enemy(
+      this.enemies.push(new Enemy(
         new p5.Vector(width, random(height/3)),
         new p5.Vector(100, 100),
         "assets/seagull.png",
-        this.startingSpeed,
+        random(6),
         4,
         200
-
       ))
     }
   }
@@ -202,18 +207,17 @@ class PlayingGameScene {
       ))
     }
   }
-
   /**
    * Creates powerups and pushes them into an array.
-   */
-  private createPowerUp() {
-    if (random(2) < 0.012) {
-      this.powerUps.push(new Powerup(
-        new p5.Vector(width, random(height / 3)),
-        new p5.Vector(random(50, 150), random(50, 150)),
-        "assets/boat.png",
-        random(3),
-        5000,
+  */
+ private createPowerUp() {
+   if (random(2) < 0.012) {
+     this.powerUps.push(new Powerup(
+       new p5.Vector(width, random(height / 3)),
+       new p5.Vector(random(50, 150), random(50, 150)),
+       "assets/boat.png",
+       random(3),
+       5000,
       ))
     }
   }
@@ -232,6 +236,9 @@ class PlayingGameScene {
     for (const gameObject of this.gameObjects) {
       gameObject.draw();
     }
+    for (const enemies of this.enemies) {
+      enemies.draw();
+    }
     for (const backgroundObject of this.backgroundObjects) {
       backgroundObject.draw();
     }
@@ -241,6 +248,7 @@ class PlayingGameScene {
     for (const powerup of this.powerUps) {
       powerup.draw();
     }
+
   }
 
   /**
@@ -257,22 +265,39 @@ class PlayingGameScene {
         this.character.position.y + this.character.size.y >
         gameObject.position.y &&
         this.character.position.y < gameObject.position.y + gameObject.size.y
-      ) {if (this.poweredUp === false) {
+      ) {if (this.character.poweredUp === false) {
           this.character.isAlive = false;
         }
       }
     }
-    if (this.character.isAlive === false && this.poweredUp === false) {
+    for (const enemy of this.enemies) {
+      if (
+        this.character.position.x + this.character.size.x >
+        enemy.position.x &&
+        this.character.position.x < enemy.position.x + enemy.size.x &&
+        this.character.position.y + this.character.size.y >
+        enemy.position.y &&
+        this.character.position.y < enemy.position.y + enemy.size.y
+      ) {if (this.character.poweredUp === false) {
+          this.character.isAlive = false;
+        }
+      }
+    }
+    if (this.character.isAlive === false && this.character.poweredUp === false) {
       this.startingSpeed = 0;
       for (const gameobject of this.gameObjects) {
         gameobject.velocity = 0
+        
+      } 
+      for (const enemy of this.enemies) {
+        enemy.velocity = 0
+        
       } 
       setTimeout(() => {
         gameHandler.activeScene = "over";
       }, 450);
     }
   }
-
   /**
    * Checks for collisions with collectable fish.
    */
@@ -296,6 +321,7 @@ class PlayingGameScene {
    * Checks for collision with collectable powerups.
    */
   private collectedPowerup() {
+
     for (let i = 0; i < this.powerUps.length; i++) {
       if (
         this.character.position.x + this.character.size.x > this.powerUps[i].position.x &&
@@ -305,10 +331,31 @@ class PlayingGameScene {
       ) {
         this.powerUps.splice(i, 1);
         this.time = 5000;
-        this.poweredUp = true;
+        this.character.poweredUp = true;
+        if (this.character.poweredUp = true) {
+          this.character.image = images.kattPower
+        }
         break;
       }
     }
+  }
+  private enemyCrash() {
+    for (let i = 0; i < this.enemies.length; i++) {
+      if (
+        this.character.position.x + this.character.size.x > this.enemies[i].position.x &&
+        this.character.position.x < this.enemies[i].position.x + this.enemies[i].size.x &&
+        this.character.position.y + this.character.size.y > this.enemies[i].position.y &&
+        this.character.position.y < this.enemies[i].position.y + this.enemies[i].size.y
+        && this.character.poweredUp === false
+      ) {
+        this.enemies[i].image = images.redExplosion
+        this.enemies[i].totalFrames = 8
+        this.enemies[i].framesDuration = 80
+        //console.log("enemy deleted")
+        break;
+      }
+    }
+
   }
 
 
@@ -317,7 +364,13 @@ class PlayingGameScene {
    */
   private amIPowerful() {
     if (this.time < 0) {
-      this.poweredUp = false;
+      this.character.poweredUp = false;
+      if (this.character.isAlive == true) {
+        this.character.image = images.katt;
+      }        
     }
   }
+
 }
+
+
