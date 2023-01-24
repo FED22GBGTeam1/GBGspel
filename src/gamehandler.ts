@@ -6,6 +6,8 @@ class GameHandler implements IGame {
   public highScore: number;
   public activeScene: "start" | "play" | "over";
   private startTime: number;
+  public elapsedTime: number;
+  public collectedFish: number;
 
   private startPageScene: StartPageScene;
   private playingGameScene: PlayingGameScene;
@@ -13,12 +15,15 @@ class GameHandler implements IGame {
 
   constructor() {
     this.highScore = 0;
-    this.activeScene = "start";
+    this.activeScene = "play";
     this.startTime = Date.now();
+    this.elapsedTime = 2;
     //this.music = "music";
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene();
-    this.gameOverScene = new GameOverScene();
+    this.gameOverScene = new GameOverScene(this);
+    this.collectedFish = this.playingGameScene.fishAmount;
+    
   }
 
   public playAgain() {
@@ -26,19 +31,27 @@ class GameHandler implements IGame {
     this.activeScene = "play";
   }
 
+  public goToStart() {
+    this.startPageScene = new StartPageScene(this);
+    this.activeScene = "start";
+  }
+
   /** Gör förändringar på klassens attribut */
   public update() {
     switch(this.activeScene) {
       case "start":
-        this.startPageScene.update()
+        this.startPageScene.playAgain()
         break;
       case "play":
         this.playingGameScene.update()
         this.trackTime();
         break;
       case "over":
-        this.gameOverScene.update();
+        this.gameOverScene.startMenu();
+        this.gameOverScene.playAgain();
         this.stopTimeTracking();
+        this.collectedFish = this.playingGameScene.fishAmount;
+        //console.log('test 2 =' + this.collectedFish);
         break;
       default:  
     }
@@ -58,7 +71,6 @@ class GameHandler implements IGame {
         break;
       default:  
     }
-   
   }
 
   public toggleMusic() {
@@ -66,7 +78,9 @@ class GameHandler implements IGame {
   }
 
   private trackTime() {
-    let elapsedTime = Date.now() - this.startTime;
+    this.elapsedTime = Date.now() - this.startTime;
+    //console.log(this.elapsedTime);
+
   }
 
   //Ska användas för att stanna timern när man får gameover.
