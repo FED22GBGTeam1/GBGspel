@@ -1,10 +1,22 @@
 /// <reference path="animated-object.ts" />
 
 class Character extends animatedObject {
-  // public isAlive: boolean;
+  /**
+   * Checks if the character is alive.
+   */
   public isAlive: boolean;
+  /**
+   * Starts at 2000. At 0 sounds can be played.
+   */
   private soundTimeout: number;
+
+  /**
+   * 
+   */
   //private speed: number;
+  /**
+   * 
+   */
   //private maxSpeed: number;
   /**
    * Checks if the character got an active powerup or not.
@@ -22,7 +34,9 @@ class Character extends animatedObject {
     super(position, size, imagePath, velocity, totalFrames,
       frameDuration)
     this.isAlive = true;
+
     this.poweredUp = false;
+
     this.soundTimeout = 2000;
     //this.speed = 4;
     //this.maxSpeed = 15;
@@ -47,6 +61,7 @@ class Character extends animatedObject {
       //this.playSound(wooo);
     }
   }
+
   public draw() {
     super.draw();
     if (this.isAlive === false) {
@@ -59,16 +74,23 @@ class Character extends animatedObject {
         this.image = images.shoot
         this.totalFrames = 4
         this.frameDuration = 270
+
         setTimeout(() => {
           this.image = images.katt
           this.frameDuration = 80
           this.totalFrames = 8
         }, 350);
+
        }      
   
       }
     }
 
+  /**
+   * Checks if 2 seconds have passed since last sound was played,
+   * and then plays another sound.
+   * @param sound 
+   */
   public playSound(sound: p5.SoundFile) {
     if (this.soundTimeout < 0) {
       sound.play();
