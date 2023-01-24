@@ -4,8 +4,12 @@ class Character extends animatedObject {
   // public isAlive: boolean;
   public isAlive: boolean;
   private soundTimeout: number;
-  private speed: number;
-  private maxSpeed: number;
+  //private speed: number;
+  //private maxSpeed: number;
+  /**
+   * Checks if the character got an active powerup or not.
+   */
+  public poweredUp: Boolean;
 
   constructor(
     position: p5.Vector,
@@ -18,16 +22,17 @@ class Character extends animatedObject {
     super(position, size, imagePath, velocity, totalFrames,
       frameDuration)
      this.isAlive = true;
+     this.poweredUp = false;
      this.soundTimeout = 2000;
-     this.speed = 4;
-     this.maxSpeed = 15;
+     //this.speed = 4;
+     //this.maxSpeed = 15;
   }
 
   public update() {
     this.soundTimeout -= deltaTime;
     if (keyIsDown(UP_ARROW) && this.position.y > 0 && this.isAlive === true) {
       this.position.y -= this.velocity;
-      this.playSound(weee);
+      //this.playSound(weee);
     }
     if (keyIsDown(DOWN_ARROW) && this.position.y + this.size.y < height && this.isAlive === true) {
       this.position.y += this.velocity;
@@ -35,11 +40,11 @@ class Character extends animatedObject {
     }
     if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width && this.isAlive === true) {
       this.position.x += this.velocity;
-      this.playSound(wooo);
+      //this.playSound(wooo);
     }
     if (keyIsDown(LEFT_ARROW) && this.position.x > 0 && this.isAlive === true) {
       this.position.x -= this.velocity;
-      this.playSound(wooo);
+      //this.playSound(wooo);
     }
   }
   public draw() {

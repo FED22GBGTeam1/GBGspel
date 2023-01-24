@@ -24,12 +24,11 @@ class PlayingGameScene {
   private fishes: Item[]; //ska det vata item?
   public fishAmount: number;
   private powerUps: Powerup[];
-  private poweredUp: Boolean;
 
   private time: number;
 
   //   private timeElapsed: number;
-  public timeElapsed: number
+  //public timeElapsed: number
 
   constructor() {
     this.startingSpeed = 5;
@@ -56,7 +55,6 @@ class PlayingGameScene {
 
 
     this.powerUps = [];
-    this.poweredUp = false;
 
     this.time = 0;
   }
@@ -257,7 +255,7 @@ class PlayingGameScene {
         this.character.position.y + this.character.size.y >
         gameObject.position.y &&
         this.character.position.y < gameObject.position.y + gameObject.size.y
-      ) {if (this.poweredUp === false) {
+      ) {if (this.character.poweredUp === false) {
           this.character.isAlive = false;
         }
       }
@@ -270,12 +268,12 @@ class PlayingGameScene {
         this.character.position.y + this.character.size.y >
         enemy.position.y &&
         this.character.position.y < enemy.position.y + enemy.size.y
-      ) {if (this.poweredUp === false) {
+      ) {if (this.character.poweredUp === false) {
           this.character.isAlive = false;
         }
       }
     }
-    if (this.character.isAlive === false && this.poweredUp === false) {
+    if (this.character.isAlive === false && this.character.poweredUp === false) {
       this.startingSpeed = 0;
       for (const gameobject of this.gameObjects) {
         gameobject.velocity = 0
@@ -323,8 +321,8 @@ class PlayingGameScene {
       ) {
         this.powerUps.splice(i, 1);
         this.time = 5000;
-        this.poweredUp = true;
-        if (this.poweredUp = true) {
+        this.character.poweredUp = true;
+        if (this.character.poweredUp = true) {
           this.character.image = images.kattPower
         }
         break;
@@ -338,7 +336,7 @@ class PlayingGameScene {
         this.character.position.x < this.enemies[i].position.x + this.enemies[i].size.x &&
         this.character.position.y + this.character.size.y > this.enemies[i].position.y &&
         this.character.position.y < this.enemies[i].position.y + this.enemies[i].size.y
-        && this.poweredUp === false
+        && this.character.poweredUp === false
       ) {
         this.enemies[i].image = images.redExplosion
         this.enemies[i].totalFrames = 8
@@ -356,7 +354,7 @@ class PlayingGameScene {
    */
   private amIPowerful() {
     if (this.time < 0) {
-      this.poweredUp = false;
+      this.character.poweredUp = false;
     }
     if (this.character.isAlive === true) {
       gameHandler.activeScene = "play";
