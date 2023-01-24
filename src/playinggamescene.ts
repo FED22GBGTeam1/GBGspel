@@ -58,14 +58,14 @@ class PlayingGameScene {
 
     this.time = 0;
   }
-
+  
   //     currentSpeed: currentSpeed
   //     this.currentSpeed = currentSpeed;
-
+  
   //     this.gameObjects = [];
   //     this.backgroundObjects = [];
- 
-
+  
+  
   public update() {
     this.time -= deltaTime;
     
@@ -81,12 +81,13 @@ class PlayingGameScene {
     this.updateEntities();
     this.detectCollision();
     this.collectedItem();
-
+    
     this.acceleration += 0.0001;
-
+    
     this.collectedPowerup();
     this.amIPowerful();
-
+    //this.updateCharacterImage();  
+    
     this.enemyCrash();
 
   }
@@ -162,8 +163,8 @@ class PlayingGameScene {
           "assets/cloud3.png",
           random(3),
           random(3)
-        )
-      );
+          )
+          );
 
     }
   }
@@ -199,15 +200,15 @@ class PlayingGameScene {
   }
   /**
    * Creates powerups and pushes them into an array.
-   */
-  private createPowerUp() {
-    if (random(2) < 0.012) {
-      this.powerUps.push(new Powerup(
-        new p5.Vector(width, random(height / 3)),
-        new p5.Vector(random(50, 150), random(50, 150)),
-        "assets/boat.png",
-        random(3),
-        5000,
+  */
+ private createPowerUp() {
+   if (random(2) < 0.012) {
+     this.powerUps.push(new Powerup(
+       new p5.Vector(width, random(height / 3)),
+       new p5.Vector(random(50, 150), random(50, 150)),
+       "assets/boat.png",
+       random(3),
+       5000,
       ))
     }
   }
@@ -341,7 +342,7 @@ class PlayingGameScene {
         this.enemies[i].image = images.redExplosion
         this.enemies[i].totalFrames = 8
         this.enemies[i].framesDuration = 80
-        console.log("enemy deleted")
+        //console.log("enemy deleted")
         break;
       }
     }
@@ -355,10 +356,12 @@ class PlayingGameScene {
   private amIPowerful() {
     if (this.time < 0) {
       this.character.poweredUp = false;
-    }
-    if (this.character.isAlive === true) {
-      gameHandler.activeScene = "play";
+      if (this.character.isAlive == true) {
+        this.character.image = images.katt;
+      }        
     }
   }
+
 }
+
 

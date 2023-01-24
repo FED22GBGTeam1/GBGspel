@@ -21,11 +21,11 @@ class Character extends animatedObject {
   ) {
     super(position, size, imagePath, velocity, totalFrames,
       frameDuration)
-     this.isAlive = true;
-     this.poweredUp = false;
-     this.soundTimeout = 2000;
-     //this.speed = 4;
-     //this.maxSpeed = 15;
+    this.isAlive = true;
+    this.poweredUp = false;
+    this.soundTimeout = 2000;
+    //this.speed = 4;
+    //this.maxSpeed = 15;
   }
 
   public update() {
@@ -53,19 +53,21 @@ class Character extends animatedObject {
       this.image = images.explosion
       this.frameDuration = 90
     }
+    //Borde nog göra det här till en egen funktion.
     if (keyIsPressed) {
-      if (key === " " && this.isAlive === true ) {
+      if (key === " " && this.isAlive === true) {
         this.image = images.shoot
-        this.totalFrames = 4 
+        this.totalFrames = 4
         this.frameDuration = 270
         setTimeout(() => {
           this.image = images.katt
           this.frameDuration = 80
           this.totalFrames = 8
-        }, 350); 
-        
+        }, 350);
+       }      
+  
+      }
     }
-  }}
 
   public playSound(sound: p5.SoundFile) {
     if (this.soundTimeout < 0) {
@@ -73,5 +75,5 @@ class Character extends animatedObject {
       this.soundTimeout = 2000;
     }
   }
-  
+
 }
