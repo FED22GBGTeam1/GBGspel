@@ -24,12 +24,11 @@ class PlayingGameScene {
   private fishes: Item[]; //ska det vata item?
   public fishAmount: number;
   private powerUps: Powerup[];
-  private poweredUp: Boolean;
 
   private time: number;
 
   //   private timeElapsed: number;
-  public timeElapsed: number
+  //public timeElapsed: number
 
   constructor() {
     this.startingSpeed = 5;
@@ -56,18 +55,17 @@ class PlayingGameScene {
 
 
     this.powerUps = [];
-    this.poweredUp = false;
 
     this.time = 0;
   }
-
+  
   //     currentSpeed: currentSpeed
   //     this.currentSpeed = currentSpeed;
-
+  
   //     this.gameObjects = [];
   //     this.backgroundObjects = [];
- 
-
+  
+  
   public update() {
     this.time -= deltaTime;
     
@@ -83,12 +81,13 @@ class PlayingGameScene {
     this.updateEntities();
     this.detectCollision();
     this.collectedItem();
-
+    
     this.acceleration += 0.0001;
-
+    
     this.collectedPowerup();
     this.amIPowerful();
-
+    //this.updateCharacterImage();  
+    
     this.enemyCrash();
 
   }
@@ -164,8 +163,8 @@ class PlayingGameScene {
           "assets/cloud3.png",
           random(3),
           random(3)
-        )
-      );
+          )
+          );
 
     }
   }
@@ -201,15 +200,15 @@ class PlayingGameScene {
   }
   /**
    * Creates powerups and pushes them into an array.
-   */
-  private createPowerUp() {
-    if (random(2) < 0.012) {
-      this.powerUps.push(new Powerup(
-        new p5.Vector(width, random(height / 3)),
-        new p5.Vector(random(50, 150), random(50, 150)),
-        "assets/boat.png",
-        random(3),
-        5000,
+  */
+ private createPowerUp() {
+   if (random(2) < 0.012) {
+     this.powerUps.push(new Powerup(
+       new p5.Vector(width, random(height / 3)),
+       new p5.Vector(random(50, 150), random(50, 150)),
+       "assets/boat.png",
+       random(3),
+       5000,
       ))
     }
   }
@@ -257,7 +256,7 @@ class PlayingGameScene {
         this.character.position.y + this.character.size.y >
         gameObject.position.y &&
         this.character.position.y < gameObject.position.y + gameObject.size.y
-      ) {if (this.poweredUp === false) {
+      ) {if (this.character.poweredUp === false) {
           this.character.isAlive = false;
         }
       }
@@ -270,12 +269,12 @@ class PlayingGameScene {
         this.character.position.y + this.character.size.y >
         enemy.position.y &&
         this.character.position.y < enemy.position.y + enemy.size.y
-      ) {if (this.poweredUp === false) {
+      ) {if (this.character.poweredUp === false) {
           this.character.isAlive = false;
         }
       }
     }
-    if (this.character.isAlive === false && this.poweredUp === false) {
+    if (this.character.isAlive === false && this.character.poweredUp === false) {
       this.startingSpeed = 0;
       for (const gameobject of this.gameObjects) {
         gameobject.velocity = 0
@@ -323,8 +322,8 @@ class PlayingGameScene {
       ) {
         this.powerUps.splice(i, 1);
         this.time = 5000;
-        this.poweredUp = true;
-        if (this.poweredUp = true) {
+        this.character.poweredUp = true;
+        if (this.character.poweredUp = true) {
           this.character.image = images.kattPower
         }
         break;
@@ -338,12 +337,12 @@ class PlayingGameScene {
         this.character.position.x < this.enemies[i].position.x + this.enemies[i].size.x &&
         this.character.position.y + this.character.size.y > this.enemies[i].position.y &&
         this.character.position.y < this.enemies[i].position.y + this.enemies[i].size.y
-        && this.poweredUp === false
+        && this.character.poweredUp === false
       ) {
         this.enemies[i].image = images.redExplosion
         this.enemies[i].totalFrames = 8
         this.enemies[i].framesDuration = 80
-        console.log("enemy deleted")
+        //console.log("enemy deleted")
         break;
       }
     }
@@ -356,11 +355,13 @@ class PlayingGameScene {
    */
   private amIPowerful() {
     if (this.time < 0) {
-      this.poweredUp = false;
-    }
-    if (this.character.isAlive === true) {
-      gameHandler.activeScene = "play";
+      this.character.poweredUp = false;
+      if (this.character.isAlive == true) {
+        this.character.image = images.katt;
+      }        
     }
   }
+
 }
+
 

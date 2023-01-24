@@ -49,6 +49,7 @@ class GameHandler implements IGame {
       case "over":
         this.gameOverScene.startMenu();
         this.gameOverScene.playAgain();
+        this.gameOverScene.update();
         this.stopTimeTracking();
         this.collectedFish = this.playingGameScene.fishAmount;
         //console.log('test 2 =' + this.collectedFish);

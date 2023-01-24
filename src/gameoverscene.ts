@@ -62,7 +62,7 @@ class GameOverScene {
 
     this.calculateScore();
 
-    //console.log("test gameover = " + this.game.collectedFish.valueOf())
+    // console.log("test gameover = " + this.game.collectedFish.valueOf())
     // console.log(this.game.elapsedTime.valueOf());
     // console.log(this.finalScore);
 

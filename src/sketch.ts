@@ -26,6 +26,7 @@ interface Images {
   redExplosion:p5.Image;
   enemy: p5.Image;
   animation:p5.Image;
+  shootGreen: p5.Image;
 
 }
 let images: Images;
@@ -64,7 +65,8 @@ function preload() {
     shoot: loadImage('assets/cat-shoot.png'),
     explosion: loadImage('assets/exp.png'),
     redExplosion: loadImage('assets/exp-red.png'),
-    enemy: loadImage('assets/seagull.png')
+    enemy: loadImage('assets/seagull.png'),
+    shootGreen: loadImage('assets/cat-shoot-green.png'),
     };
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
 }
