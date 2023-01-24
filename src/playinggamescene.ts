@@ -19,9 +19,19 @@ class PlayingGameScene {
  
  
 
-  private fishes: Item[]; //ska det vata item?
+  /**
+   * Array of fish.
+   */
+  private fishes: Item[];
+  /**
+   * Amount of fish gathered.
+   */
   public fishAmount: number;
+  /**
+   * Array of power ups.
+   */
   private powerUps: Powerup[];
+  
   private poweredUp: Boolean;
 
   private time: number;

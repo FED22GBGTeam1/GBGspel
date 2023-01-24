@@ -12,11 +12,11 @@ class Character extends animatedObject {
   /**
    * 
    */
-  private speed: number;
+  //private speed: number;
   /**
    * 
    */
-  private maxSpeed: number;
+  //private maxSpeed: number;
 
   constructor(
     position: p5.Vector,
@@ -30,8 +30,8 @@ class Character extends animatedObject {
       frameDuration)
     this.isAlive = true;
     this.soundTimeout = 2000;
-    this.speed = 4;
-    this.maxSpeed = 15;
+    //this.speed = 4;
+    //this.maxSpeed = 15;
   }
 
   public update() {

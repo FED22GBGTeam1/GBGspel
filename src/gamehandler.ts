@@ -5,7 +5,13 @@ class GameHandler implements IGame {
   //Ska bytas till highScore istället för nummer.
   public highScore: number;
   public activeScene: "start" | "play" | "over";
+  /**
+   * Checks the time when the game starts.
+   */
   private startTime: number;
+  /**
+   * How long the game went on for.
+   */
   public elapsedTime: number;
   public collectedFish: number;
 
@@ -77,6 +83,9 @@ class GameHandler implements IGame {
 
   }
 
+  /**
+   * Calculates how long the game went on for.
+   */
   private trackTime() {
     this.elapsedTime = Date.now() - this.startTime;
     //console.log(this.elapsedTime);
