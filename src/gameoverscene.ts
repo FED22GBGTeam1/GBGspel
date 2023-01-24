@@ -1,7 +1,13 @@
 class GameOverScene {
+  /**
+   * Gamehandler being sent over through IGame.
+   */
   private game: IGame
   private playAgainButton: Button
   private goToStartButton: Button
+  /**
+   * Fish and distance added together.
+   */
   private finalScore: number;
 
   // private collectedFish: number;
@@ -9,8 +15,8 @@ class GameOverScene {
 
   constructor(game: IGame) {
     this.game = game
-
     this.finalScore = 0;
+
     //  this.collectedFish = game;
     //  this.elapsedTime = game;
 
@@ -25,8 +31,9 @@ class GameOverScene {
   //   }
   // }
 
-  //Till Lisa, varför kan startmenu vara en egen funktion, men playAgain måste ligga i update för att fungera? Se gamehandler, ~rad 24. (this)
-
+  /**
+   * 
+   */
   public startMenu() {
     const wasPressed = this.goToStartButton.update();
     if (wasPressed) {
@@ -34,6 +41,10 @@ class GameOverScene {
     }
   }
 
+  /**
+   * Takes the fish * 200 + distance travelled.
+   * @returns number
+   */
   public calculateScore() {
     const fishScore = this.game.collectedFish.valueOf() * 200;
     this.finalScore = fishScore + this.game.elapsedTime.valueOf();
