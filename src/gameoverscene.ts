@@ -7,6 +7,10 @@ class GameOverScene {
   // private collectedFish: number;
   // private elapsedTime;
 
+  /**
+   * constructor for the GameOverScene class
+   * @param game 
+   */
   constructor(game: IGame) {
     this.game = game
 
@@ -26,7 +30,9 @@ class GameOverScene {
   // }
 
   //Till Lisa, varför kan startmenu vara en egen funktion, men playAgain måste ligga i update för att fungera? Se gamehandler, ~rad 24. (this)
-
+/**
+ * Method to handle the start menu button
+ */
   public startMenu() {
     const wasPressed = this.goToStartButton.update();
     if (wasPressed) {
@@ -34,12 +40,18 @@ class GameOverScene {
     }
   }
 
+  /**
+ * Method to calculate the score 
+ */
   public calculateScore() {
     const fishScore = this.game.collectedFish.valueOf() * 200;
     this.finalScore = fishScore + this.game.elapsedTime.valueOf();
     return this.finalScore;
   }
 
+  /**
+   * method to update the state of gameOverScene
+   */
   public update() {
 
     const wasPressed = this.playAgainButton.update();
@@ -55,6 +67,9 @@ class GameOverScene {
 
   }
 
+  /**
+   * Method to draw the gameOverScene
+   */
   public draw() {
     background(50, 145, 300)
     //text game over
@@ -62,16 +77,14 @@ class GameOverScene {
     textAlign(CENTER)
     textSize(42)
     text('GAME OVER', width / 2, height / 2 - 100)
-    //play button
+    //buttons
     textSize(32)
     this.playAgainButton.draw();
     this.goToStartButton.draw();
     //highSCore
     textSize(32)
     //text("High Score: " + this.game.highScore.valueOf(), width / 2, height / 2 -45);
-
     text("Final Score: " + this.finalScore.valueOf(), width / 2, height / 2 - 60);
-
     text("Fish: " + this.game.collectedFish.valueOf(), width / 2, height / 2 -140);
     pop()
   }
