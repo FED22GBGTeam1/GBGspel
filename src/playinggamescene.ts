@@ -303,6 +303,7 @@ class PlayingGameScene {
       } 
       setTimeout(() => {
         sounds.hast.stop();
+        //Behöver skapa en ny instans av gameover vid varje gameover.
         gameHandler.activeScene = "over";
       }, 450);
     }
