@@ -5,11 +5,7 @@ class GameHandler implements IGame {
   //Ska bytas till highScore istället för nummer.
   public highScore: number;
   public activeScene: "start" | "play" | "over";
-  /**
-   * Checks the time when the game starts.
-   */
-  private startTime: number;
-  /**
+   /**
    * How long the game went on for.
    */
   public elapsedTime: number;
@@ -23,13 +19,12 @@ class GameHandler implements IGame {
   constructor() {
     this.highScore = 0;
     this.activeScene = "start";
-    this.startTime = Date.now();
-    this.elapsedTime = 2;
     //this.music = "music";
     this.startPageScene = new StartPageScene(this);
-    this.playingGameScene = new PlayingGameScene();
+    this.playingGameScene = new PlayingGameScene(this);
     this.gameOverScene = new GameOverScene(this);
     this.collectedFish = this.playingGameScene.fishAmount;
+    this.elapsedTime = this.playingGameScene.elapsedTime;
 
     //this.playing = sounds.hast.isPlaying();
     
@@ -37,13 +32,18 @@ class GameHandler implements IGame {
   }
 
   public playAgain() {
-    this.playingGameScene = new PlayingGameScene();
+    this.playingGameScene = new PlayingGameScene(this);
     this.activeScene = "play";
   }
 
   public goToStart() {
     this.startPageScene = new StartPageScene(this);
     this.activeScene = "start";
+  }
+
+  public goToGameOver() {
+    this.gameOverScene = new GameOverScene(this);
+    this.activeScene = "over";
   }
 
   /** Gör förändringar på klassens attribut */
@@ -56,7 +56,6 @@ class GameHandler implements IGame {
       case "play":
         //sounds.hast.play();
         this.playingGameScene.update()
-        this.trackTime();
         //this.playBackgroundMusic();
         break;
         case "over":
@@ -64,6 +63,7 @@ class GameHandler implements IGame {
           this.gameOverScene.playAgain();
           this.gameOverScene.update();
           this.stopTimeTracking();
+          this.elapsedTime = this.playingGameScene.elapsedTime;
           this.collectedFish = this.playingGameScene.fishAmount;
           //console.log('test 2 =' + this.collectedFish);
         break;
@@ -91,15 +91,7 @@ class GameHandler implements IGame {
   public toggleMusic() {
 
   }
-
-  /**
-   * Calculates how long the game went on for.
-   */
-  private trackTime() {
-    this.elapsedTime = Date.now() - this.startTime;
-    //console.log(this.elapsedTime);
-
-  }
+  
 
   //Ska användas för att stanna timern när man får gameover.
   private stopTimeTracking() {

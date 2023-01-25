@@ -78,7 +78,7 @@ function preload() {
 }
 
 /**
- * Built in setup function in P5
+ * Built in setup function in P5.
  * This is a good place to create your first class object
  * and save it as a global variable so it can be used
  * in the draw function below

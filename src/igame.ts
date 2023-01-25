@@ -4,4 +4,5 @@ interface IGame {
   collectedFish: number;
   playAgain(): void;
   goToStart(): void;
+  goToGameOver(): void;
 }
