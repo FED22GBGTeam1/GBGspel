@@ -9,6 +9,8 @@ class PlayingGameScene {
 
   public startingSpeed: number;
   private acceleration: number;
+
+  private game: IGame
   //   private currentSpeed: number;
 
   public position: p5.Vector;
@@ -20,8 +22,14 @@ class PlayingGameScene {
 
   private musicTimeout: number;
 
- 
- 
+   /**
+   * Checks the time when the game starts.
+   */
+   private startTime: number;
+   /**
+    * How long the game went on for.
+    */
+   public elapsedTime: number;
 
   /**
    * Array of fish.
@@ -42,7 +50,8 @@ class PlayingGameScene {
   //   private timeElapsed: number;
   //public timeElapsed: number
 
-  constructor() {
+  constructor(game: IGame) {
+    this.game = game
     this.startingSpeed = 5;
     this.acceleration = 0;
     this.position = createVector(0, 0);
@@ -54,6 +63,7 @@ class PlayingGameScene {
       8,
       80
     );
+
     this.gameObjects = [];
     this.backgroundObjects = [];
     this.enemies = [];
@@ -61,16 +71,16 @@ class PlayingGameScene {
     this.fishes = [];
     this.fishAmount = 0;
 
-    this.acceleration = 0.1;
-    
-
-
+    this.acceleration = 0.1; 
 
     this.powerUps = [];
 
     this.time = 0;
 
     this.musicTimeout = 1200000;
+
+    this.startTime = Date.now();
+    this.elapsedTime = 0;
   }
   
   //     currentSpeed: currentSpeed
@@ -83,11 +93,12 @@ class PlayingGameScene {
   public update() {
     this.time -= deltaTime;
     this.musicTimeout += deltaTime;
+    this.trackTime();
     
 
+    this.playBackgroundMusic(sounds.hast);
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
-    this.playBackgroundMusic(sounds.hast);
     this.character.update();
     this.createClouds();
     this.createBuildings();
@@ -105,6 +116,15 @@ class PlayingGameScene {
     //this.updateCharacterImage();  
     
     this.enemyCrash();
+
+  }
+
+  /**
+   * Calculates how long the game went on for.
+   */
+  private trackTime() {
+    this.elapsedTime = Date.now() - this.startTime;
+    //console.log(this.elapsedTime);
 
   }
 
@@ -304,7 +324,9 @@ class PlayingGameScene {
       setTimeout(() => {
         sounds.hast.stop();
         //Behöver skapa en ny instans av gameover vid varje gameover.
-        gameHandler.activeScene = "over";
+        //this.playBackgroundMusic(sounds.another);
+        this.game.goToGameOver();
+        //gameHandler.activeScene = "over";
       }, 450);
     }
   }
