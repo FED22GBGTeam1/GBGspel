@@ -11,8 +11,7 @@ class PlayingGameScene {
   private acceleration: number;
 
   private game: IGame
-  //   private currentSpeed: number;
-
+ 
   public position: p5.Vector;
   private gameObjects: Gameobject[];
   private backgroundObjects: Gameobject[];
@@ -21,7 +20,6 @@ class PlayingGameScene {
 
   private enemies: Enemy[];
 
-  private musicTimeout: number;
 
    /**
    * Checks the time when the game starts.
@@ -47,9 +45,6 @@ class PlayingGameScene {
 
   private time: number;
   
-
-  //   private timeElapsed: number;
-  //public timeElapsed: number
 
   constructor(game: IGame) {
     this.game = game
@@ -81,8 +76,6 @@ class PlayingGameScene {
 
     this.time = 0;
 
-    this.musicTimeout = 1200000;
-
     this.startTime = Date.now();
     this.elapsedTime = 0;
   }
@@ -96,11 +89,9 @@ class PlayingGameScene {
   
   public update() {
     this.time -= deltaTime;
-    this.musicTimeout += deltaTime;
     this.trackTime();
     
 
-    this.playBackgroundMusic(sounds.hast);
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
@@ -254,7 +245,6 @@ class PlayingGameScene {
    */
   public draw() {
     background(50, 145, 300);
-    //sounds.hast.play();
     this.drawEntities();
     this.character.draw();
     
@@ -336,9 +326,6 @@ class PlayingGameScene {
         
       } 
       setTimeout(() => {
-        sounds.hast.stop();
-        //Behöver skapa en ny instans av gameover vid varje gameover.
-        //this.playBackgroundMusic(sounds.another);
         this.game.goToGameOver();
         //gameHandler.activeScene = "over";
       }, 450);
@@ -417,14 +404,7 @@ class PlayingGameScene {
     }
   }
 
-  public playBackgroundMusic(sound: p5.SoundFile) {
-    if (this.musicTimeout > 1200000) {
-      sound.play();
-      sound.loop();
-      this.musicTimeout = 0;
-    }
-  }
-
+ 
 }
 
 

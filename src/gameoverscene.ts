@@ -10,11 +10,6 @@ class GameOverScene {
    */
   private finalScore: number;
 
-  private musicTimeout: number;
-
-  // private collectedFish: number;
-  // private elapsedTime;
-
   /**
    * constructor for the GameOverScene class
    * @param game 
@@ -23,10 +18,6 @@ class GameOverScene {
     this.game = game
     this.finalScore = 0;
 
-    //  this.collectedFish = game;
-    //  this.elapsedTime = game;
-    this.musicTimeout = 1200000;
-
     this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2), new p5.Vector(200, 40));
     this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 + 100), createVector(200, 40));
   }
@@ -34,10 +25,9 @@ class GameOverScene {
    /**
    * method to update handle the playAgain button
    */
-  public playAgain() {
+  public replay() {
     const wasPressed = this.playAgainButton.update();
     if (wasPressed) {
-      sounds.another.stop();
       this.game.playAgain();
     }
   }
@@ -49,7 +39,6 @@ class GameOverScene {
   public startMenu() {
     const wasPressed = this.goToStartButton.update();
     if (wasPressed) {
-      sounds.another.stop();
       this.game.goToStart();
     }
   }
@@ -66,13 +55,8 @@ class GameOverScene {
 
  
   public update() {
-    this.musicTimeout += deltaTime;
-
-    // const wasPressed = this.playAgainButton.update();
-    // if (wasPressed) {
-    //   this.game.playAgain();
-    // }
-    this.playBackgroundMusic(sounds.another);
+  
+    //this.playMusic(sounds.another);
 
     this.calculateScore();
 
@@ -104,11 +88,10 @@ class GameOverScene {
     pop()
   }
 
-  public playBackgroundMusic(sound: p5.SoundFile) {
-    if (this.musicTimeout > 1200000) {
+  public playMusic(sound: p5.SoundFile) {
+    if (this.game.musicIsPlaying === false) {
       sound.play();
-      sound.loop();
-      this.musicTimeout = 0;
+      this.game.musicIsPlaying = true;
     }
   }
 }
