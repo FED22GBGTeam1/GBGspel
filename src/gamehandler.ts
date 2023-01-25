@@ -18,6 +18,7 @@ class GameHandler implements IGame {
   private startPageScene: StartPageScene;
   private playingGameScene: PlayingGameScene;
   private gameOverScene: GameOverScene;
+  
 
   constructor() {
     this.highScore = 0;
@@ -29,6 +30,9 @@ class GameHandler implements IGame {
     this.playingGameScene = new PlayingGameScene();
     this.gameOverScene = new GameOverScene(this);
     this.collectedFish = this.playingGameScene.fishAmount;
+
+    //this.playing = sounds.hast.isPlaying();
+    
     
   }
 
@@ -47,31 +51,35 @@ class GameHandler implements IGame {
     switch(this.activeScene) {
       case "start":
         this.startPageScene.playAgain()
+        this.startPageScene.update()
         break;
       case "play":
+        //sounds.hast.play();
         this.playingGameScene.update()
         this.trackTime();
+        //this.playBackgroundMusic();
         break;
-      case "over":
-        this.gameOverScene.startMenu();
-        this.gameOverScene.playAgain();
-        this.gameOverScene.update();
-        this.stopTimeTracking();
-        this.collectedFish = this.playingGameScene.fishAmount;
-        //console.log('test 2 =' + this.collectedFish);
+        case "over":
+          this.gameOverScene.startMenu();
+          this.gameOverScene.playAgain();
+          this.gameOverScene.update();
+          this.stopTimeTracking();
+          this.collectedFish = this.playingGameScene.fishAmount;
+          //console.log('test 2 =' + this.collectedFish);
         break;
-      default:  
+        default:  
+      }
     }
-  }
-
-  /** Ritar ut baserat på klassens attribut */
-  public draw() {
-    switch(this.activeScene) {
-      case "start":
-        this.startPageScene.draw()
-        break;
-      case "play":
-        this.playingGameScene.draw()
+    
+    /** Ritar ut baserat på klassens attribut */
+    public draw() {
+      switch(this.activeScene) {
+        case "start":
+          this.startPageScene.draw()
+          break;
+          case "play":
+            this.playingGameScene.draw()
+            //this.playBackgroundMusic(sounds.hast);
         break;
       case "over":
         this.gameOverScene.draw();
@@ -98,5 +106,15 @@ class GameHandler implements IGame {
     
   }
 
+  // public playBackgroundMusic() {
+  //   if (this.playing === false) {
+  //     sounds.hast.play();
+  //   }
+  // }
+
+  
+
 }
+
+
 

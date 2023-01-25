@@ -10,6 +10,8 @@ class GameOverScene {
    */
   private finalScore: number;
 
+  private musicTimeout: number;
+
   // private collectedFish: number;
   // private elapsedTime;
 
@@ -23,6 +25,7 @@ class GameOverScene {
 
     //  this.collectedFish = game;
     //  this.elapsedTime = game;
+    this.musicTimeout = 1200000;
 
     this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2), new p5.Vector(200, 40));
     this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 + 100), createVector(200, 40));
@@ -34,6 +37,7 @@ class GameOverScene {
   public playAgain() {
     const wasPressed = this.playAgainButton.update();
     if (wasPressed) {
+      sounds.another.stop();
       this.game.playAgain();
     }
   }
@@ -45,6 +49,7 @@ class GameOverScene {
   public startMenu() {
     const wasPressed = this.goToStartButton.update();
     if (wasPressed) {
+      sounds.another.stop();
       this.game.goToStart();
     }
   }
@@ -61,11 +66,13 @@ class GameOverScene {
 
  
   public update() {
+    this.musicTimeout += deltaTime;
 
     // const wasPressed = this.playAgainButton.update();
     // if (wasPressed) {
     //   this.game.playAgain();
     // }
+    this.playBackgroundMusic(sounds.another);
 
     this.calculateScore();
 
@@ -95,6 +102,14 @@ class GameOverScene {
     text("Final Score: " + this.finalScore.valueOf(), width / 2, height / 2 - 60);
     text("Fish: " + this.game.collectedFish.valueOf(), width / 2, height / 2 -140);
     pop()
+  }
+
+  public playBackgroundMusic(sound: p5.SoundFile) {
+    if (this.musicTimeout > 1200000) {
+      sound.play();
+      sound.loop();
+      this.musicTimeout = 0;
+    }
   }
 }
 
