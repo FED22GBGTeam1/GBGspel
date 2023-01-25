@@ -5,7 +5,7 @@ class StartPageScene {
 
   constructor(game: IGame) {
     this.game = game;
-    this.startButton = new Button("Start Game!", createVector(width/2-100, height/2-50), createVector(200,100));
+    this.startButton = new image((images.startButton), createVector(width/2-100, height/2-50), createVector(200,100));
   }
 
   public playAgain() {
