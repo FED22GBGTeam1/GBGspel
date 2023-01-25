@@ -98,7 +98,7 @@ class PlayingGameScene {
     this.detectCollision();
     this.collectedItem();
     
-    this.acceleration += 0.0001;
+    this.acceleration += 0.001;
     
     this.collectedPowerup();
     this.amIPowerful();
