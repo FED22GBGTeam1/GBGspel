@@ -15,6 +15,7 @@ class PlayingGameScene {
   private gameObjects: Gameobject[];
   private backgroundObjects: Gameobject[];
   private character: Character;
+  private buildings: Building;
 
   private enemies: Enemy[];
 
@@ -57,6 +58,9 @@ class PlayingGameScene {
     this.gameObjects = [];
     this.backgroundObjects = [];
     this.enemies = [];
+    this.buildings =  new Building(createVector(width, height-100*(678/146)), createVector(100, 100*(678/146)), 'assets/building.png', -1);
+
+    
   
     this.fishes = [];
     this.fishAmount = 0;
@@ -90,7 +94,7 @@ class PlayingGameScene {
     this.playBackgroundMusic(sounds.hast);
     this.character.update();
     this.createClouds();
-    this.createBuildings();
+    // this.createBuildings();
     this.createEnemys();
     this.createFish();
     this.createPowerUp();
@@ -129,23 +133,19 @@ class PlayingGameScene {
       enemy.update(this.startingSpeed);
     }
 
+    this.buildings.update(this.startingSpeed + this.acceleration);
+    
+
   }
 
   /**
    * Creates buildings and pushes them into an array.
    */
-  private createBuildings() {
-    if (random(2) < 0.015) {
-      this.gameObjects.push(
-        new Building(
-          createVector(windowWidth, windowHeight - random(50, 700)),
-          createVector(random(150, 350), 700),
-          "assets/building.png",
-          0
-        )
-      );
-    }
-  }
+  // private createBuildings() {
+
+  //   // new Building(createVector(width+width, height-100*(678/146)), createVector(100, 100*(678/146)), 'assets/building.png', 0));
+    
+  // }
 
   /**
    * Create clouds and push them into an array.
@@ -191,7 +191,7 @@ class PlayingGameScene {
   private createEnemys() {
     if (random(2) < 0.015) {
       this.enemies.push(new Enemy(
-        new p5.Vector(width, random(height/3)),
+        new p5.Vector(width, random(height)),
         new p5.Vector(100, 100),
         "assets/seagull.png",
         random(6),
@@ -207,8 +207,8 @@ class PlayingGameScene {
   private createFish() {
     if (random(2) < 0.012) {
       this.fishes.push(new Item(
-        new p5.Vector(width, random(height / 3)),
-        new p5.Vector(random(50, 150), random(50, 150)),
+        new p5.Vector(width, random(height)),
+        new p5.Vector(150*(449/384), 150),
         "assets/fisk.jpg",
         random(3),
       ))
@@ -220,8 +220,8 @@ class PlayingGameScene {
  private createPowerUp() {
    if (random(2) < 0.012) {
      this.powerUps.push(new Powerup(
-       new p5.Vector(width, random(height / 3)),
-       new p5.Vector(random(50, 150), random(50, 150)),
+       new p5.Vector(width, random(height)),
+       new p5.Vector(150*(612/408), 150),
        "assets/boat.png",
        random(3),
        5000,
@@ -257,6 +257,8 @@ class PlayingGameScene {
       powerup.draw();
     }
 
+    this.buildings.draw();
+
   }
 
   /**
@@ -264,6 +266,18 @@ class PlayingGameScene {
    */
   private detectCollision() {
     //upptäck kollision mellan spelare och byggnader/fiender
+
+    if (
+      this.character.position.x + this.character.size.x >
+      this.buildings.position.x &&
+      this.character.position.x < this.buildings.position.x + this.buildings.size.x &&
+      this.character.position.y + this.character.size.y >
+      this.buildings.position.y &&
+      this.character.position.y < this.buildings.position.y + this.buildings.size.y
+    ) {if (this.character.poweredUp === false) {
+        this.character.isAlive = false;
+      }
+    }
 
     for (const gameObject of this.gameObjects) {
       if (
