@@ -29,6 +29,7 @@ class PlayingGameScene {
   private time: number;
 
   //   private timeElapsed: number;
+  public timeElapsed: number
 
   constructor() {
     this.startingSpeed = 5;
@@ -64,7 +65,8 @@ class PlayingGameScene {
   //     this.currentSpeed = currentSpeed;
 
   //     this.gameObjects = [];
-  //     this.timeElapsed = 0;
+  //     this.backgroundObjects = [];
+ 
 
   public update() {
     this.time -= deltaTime;
@@ -356,5 +358,9 @@ class PlayingGameScene {
     if (this.time < 0) {
       this.poweredUp = false;
     }
+    if (this.character.isAlive === true) {
+      gameHandler.activeScene = "play";
+    }
   }
 }
+
