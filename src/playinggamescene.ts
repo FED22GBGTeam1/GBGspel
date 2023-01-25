@@ -70,7 +70,7 @@ class PlayingGameScene {
 
     this.time = 0;
 
-    this.musicTimeout = 120000;
+    this.musicTimeout = 1200000;
   }
   
   //     currentSpeed: currentSpeed
@@ -302,6 +302,7 @@ class PlayingGameScene {
         
       } 
       setTimeout(() => {
+        sounds.hast.stop();
         gameHandler.activeScene = "over";
       }, 450);
     }
@@ -380,7 +381,7 @@ class PlayingGameScene {
   }
 
   public playBackgroundMusic(sound: p5.SoundFile) {
-    if (this.musicTimeout > 120000) {
+    if (this.musicTimeout > 1200000) {
       sound.play();
       sound.loop();
       this.musicTimeout = 0;

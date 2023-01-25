@@ -5,6 +5,7 @@ interface Sounds {
   weee: p5.SoundFile;
   wooo: p5.SoundFile;
   hast: p5.SoundFile;
+  another: p5.SoundFile;
 }
 let sounds: Sounds;
 
@@ -48,7 +49,8 @@ function preload() {
   sounds = {
     weee: loadSound('assets/weee.mp3'),
     wooo: loadSound('assets/wooo.mp3'),
-    hast: loadSound('assets/Hast.mp3')
+    hast: loadSound('assets/Hast.mp3'),
+    another: loadSound('assets/Another.mp3'),
   };
   weee = loadSound('assets/weee.mp3');
   wooo = loadSound('assets/wooo.mp3');
@@ -86,7 +88,8 @@ function setup() {
   //sounds.hast.play();
 
 
-  sounds.hast.setVolume(0.08);
+  sounds.hast.setVolume(0.06);
+  sounds.another.setVolume(0.06);
   gameHandler = new GameHandler();
   
 }
