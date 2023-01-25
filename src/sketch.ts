@@ -4,6 +4,7 @@ let gameHandler: GameHandler;
 interface Sounds {
   weee: p5.SoundFile;
   wooo: p5.SoundFile;
+  hast: p5.SoundFile;
 }
 let sounds: Sounds;
 
@@ -26,7 +27,7 @@ interface Images {
   redExplosion:p5.Image;
   enemy: p5.Image;
   animation:p5.Image;
-  shootGreen: p5.Image;
+  shootGreen: p5.Image;  
 
 }
 let images: Images;
@@ -47,6 +48,7 @@ function preload() {
   sounds = {
     weee: loadSound('assets/weee.mp3'),
     wooo: loadSound('assets/wooo.mp3'),
+    hast: loadSound('assets/Hast.mp3')
   };
   weee = loadSound('assets/weee.mp3');
   wooo = loadSound('assets/wooo.mp3');
@@ -81,7 +83,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
   // configure default volume
-  
+  //sounds.hast.play();
+
+
+  sounds.hast.setVolume(0.08);
   gameHandler = new GameHandler();
   
 }

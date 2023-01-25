@@ -18,6 +18,8 @@ class PlayingGameScene {
 
   private enemies: Enemy[];
 
+  private musicTimeout: number;
+
  
  
 
@@ -35,6 +37,7 @@ class PlayingGameScene {
   private powerUps: Powerup[];
 
   private time: number;
+  
 
   //   private timeElapsed: number;
   //public timeElapsed: number
@@ -66,6 +69,8 @@ class PlayingGameScene {
     this.powerUps = [];
 
     this.time = 0;
+
+    this.musicTimeout = 120000;
   }
   
   //     currentSpeed: currentSpeed
@@ -77,10 +82,12 @@ class PlayingGameScene {
   
   public update() {
     this.time -= deltaTime;
+    this.musicTimeout += deltaTime;
     
 
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
+    this.playBackgroundMusic(sounds.hast);
     this.character.update();
     this.createClouds();
     this.createBuildings();
@@ -227,6 +234,7 @@ class PlayingGameScene {
    */
   public draw() {
     background(50, 145, 300);
+    //sounds.hast.play();
     this.drawEntities();
     this.character.draw();
     
@@ -368,6 +376,14 @@ class PlayingGameScene {
       if (this.character.isAlive == true) {
         this.character.image = images.katt;
       }        
+    }
+  }
+
+  public playBackgroundMusic(sound: p5.SoundFile) {
+    if (this.musicTimeout > 120000) {
+      sound.play();
+      sound.loop();
+      this.musicTimeout = 0;
     }
   }
 
