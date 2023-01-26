@@ -22,50 +22,18 @@ class GameOverScene {
     this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 + 100), createVector(200, 40));
   }
 
-   /**
-   * method to update handle the playAgain button
-   */
-  public replay() {
-    const wasPressed = this.playAgainButton.update();
-    if (wasPressed) {
-      this.game.playAgain();
-    }
-  }
-
-
-/**
- * Method to handle the start menu button
- */
-  public startMenu() {
-    const wasPressed = this.goToStartButton.update();
-    if (wasPressed) {
-      this.game.goToStart();
-    }
-  }
-
-  /**
-   * Takes the fish * 200 + distance travelled.
-   * @returns number
-   */
-  public calculateScore() {
-    const fishScore = this.game.collectedFish.valueOf() * 200;
-    this.finalScore = fishScore + this.game.elapsedTime.valueOf();
-    return this.finalScore;
-  }
-
- 
   public update() {
   
-    //this.playMusic(sounds.another);
-
-    this.calculateScore();
-
+    this.loadStartMenu();
+    this.replayGame();
+    this.calculateScore();  
+  
     // console.log("test gameover = " + this.game.collectedFish.valueOf())
     // console.log(this.game.elapsedTime.valueOf());
     // console.log(this.finalScore);
-
+  
   }
-
+  
   /**
    * Method to draw the gameOverScene
    */
@@ -88,21 +56,34 @@ class GameOverScene {
     pop()
   }
 
-  public playMusic(sound: p5.SoundFile) {
-    if (this.game.musicIsPlaying === false) {
-      sound.play();
-      this.game.musicIsPlaying = true;
+   /**
+   * method to update handle the playAgain button
+   */
+  public replayGame() {
+    const wasPressed = this.playAgainButton.update();
+    if (wasPressed) {
+      this.game.playAgain();
     }
   }
+
+/**
+ * Method to handle the start menu button
+ */
+  public loadStartMenu() {
+    const wasPressed = this.goToStartButton.update();
+    if (wasPressed) {
+      this.game.goToStart();
+    }
+  }
+
+  /**
+   * Takes the fish * 200 + distance travelled.
+   * @returns number
+   */
+  public calculateScore() {
+    const fishScore = this.game.collectedFish.valueOf() * 200;
+    this.finalScore = fishScore + this.game.elapsedTime.valueOf();
+    return this.finalScore;
+  } 
+
 }
-
-
-
-
-
-
-
-
-
-
-
