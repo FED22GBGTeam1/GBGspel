@@ -29,7 +29,7 @@ interface Images {
   enemy: p5.Image;
   animation:p5.Image;
   shootGreen: p5.Image;
-  startGameImg: p5.Image;  
+    
 
 }
 let images: Images;
@@ -61,7 +61,7 @@ function preload() {
   images = {
     boat: loadImage('assets/boat.png'),
     buildings: loadImage('assets/building.png'),
-    controls: loadImage('assets/nyacontrols.png'),
+    controls: loadImage('assets/newstartpage.png'),
     fisk: loadImage('assets/fisk.jpg'),
     cloud1: loadImage('assets/cloud1.png'),
     cloud2: loadImage('assets/cloud2.png'),
@@ -74,7 +74,7 @@ function preload() {
     redExplosion: loadImage('assets/exp-red.png'),
     enemy: loadImage('assets/seagull.png'),
     shootGreen: loadImage('assets/cat-shoot-green.png'),
-    startGameImg: loadImage('assets/newstartbutton.png'),
+    
     };
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
 }
