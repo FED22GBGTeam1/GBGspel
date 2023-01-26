@@ -63,7 +63,7 @@ function preload() {
     boat: loadImage('assets/boat.png'),
     buildings: loadImage('assets/building.png'),
     controls: loadImage('assets/newPicturee.png'),
-    fisk: loadImage('assets/fisk.jpg'),
+    fisk: loadImage('assets/fisk.png'),
     cloud1: loadImage('assets/cloud1.png'),
     cloud2: loadImage('assets/cloud2.png'),
     cloud3: loadImage('assets/cloud3.png'),
