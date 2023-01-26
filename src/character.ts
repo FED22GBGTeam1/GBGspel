@@ -53,8 +53,6 @@ class Character extends animatedObject {
     this.moveCharacter();
     this.swapCharacterImage();
     this.shoot();
-
-
 }
 public shoot() {
   if (keyIsDown(32) && this.shootTimeout < 0 && this.isShooting === false) {
@@ -62,7 +60,6 @@ public shoot() {
       //this.shootTimeout = 1000;
     }
   }
-
   private moveCharacter() {
     if (keyIsDown(UP_ARROW) && this.position.y > 0 && this.isAlive === true) {
       this.position.y -= this.velocity;

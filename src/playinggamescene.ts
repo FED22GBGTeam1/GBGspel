@@ -17,11 +17,8 @@ class PlayingGameScene {
   private backgroundObjects: Gameobject[];
   private character: Character;
   private buildings: Building;
-
   private enemies: Enemy[];
   private bullets: Bullet[];
-
-
   /**
   * Checks the time when the game starts.
   */
@@ -30,7 +27,6 @@ class PlayingGameScene {
    * How long the game went on for.
    */
   public elapsedTime: number;
-
   /**
    * Array of fish.
    */
@@ -43,7 +39,6 @@ class PlayingGameScene {
    * Array of power ups.
    */
   private powerUps: Powerup[];
-
   private time: number;
 
 
@@ -80,13 +75,10 @@ class PlayingGameScene {
     this.startTime = Date.now();
     this.elapsedTime = 0;
   }
-
   //     currentSpeed: currentSpeed
   //     this.currentSpeed = currentSpeed;
-
   //     this.gameObjects = [];
   //     this.backgroundObjects = [];
-
 
   public update() {
     this.time -= deltaTime;
@@ -177,11 +169,8 @@ class PlayingGameScene {
    * Creates buildings and pushes them into an array.
    */
   // private createBuildings() {
-
   //   // new Building(createVector(width+width, height-100*(678/146)), createVector(100, 100*(678/146)), 'assets/building.png', 0));
-
   // }
-
   /**
    * Create clouds and push them into an array.
    */
@@ -243,8 +232,8 @@ class PlayingGameScene {
     if (random(2) < 0.012) {
       this.fishes.push(new Item(
         new p5.Vector(width, random(height)),
-        new p5.Vector(150 * (449 / 384), 150),
-        "assets/fisk.jpg",
+        new p5.Vector(65, 45),
+        "assets/fisk.png",
         random(3),
       ))
     }
@@ -256,8 +245,8 @@ class PlayingGameScene {
     if (random(2) < 0.001) {
       this.powerUps.push(new Powerup(
         new p5.Vector(width, random(height)),
-        new p5.Vector(150 * (612 / 408), 150),
-        "assets/boat.png",
+        new p5.Vector(65, 60),
+        "assets/donut.png",
         random(3),
         5000,
       ))

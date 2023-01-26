@@ -58,9 +58,8 @@ function preload() {
   };
   weee = loadSound('assets/weee.mp3');
   wooo = loadSound('assets/wooo.mp3');
-  
   images = {
-    boat: loadImage('assets/boat.png'),
+    boat: loadImage('assets/donut.png'),
     buildings: loadImage('assets/building.png'),
     controls: loadImage('assets/newPicturee.png'),
     fisk: loadImage('assets/fisk.png'),
