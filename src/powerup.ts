@@ -8,4 +8,12 @@ class Powerup extends Item {
         super (position, size, imagePath, velocity)
         this.duration = duration;
     }
+    public update(startingSpeed: number) {
+        this.position.sub(startingSpeed, 0);
+    }
+
+    public draw() {
+        //ritar ut bilden vid objectets position och med samma storlek som objektet(?)
+        image(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
+    }
 }

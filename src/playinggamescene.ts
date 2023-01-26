@@ -40,7 +40,8 @@ class PlayingGameScene {
    */
   private powerUps: Powerup[];
   private time: number;
-
+  public bg1: CityBackground
+  public bg2: CityBackground
 
   constructor(game: IGame) {
     this.game = game
@@ -60,9 +61,6 @@ class PlayingGameScene {
     this.backgroundObjects = [];
     this.enemies = [];
     this.buildings = new Building(createVector(width, height - 140 * (678 / 146)), createVector(140, 140 * (678 / 146)), 'assets/building.png', 0);
-
-
-
     this.fishes = [];
     this.fishAmount = 0;
 
@@ -74,6 +72,9 @@ class PlayingGameScene {
 
     this.startTime = Date.now();
     this.elapsedTime = 0;
+
+    this.bg1 = new CityBackground(createVector(0, 0), createVector(width, height), "assets/city.png", 1+this.acceleration);
+    this.bg2 = new CityBackground(createVector(width, 0), createVector(width, height), "assets/city.png",  1+this.acceleration);
   }
   //     currentSpeed: currentSpeed
   //     this.currentSpeed = currentSpeed;
@@ -95,9 +96,7 @@ class PlayingGameScene {
     this.updateEntities();
     this.detectCollision();
     this.collectedItem();
-
     this.acceleration += 0.001;
-
     this.collectedPowerup();
     this.amIPowerful();
     //this.updateCharacterImage();  
@@ -105,12 +104,17 @@ class PlayingGameScene {
     this.enemyCrash();
     this.enemyShot();
     this.enemyCrash();
+    this.enemyExplode();
     this.amIAlive();
+    this.bg1.update();
+    this.bg2.update();
 
   }
 
   public draw() {
     background(50, 145, 300);
+    this.bg1.draw();
+    this.bg2.draw();
     this.drawEntities();
     this.character.draw();
 
@@ -140,7 +144,7 @@ class PlayingGameScene {
     }
 
     for (const powerup of this.powerUps) {
-      powerup.update(this.startingSpeed);
+      powerup.update(this.startingSpeed + this.acceleration);
     }
     for (const enemy of this.enemies) {
       enemy.update(this.startingSpeed);
@@ -161,7 +165,7 @@ class PlayingGameScene {
       new p5.Vector(10, 10),
       "assets/bullet.png",
       30))
-      this.character.shootTimeout = 1000;
+      this.character.shootTimeout = 500;
       this.character.isShooting = false;
     }
 }
@@ -218,7 +222,7 @@ class PlayingGameScene {
         new p5.Vector(width, random(height)),
         new p5.Vector(100, 100),
         "assets/seagull.png",
-        random(6),
+        this.startingSpeed+random(8),
         4,
         200
       ))
@@ -247,7 +251,7 @@ class PlayingGameScene {
         new p5.Vector(width, random(height)),
         new p5.Vector(65, 60),
         "assets/donut.png",
-        random(3),
+        this.startingSpeed+this.acceleration,
         5000,
       ))
     }
@@ -295,7 +299,6 @@ class PlayingGameScene {
         this.character.isAlive = false;
       }
     }
-
     for (const gameObject of this.gameObjects) {
       if (
         this.character.position.x + this.character.size.x >
@@ -325,7 +328,6 @@ class PlayingGameScene {
       }
     }
   }
-
   /**
    * Checks for collisions with collectable fish.
   */
@@ -365,9 +367,7 @@ class PlayingGameScene {
       }
     }
   }
-  
   private enemyCrash() {
-    
     for (let i = 0; i < this.enemies.length; i++) {
       if ( 
         this.character.position.x + this.character.size.x > this.enemies[i].position.x &&
@@ -384,20 +384,46 @@ class PlayingGameScene {
       }
     }
   }
-  
+  private enemyExplode() {
+    for (let i = 0; i < this.enemies.length; i++) {
+      if ( 
+        this.character.position.x + this.character.size.x > this.enemies[i].position.x &&
+        this.character.position.x < this.enemies[i].position.x + this.enemies[i].size.x &&
+        this.character.position.y + this.character.size.y > this.enemies[i].position.y &&
+        this.character.position.y < this.enemies[i].position.y + this.enemies[i].size.y
+        && this.character.poweredUp === true
+      ) {
+        this.enemies[i].image = images.redExplosion
+        this.enemies[i].totalFrames = 8
+        this.enemies[i].framesDuration = 90
+        setTimeout(() => {
+          this.enemies.splice(i, 1);
+        }, 450)
+        break;
+      }
+    }
+  }
   public enemyShot() {
     let collisionDistance = 100
     for (let i = 0; i < this.bullets.length; i++) {
       for (let j = 0; j < this.enemies.length; j++) {   
+        if (!this.bullets[i] || !this.enemies[j]) {
+          continue;
+        }
         if (this.bullets[i].position.dist(this.enemies[j].position) < collisionDistance) {
           this.bullets.splice(i, 1);
-          this.enemies.splice(j, 1);
           //if (this.bullets[i].position.x > width || this.bullets[i].position.x < 0) {
-          //  this.bullets.splice(i, 1);
+          // this.bullets.splice(i, 1);
           //}
+          this.enemies[j].image = images.redExplosion
+          this.enemies[j].totalFrames = 8
+          this.enemies[j].framesDuration = 90
+          setTimeout(() => {
+            this.enemies.splice(j, 1);
+          }, 450)
+
         }
       }
-
     }
   }
   /**
@@ -415,6 +441,9 @@ class PlayingGameScene {
   private amIAlive() {
     if (this.character.isAlive === false && this.character.poweredUp === false) {
       this.startingSpeed = 0;
+      this.bg1.velocity = 0;
+      this.bg2.velocity = 0;
+      this.buildings.velocity = 0
       for (const gameobject of this.gameObjects) {
         gameobject.velocity = 0
 
