@@ -117,7 +117,7 @@ class PlayingGameScene {
     //this.updateCharacterImage();  
     this.renderBullets();
     this.enemyCrash();
-    this.enemyAttacked();
+    this.enemyShot();
 
   }
 
@@ -155,20 +155,22 @@ class PlayingGameScene {
       bullet.update(bullet.velocity);
     }
     this.buildings.update(this.startingSpeed + this.acceleration);
+    console.log(this.character.isShooting)
   }
 
   /**
    * creates bullets when the character is shooting
    */
   public renderBullets() {
-    if(this.character.isShooting === true) {
+    if(this.character.isShooting === true && this.character.shootTimeout < 0) {
       this.bullets.push(new Bullet(new p5.Vector(this.character.position.x, this.character.position.y),
       new p5.Vector(10, 10),
       "assets/bullet.png",
       30))
+      //this.character.shootTimeout = 1000;
+      this.character.isShooting = false;
     }
-
-  }
+}
   /**
    * Creates buildings and pushes them into an array.
    */
@@ -413,21 +415,24 @@ class PlayingGameScene {
       }
     }
   }
-  public enemyAttacked() {  
-    for (let i = 0; i < this.enemies.length; i++) {
-      console.log(this.enemies[i].position.x)
-      for (let j = 0; j < this.bullets.length; j++) {
-        if (this.bullets[j].position.x > this.enemies[i].position.x &&
-            this.bullets[j].position.x < this.enemies[i].position.x + this.enemies[i].size.x &&
-            this.bullets[j].position.y > this.enemies[i].position.y &&
-            this.bullets[j].position.y < this.enemies[i].position.y + this.enemies[i].size.y) {
-          this.enemies.splice(i, 1);
-          this.bullets.splice(j, 1);
-        }
-        if (this.bullets[j].position.x > width) {
-          this.bullets.splice(j, 1);
+  
+  public enemyShot() {
+    let collisionDistance = 100
+    for (let i = 0; i < this.bullets.length; i++) {
+      for (let j = 0; j < this.enemies.length; j++) {
+        
+        if (this.bullets[i].position.dist(this.enemies[j].position) < collisionDistance) {
+          this.bullets.splice(i, 1);
+         
+          //i--;
+          this.enemies.splice(j, 1);
+          //j--;
+          //if (this.bullets[i].position.x > width || this.bullets[i].position.x < 0) {
+          //  this.bullets.splice(i, 1);
+          //}
         }
       }
+
     }
   }
   /**

@@ -22,6 +22,8 @@ class Character extends animatedObject {
    */
   public poweredUp: Boolean;
   public isShooting: boolean;
+  public isSpaceBarPressed:boolean
+  public shootTimeout: number;
 
   constructor(
     position: p5.Vector,
@@ -39,29 +41,28 @@ class Character extends animatedObject {
     this.isShooting = false;
 
     this.soundTimeout = 2000;
+    this.shootTimeout = 1000;
     //this.speed = 4;
     //this.maxSpeed = 15;
+    this.isSpaceBarPressed = false
   }
 
   public update() {
     this.soundTimeout -= deltaTime;
+    this.shootTimeout -= deltaTime;
     this.moveCharacter();
     this.swapCharacterImage();
     this.shoot();
 
 
 }
-  public shoot() {
-    if (keyIsPressed) {
-      if (key === " " && this.isAlive === true) {
-        this.isShooting = true;
-      } 
-      else {
-        this.isShooting = false   
-      }
+public shoot() {
+  if (keyIsDown(32) && this.shootTimeout < 0 && this.isShooting === false) {
+      this.isShooting = true;
+      //this.shootTimeout = 1000;
+    }
   }
 
-  }
   private moveCharacter() {
     if (keyIsDown(UP_ARROW) && this.position.y > 0 && this.isAlive === true) {
       this.position.y -= this.velocity;
@@ -100,6 +101,7 @@ class Character extends animatedObject {
   public draw() {
     super.draw();
   }
+
 
   /**
    * Checks if 2 seconds have passed since last sound was played,
