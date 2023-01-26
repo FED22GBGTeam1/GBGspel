@@ -19,6 +19,7 @@ class PlayingGameScene {
   private buildings: Building;
 
   private enemies: Enemy[];
+  private bullets: Bullet[];
 
 
   /**
@@ -59,7 +60,7 @@ class PlayingGameScene {
       8,
       80
     );
-
+    this.bullets = []
     this.gameObjects = [];
     this.backgroundObjects = [];
     this.enemies = [];
@@ -90,7 +91,7 @@ class PlayingGameScene {
   public update() {
     this.time -= deltaTime;
     this.trackTime();
-
+    
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
@@ -108,7 +109,9 @@ class PlayingGameScene {
     this.collectedPowerup();
     this.amIPowerful();
     //this.updateCharacterImage();  
-
+    this.renderBullets();
+    this.enemyCrash();
+    this.enemyShot();
     this.enemyCrash();
     this.amIAlive();
 
@@ -149,13 +152,27 @@ class PlayingGameScene {
     }
     for (const enemy of this.enemies) {
       enemy.update(this.startingSpeed);
+      
     }
-
+    for (const bullet of this.bullets) {
+      bullet.update(bullet.velocity);
+    }
     this.buildings.update(this.startingSpeed + this.acceleration);
-
-
   }
 
+  /**
+   * creates bullets when the character is shooting
+   */
+  public renderBullets() {
+    if(this.character.isShooting === true && this.character.shootTimeout < 0) {
+      this.bullets.push(new Bullet(new p5.Vector(this.character.position.x, this.character.position.y),
+      new p5.Vector(10, 10),
+      "assets/bullet.png",
+      30))
+      //this.character.shootTimeout = 1000;
+      this.character.isShooting = false;
+    }
+}
   /**
    * Creates buildings and pushes them into an array.
    */
@@ -267,7 +284,9 @@ class PlayingGameScene {
     for (const powerup of this.powerUps) {
       powerup.draw();
     }
-
+    for (const bullet of this.bullets) {
+      bullet.draw();
+    }
     this.buildings.draw();
 
   }
@@ -276,7 +295,6 @@ class PlayingGameScene {
    * Checks for collisions with deadly objects.
    */
   private detectCollision() {
-
     if (
       this.character.position.x + this.character.size.x >
       this.buildings.position.x &&
@@ -350,20 +368,19 @@ class PlayingGameScene {
         this.character.position.y + this.character.size.y > this.powerUps[i].position.y &&
         this.character.position.y < this.powerUps[i].position.y + this.powerUps[i].size.y
       ) {
-        this.powerUps.splice(i, 1);
+        ;
         this.time = 5000;
+        this.powerUps.splice(i, 1);
         this.character.poweredUp = true;
-        if (this.character.poweredUp = true) {
-          this.character.image = images.kattPower
-        }
         break;
       }
     }
   }
   
   private enemyCrash() {
+    
     for (let i = 0; i < this.enemies.length; i++) {
-      if (
+      if ( 
         this.character.position.x + this.character.size.x > this.enemies[i].position.x &&
         this.character.position.x < this.enemies[i].position.x + this.enemies[i].size.x &&
         this.character.position.y + this.character.size.y > this.enemies[i].position.y &&
@@ -373,14 +390,31 @@ class PlayingGameScene {
         this.enemies[i].image = images.redExplosion
         this.enemies[i].totalFrames = 8
         this.enemies[i].framesDuration = 80
-        //console.log("enemy deleted")
+        //this.enemies.splice(i, 1)
         break;
       }
     }
-
   }
+  
+  public enemyShot() {
+    let collisionDistance = 100
+    for (let i = 0; i < this.bullets.length; i++) {
+      for (let j = 0; j < this.enemies.length; j++) {
+        
+        if (this.bullets[i].position.dist(this.enemies[j].position) < collisionDistance) {
+          this.bullets.splice(i, 1);
+         
+          //i--;
+          this.enemies.splice(j, 1);
+          //j--;
+          //if (this.bullets[i].position.x > width || this.bullets[i].position.x < 0) {
+          //  this.bullets.splice(i, 1);
+          //}
+        }
+      }
 
-
+    }
+  }
   /**
    * Checks if the player have the immortal powerup active or not.
   */

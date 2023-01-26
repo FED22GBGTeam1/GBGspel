@@ -9,7 +9,6 @@ class Character extends animatedObject {
    * Starts at 2000. At 0 sounds can be played.
    */
   private soundTimeout: number;
-
   /**
    * 
    */
@@ -22,6 +21,9 @@ class Character extends animatedObject {
    * Checks if the character got an active powerup or not.
    */
   public poweredUp: Boolean;
+  public isShooting: boolean;
+  public isSpaceBarPressed:boolean
+  public shootTimeout: number;
 
   constructor(
     position: p5.Vector,
@@ -36,15 +38,32 @@ class Character extends animatedObject {
     this.isAlive = true;
 
     this.poweredUp = false;
+    this.isShooting = false;
 
     this.soundTimeout = 2000;
+    this.shootTimeout = 1000;
     //this.speed = 4;
     //this.maxSpeed = 15;
+    this.isSpaceBarPressed = false
   }
 
   public update() {
     this.soundTimeout -= deltaTime;
-    
+    this.shootTimeout -= deltaTime;
+    this.moveCharacter();
+    this.swapCharacterImage();
+    this.shoot();
+
+
+}
+public shoot() {
+  if (keyIsDown(32) && this.shootTimeout < 0 && this.isShooting === false) {
+      this.isShooting = true;
+      //this.shootTimeout = 1000;
+    }
+  }
+
+  private moveCharacter() {
     if (keyIsDown(UP_ARROW) && this.position.y > 0 && this.isAlive === true) {
       this.position.y -= this.velocity;
       //this.playSound(weee);
@@ -61,31 +80,28 @@ class Character extends animatedObject {
       this.position.x -= this.velocity;
       //this.playSound(wooo);
     }
-  }
 
-  public draw() {
-    super.draw();
+  }
+  
+  public swapCharacterImage() {
+    if (this.isAlive === true && this.poweredUp === true && this.isShooting=== false)  {
+      this.image = images.kattPower
+      this.frameDuration = 90
+    }
+    if (this.isAlive === true && this.poweredUp === false && this.isShooting === false)  {
+      this.image = images.katt
+      this.frameDuration = 90
+    }
     if (this.isAlive === false) {
       this.image = images.explosion
       this.frameDuration = 90
     }
-    //Borde nog göra det här till en egen funktion.
-    if (keyIsPressed) {
-      if (key === " " && this.isAlive === true) {
-        this.image = images.shoot
-        this.totalFrames = 4
-        this.frameDuration = 270
+  } 
 
-        setTimeout(() => {
-          this.image = images.katt
-          this.frameDuration = 80
-          this.totalFrames = 8
-        }, 350);
+  public draw() {
+    super.draw();
+  }
 
-       }      
-  
-      }
-    }
 
   /**
    * Checks if 2 seconds have passed since last sound was played,
@@ -98,5 +114,6 @@ class Character extends animatedObject {
       this.soundTimeout = 2000;
     }
   }
+
 
 }

@@ -27,12 +27,3 @@ class Enemy extends animatedObject{
 
 }
 
-
-
-
-
-
-//create the enemy (change to img after)
-//enemy move on the y axis
-//enemy get hit by bullet
-//enemy death count in to scoreboard
