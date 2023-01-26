@@ -11,7 +11,6 @@ class PlayingGameScene {
   private acceleration: number;
 
   private game: IGame
-  //   private currentSpeed: number;
 
   public position: p5.Vector;
   private gameObjects: Gameobject[];
@@ -22,16 +21,15 @@ class PlayingGameScene {
   private enemies: Enemy[];
   private bullets: Bullet[];
 
-  private musicTimeout: number;
 
-   /**
-   * Checks the time when the game starts.
+  /**
+  * Checks the time when the game starts.
+  */
+  private startTime: number;
+  /**
+   * How long the game went on for.
    */
-   private startTime: number;
-   /**
-    * How long the game went on for.
-    */
-   public elapsedTime: number;
+  public elapsedTime: number;
 
   /**
    * Array of fish.
@@ -47,10 +45,7 @@ class PlayingGameScene {
   private powerUps: Powerup[];
 
   private time: number;
-  
 
-  //   private timeElapsed: number;
-  //public timeElapsed: number
 
   constructor(game: IGame) {
     this.game = game
@@ -69,35 +64,34 @@ class PlayingGameScene {
     this.gameObjects = [];
     this.backgroundObjects = [];
     this.enemies = [];
-    this.buildings =  new Building(createVector(width, height-100*(678/146)), createVector(100, 100*(678/146)), 'assets/building.png', -1);
+    this.buildings = new Building(createVector(width, height - 100 * (678 / 146)), createVector(100, 100 * (678 / 146)), 'assets/building.png', -1);
+
+
 
     this.fishes = [];
     this.fishAmount = 0;
 
-    this.acceleration = 0.1; 
+    this.acceleration = 0.1;
 
     this.powerUps = [];
 
     this.time = 0;
 
-    this.musicTimeout = 1200000;
-
     this.startTime = Date.now();
     this.elapsedTime = 0;
   }
-  
+
   //     currentSpeed: currentSpeed
   //     this.currentSpeed = currentSpeed;
-  
+
   //     this.gameObjects = [];
   //     this.backgroundObjects = [];
-  
-  
+
+
   public update() {
     this.time -= deltaTime;
-    this.musicTimeout += deltaTime;
     this.trackTime();
-    this.playBackgroundMusic(sounds.hast);
+    
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
     // this.spawnObjects();
     this.character.update();
@@ -109,15 +103,24 @@ class PlayingGameScene {
     this.updateEntities();
     this.detectCollision();
     this.collectedItem();
-    
-    this.acceleration += 0.0001;
-    
+
+    this.acceleration += 0.001;
+
     this.collectedPowerup();
     this.amIPowerful();
     //this.updateCharacterImage();  
     this.renderBullets();
     this.enemyCrash();
     this.enemyShot();
+    this.enemyCrash();
+    this.amIAlive();
+
+  }
+
+  public draw() {
+    background(50, 145, 300);
+    this.drawEntities();
+    this.character.draw();
 
   }
 
@@ -155,7 +158,6 @@ class PlayingGameScene {
       bullet.update(bullet.velocity);
     }
     this.buildings.update(this.startingSpeed + this.acceleration);
-    console.log(this.character.isShooting)
   }
 
   /**
@@ -177,7 +179,7 @@ class PlayingGameScene {
   // private createBuildings() {
 
   //   // new Building(createVector(width+width, height-100*(678/146)), createVector(100, 100*(678/146)), 'assets/building.png', 0));
-    
+
   // }
 
   /**
@@ -212,8 +214,8 @@ class PlayingGameScene {
           "assets/cloud3.png",
           random(3),
           random(3)
-          )
-          );
+        )
+      );
 
     }
   }
@@ -241,7 +243,7 @@ class PlayingGameScene {
     if (random(2) < 0.012) {
       this.fishes.push(new Item(
         new p5.Vector(width, random(height)),
-        new p5.Vector(150*(449/384), 150),
+        new p5.Vector(150 * (449 / 384), 150),
         "assets/fisk.jpg",
         random(3),
       ))
@@ -250,14 +252,14 @@ class PlayingGameScene {
   /**
    * Creates powerups and pushes them into an array.
   */
- private createPowerUp() {
-   if (random(2) < 0.012) {
-     this.powerUps.push(new Powerup(
-       new p5.Vector(width, random(height)),
-       new p5.Vector(150*(612/408), 150),
-       "assets/boat.png",
-       random(3),
-       5000,
+  private createPowerUp() {
+    if (random(2) < 0.012) {
+      this.powerUps.push(new Powerup(
+        new p5.Vector(width, random(height)),
+        new p5.Vector(150 * (612 / 408), 150),
+        "assets/boat.png",
+        random(3),
+        5000,
       ))
     }
   }
@@ -265,13 +267,6 @@ class PlayingGameScene {
   /**
    * Draws out the gamescene.
    */
-  public draw() {
-    background(50, 145, 300);
-    //sounds.hast.play();
-    this.drawEntities();
-    this.character.draw();
-    
-  }
 
   private drawEntities() {
     for (const gameObject of this.gameObjects) {
@@ -300,7 +295,6 @@ class PlayingGameScene {
    * Checks for collisions with deadly objects.
    */
   private detectCollision() {
-    //upptäck kollision mellan spelare och byggnader/fiender
     if (
       this.character.position.x + this.character.size.x >
       this.buildings.position.x &&
@@ -321,7 +315,8 @@ class PlayingGameScene {
         this.character.position.y + this.character.size.y >
         gameObject.position.y &&
         this.character.position.y < gameObject.position.y + gameObject.size.y
-      ) {if (this.character.poweredUp === false) {
+      ) {
+        if (this.character.poweredUp === false) {
           this.character.isAlive = false;
         }
       }
@@ -334,33 +329,17 @@ class PlayingGameScene {
         this.character.position.y + this.character.size.y >
         enemy.position.y &&
         this.character.position.y < enemy.position.y + enemy.size.y
-      ) {if (this.character.poweredUp === false) {
+      ) {
+        if (this.character.poweredUp === false) {
           this.character.isAlive = false;
         }
       }
     }
-    if (this.character.isAlive === false && this.character.poweredUp === false) {
-      this.startingSpeed = 0;
-      for (const gameobject of this.gameObjects) {
-        gameobject.velocity = 0
-        
-      } 
-      for (const enemy of this.enemies) {
-        enemy.velocity = 0
-        
-      } 
-      setTimeout(() => {
-        sounds.hast.stop();
-        //Behöver skapa en ny instans av gameover vid varje gameover.
-        //this.playBackgroundMusic(sounds.another);
-        this.game.goToGameOver();
-        //gameHandler.activeScene = "over";
-      }, 450);
-    }
   }
+
   /**
    * Checks for collisions with collectable fish.
-   */
+  */
   private collectedItem() {
     for (let i = 0; i < this.fishes.length; i++) {
       if (
@@ -379,7 +358,7 @@ class PlayingGameScene {
 
   /**
    * Checks for collision with collectable powerups.
-   */
+  */
   private collectedPowerup() {
 
     for (let i = 0; i < this.powerUps.length; i++) {
@@ -397,6 +376,7 @@ class PlayingGameScene {
       }
     }
   }
+  
   private enemyCrash() {
     
     for (let i = 0; i < this.enemies.length; i++) {
@@ -437,20 +417,34 @@ class PlayingGameScene {
   }
   /**
    * Checks if the player have the immortal powerup active or not.
-   */
+  */
   private amIPowerful() {
     if (this.time < 0) {
       this.character.poweredUp = false;
+      if (this.character.isAlive == true) {
+        this.character.image = images.katt;
+      }
     }
   }
 
-  public playBackgroundMusic(sound: p5.SoundFile) {
-    if (this.musicTimeout > 1200000) {
-      sound.play();
-      sound.loop();
-      this.musicTimeout = 0;
+  private amIAlive() {
+    if (this.character.isAlive === false && this.character.poweredUp === false) {
+      this.startingSpeed = 0;
+      for (const gameobject of this.gameObjects) {
+        gameobject.velocity = 0
+
+      }
+      for (const enemy of this.enemies) {
+        enemy.velocity = 0
+
+      }
+      setTimeout(() => {
+        this.game.goToGameOver();
+        //gameHandler.activeScene = "over";
+      }, 450);
     }
   }
+
 
 }
 

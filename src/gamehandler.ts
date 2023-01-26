@@ -14,58 +14,37 @@ class GameHandler implements IGame {
   private startPageScene: StartPageScene;
   private playingGameScene: PlayingGameScene;
   private gameOverScene: GameOverScene;
+
+  public musicIsPlaying: boolean;
   
 
   constructor() {
     this.highScore = 0;
     this.activeScene = "start";
-    //this.music = "music";
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene(this);
     this.gameOverScene = new GameOverScene(this);
     this.collectedFish = this.playingGameScene.fishAmount;
     this.elapsedTime = this.playingGameScene.elapsedTime;
 
-    //this.playing = sounds.hast.isPlaying();
+    this.musicIsPlaying = false;    
     
-    
-  }
-
-  public playAgain() {
-    this.playingGameScene = new PlayingGameScene(this);
-    this.activeScene = "play";
-  }
-
-  public goToStart() {
-    this.startPageScene = new StartPageScene(this);
-    this.activeScene = "start";
-  }
-
-  public goToGameOver() {
-    this.gameOverScene = new GameOverScene(this);
-    this.activeScene = "over";
   }
 
   /** Gör förändringar på klassens attribut */
   public update() {
     switch(this.activeScene) {
       case "start":
-        this.startPageScene.playAgain()
+        //this.startPageScene.playAgain()
         this.startPageScene.update()
         break;
       case "play":
-        //sounds.hast.play();
         this.playingGameScene.update()
-        //this.playBackgroundMusic();
         break;
         case "over":
-          this.gameOverScene.startMenu();
-          this.gameOverScene.playAgain();
           this.gameOverScene.update();
-          this.stopTimeTracking();
           this.elapsedTime = this.playingGameScene.elapsedTime;
           this.collectedFish = this.playingGameScene.fishAmount;
-          //console.log('test 2 =' + this.collectedFish);
         break;
         default:  
       }
@@ -79,32 +58,44 @@ class GameHandler implements IGame {
           break;
           case "play":
             this.playingGameScene.draw()
-            //this.playBackgroundMusic(sounds.hast);
         break;
       case "over":
         this.gameOverScene.draw();
         break;
       default:  
     }
+  }  
+
+  public playAgain() {
+    sounds.another.stop();
+    this.musicIsPlaying = false;
+    this.playingGameScene = new PlayingGameScene(this);
+    this.activeScene = "play";
+    this.playMusic(sounds.hast);
   }
 
-  public toggleMusic() {
-
-  }
-  
-
-  //Ska användas för att stanna timern när man får gameover.
-  private stopTimeTracking() {
-    
+  public goToStart() {
+    sounds.another.stop();
+    this.musicIsPlaying = false;
+    this.startPageScene = new StartPageScene(this);
+    this.activeScene = "start";
+    this.playMusic(sounds.another);
   }
 
-  // public playBackgroundMusic() {
-  //   if (this.playing === false) {
-  //     sounds.hast.play();
-  //   }
-  // }
+  public goToGameOver() {
+    sounds.hast.stop();
+    this.musicIsPlaying = false;
+    this.gameOverScene = new GameOverScene(this);
+    this.activeScene = "over";
+    //this.playMusic(sounds.another);
+  }
 
-  
+  public playMusic(sound: p5.SoundFile) {
+    if (this.musicIsPlaying === false) {
+      sound.play();
+      this.musicIsPlaying = true;
+    }
+  }  
 
 }
 
