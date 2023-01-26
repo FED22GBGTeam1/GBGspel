@@ -24,7 +24,7 @@ class Building extends Gameobject {
     if(this.position.x + this.size.x < 0) {
       
       this.position.x = width;
-      this.size.x = random(90,160);
+      this.size.x = random(130,160);
       this.size.y = random(height/4, height*3/4);
       this.position.y = height - this.size.y;
     }

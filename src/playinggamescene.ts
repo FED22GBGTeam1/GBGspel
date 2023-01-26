@@ -64,7 +64,7 @@ class PlayingGameScene {
     this.gameObjects = [];
     this.backgroundObjects = [];
     this.enemies = [];
-    this.buildings = new Building(createVector(width, height - 100 * (678 / 146)), createVector(100, 100 * (678 / 146)), 'assets/building.png', -1);
+    this.buildings = new Building(createVector(width, height - 140 * (678 / 146)), createVector(140, 140 * (678 / 146)), 'assets/building.png', 0);
 
 
 
