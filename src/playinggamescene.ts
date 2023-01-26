@@ -253,7 +253,7 @@ class PlayingGameScene {
    * Creates powerups and pushes them into an array.
   */
   private createPowerUp() {
-    if (random(2) < 0.012) {
+    if (random(2) < 0.001) {
       this.powerUps.push(new Powerup(
         new p5.Vector(width, random(height)),
         new p5.Vector(150 * (612 / 408), 150),
