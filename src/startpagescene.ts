@@ -16,6 +16,10 @@ class StartPageScene {
 
   }
 
+  public update() {
+    this.playAgain();
+  }
+
 
   public draw() {
     background(50, 145, 300);

@@ -31,6 +31,41 @@ class GameHandler implements IGame {
     
   }
 
+  /** Gör förändringar på klassens attribut */
+  public update() {
+    switch(this.activeScene) {
+      case "start":
+        //this.startPageScene.playAgain()
+        this.startPageScene.update()
+        break;
+      case "play":
+        this.playingGameScene.update()
+        break;
+        case "over":
+          this.gameOverScene.update();
+          this.elapsedTime = this.playingGameScene.elapsedTime;
+          this.collectedFish = this.playingGameScene.fishAmount;
+        break;
+        default:  
+      }
+    }
+    
+    /** Ritar ut baserat på klassens attribut */
+    public draw() {
+      switch(this.activeScene) {
+        case "start":
+          this.startPageScene.draw()
+          break;
+          case "play":
+            this.playingGameScene.draw()
+        break;
+      case "over":
+        this.gameOverScene.draw();
+        break;
+      default:  
+    }
+  }  
+
   public playAgain() {
     sounds.another.stop();
     this.musicIsPlaying = false;
@@ -55,63 +90,12 @@ class GameHandler implements IGame {
     //this.playMusic(sounds.another);
   }
 
-  /** Gör förändringar på klassens attribut */
-  public update() {
-    switch(this.activeScene) {
-      case "start":
-        this.startPageScene.playAgain()
-        //this.startPageScene.update()
-        break;
-      case "play":
-        this.playingGameScene.update()
-        break;
-        case "over":
-          this.gameOverScene.startMenu();
-          this.gameOverScene.replay();
-          this.gameOverScene.update();
-          this.stopTimeTracking();
-          this.elapsedTime = this.playingGameScene.elapsedTime;
-          this.collectedFish = this.playingGameScene.fishAmount;
-          //console.log('test 2 =' + this.collectedFish);
-        break;
-        default:  
-      }
-    }
-    
-    /** Ritar ut baserat på klassens attribut */
-    public draw() {
-      switch(this.activeScene) {
-        case "start":
-          this.startPageScene.draw()
-          break;
-          case "play":
-            this.playingGameScene.draw()
-        break;
-      case "over":
-        this.gameOverScene.draw();
-        break;
-      default:  
-    }
-  }
-
-  public toggleMusic() {
-
-  }
-  
-
-  //Ska användas för att stanna timern när man får gameover.
-  private stopTimeTracking() {
-    
-  }
-
   public playMusic(sound: p5.SoundFile) {
     if (this.musicIsPlaying === false) {
       sound.play();
       this.musicIsPlaying = true;
     }
-  }
-
-  
+  }  
 
 }
 
