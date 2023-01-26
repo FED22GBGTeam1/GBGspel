@@ -169,7 +169,7 @@ class PlayingGameScene {
       new p5.Vector(10, 10),
       "assets/bullet.png",
       30))
-      //this.character.shootTimeout = 1000;
+      this.character.shootTimeout = 1000;
       this.character.isShooting = false;
     }
 }
@@ -399,14 +399,10 @@ class PlayingGameScene {
   public enemyShot() {
     let collisionDistance = 100
     for (let i = 0; i < this.bullets.length; i++) {
-      for (let j = 0; j < this.enemies.length; j++) {
-        
+      for (let j = 0; j < this.enemies.length; j++) {   
         if (this.bullets[i].position.dist(this.enemies[j].position) < collisionDistance) {
           this.bullets.splice(i, 1);
-         
-          //i--;
           this.enemies.splice(j, 1);
-          //j--;
           //if (this.bullets[i].position.x > width || this.bullets[i].position.x < 0) {
           //  this.bullets.splice(i, 1);
           //}

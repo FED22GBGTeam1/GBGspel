@@ -41,7 +41,7 @@ class Character extends animatedObject {
     this.isShooting = false;
 
     this.soundTimeout = 2000;
-    this.shootTimeout = 1000;
+    this.shootTimeout = 0;
     //this.speed = 4;
     //this.maxSpeed = 15;
     this.isSpaceBarPressed = false
