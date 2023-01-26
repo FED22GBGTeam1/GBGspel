@@ -24,7 +24,7 @@ class StartPageScene {
     //text("Flying Cat Game", width/2, height/2-200);
 
     this.startButton.draw();
-    image(images.controls, width/2-(1508/2.3), height/2-500);
+    image(images.controls, width/2-(1508/2-380), height/2-290);
 
   }
 
