@@ -31,10 +31,11 @@ class Character extends animatedObject {
     imagePath: string,
     velocity: number,
     totalFrames: number,
-    frameDuration: number
+    frameDuration: number,
+    frame:number
   ) {
     super(position, size, imagePath, velocity, totalFrames,
-      frameDuration)
+      frameDuration, frame)
     this.isAlive = true;
 
     this.poweredUp = false;
@@ -91,7 +92,15 @@ public shoot() {
     }
     if (this.isAlive === false) {
       this.image = images.explosion
+      this.totalFrames = 8
       this.frameDuration = 90
+    }
+    if (this.isAlive === true && this.poweredUp === false && this.isShooting=== true)  {
+      this.image = images.shoot
+    }
+    if (this.isAlive === true && this.poweredUp === true && this.isShooting=== true)  {
+      this.image = images.shootGreen
+      this.frameDuration = 300
     }
   } 
 

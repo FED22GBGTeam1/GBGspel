@@ -70,11 +70,11 @@ function preload() {
     katt: loadImage('assets/fly.png'),
     kattPower: loadImage('assets/fly-powerup.png'),
     animation: loadImage('assets/animation.png'),
-    shoot: loadImage('assets/cat-shoot.png'),
+    shoot: loadImage('assets/skjut.png'),
     explosion: loadImage('assets/exp.png'),
     redExplosion: loadImage('assets/exp-red.png'),
     enemy: loadImage('assets/seagull.png'),
-    shootGreen: loadImage('assets/cat-shoot-green.png'),
+    shootGreen: loadImage('assets/skjut-green.png'),
     bullet: loadImage('assets/bullet.png'),
     city:loadImage('assets/city.png')
     };

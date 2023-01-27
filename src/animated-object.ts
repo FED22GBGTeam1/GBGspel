@@ -13,7 +13,8 @@ class animatedObject extends Gameobject {
     imagePath: string,
     velocity: number,
     totalFrames: number,
-    frameDuration: number
+    frameDuration: number,
+    frame:number
   ) {
     super(position, size, imagePath, velocity);
     this.position = position;

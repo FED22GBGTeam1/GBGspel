@@ -54,7 +54,8 @@ class PlayingGameScene {
       "./assets/fly.png",
       10,
       8,
-      80
+      80,
+      0
     );
     this.bullets = []
     this.gameObjects = [];
@@ -166,7 +167,10 @@ class PlayingGameScene {
       "assets/bullet.png",
       30))
       this.character.shootTimeout = 500;
-      this.character.isShooting = false;
+      setTimeout(() => {
+        this.character.isShooting = false;
+      }, 500)
+      
     }
 }
   /**
@@ -222,9 +226,10 @@ class PlayingGameScene {
         new p5.Vector(width, random(height)),
         new p5.Vector(100, 100),
         "assets/seagull.png",
-        this.startingSpeed+random(8),
+        this.startingSpeed+random(-2,3),
         4,
-        200
+        200,
+        0
       ))
     }
   }
@@ -418,6 +423,7 @@ class PlayingGameScene {
           this.enemies[j].image = images.redExplosion
           this.enemies[j].totalFrames = 8
           this.enemies[j].framesDuration = 90
+          this.enemies[j].velocity = 0
           setTimeout(() => {
             this.enemies.splice(j, 1);
           }, 450)
@@ -432,15 +438,13 @@ class PlayingGameScene {
   private amIPowerful() {
     if (this.time < 0) {
       this.character.poweredUp = false;
-      if (this.character.isAlive == true) {
-        this.character.image = images.katt;
-      }
     }
   }
 
   private amIAlive() {
     if (this.character.isAlive === false && this.character.poweredUp === false) {
       this.startingSpeed = 0;
+      this.acceleration = 0;
       this.bg1.velocity = 0;
       this.bg2.velocity = 0;
       this.buildings.velocity = 0

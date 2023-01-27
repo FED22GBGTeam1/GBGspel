@@ -11,9 +11,10 @@ class Enemy extends animatedObject{
         velocity: number,
         totalFrames: number,
         frameDuration: number,
+        frame:number
       ) {
         super(position, size, imagePath, velocity, totalFrames,
-          frameDuration)
+          frameDuration,frame)
           this.yVelocity= (random(-2,2))
           this.amplitude = random(10,20);
     }
