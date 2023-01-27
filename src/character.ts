@@ -24,6 +24,8 @@ class Character extends animatedObject {
   public isShooting: boolean;
   public isSpaceBarPressed:boolean
   public shootTimeout: number;
+  //public characterGravity: number;
+  //public characterVelocity: number;
 
   constructor(
     position: p5.Vector,
@@ -32,7 +34,8 @@ class Character extends animatedObject {
     velocity: number,
     totalFrames: number,
     frameDuration: number,
-    frame:number
+    frame:number,
+    
   ) {
     super(position, size, imagePath, velocity, totalFrames,
       frameDuration, frame)
@@ -46,6 +49,8 @@ class Character extends animatedObject {
     //this.speed = 4;
     //this.maxSpeed = 15;
     this.isSpaceBarPressed = false
+    //this.characterGravity = 0.2;
+    //this.characterVelocity = 0;
   }
 
   public update() {
@@ -54,6 +59,7 @@ class Character extends animatedObject {
     this.moveCharacter();
     this.swapCharacterImage();
     this.shoot();
+  
 }
 public shoot() {
   if (keyIsDown(32) && this.shootTimeout < 0 && this.isShooting === false) {
@@ -78,6 +84,9 @@ public shoot() {
       this.position.x -= this.velocity;
       //this.playSound(wooo);
     }
+
+    //this.characterVelocity += this.characterGravity;
+    //this.position.y += this.characterVelocity;
 
   }
   
