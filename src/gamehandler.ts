@@ -87,7 +87,7 @@ class GameHandler implements IGame {
     this.musicIsPlaying = false;
     this.gameOverScene = new GameOverScene(this);
     this.activeScene = "over";
-    //this.playMusic(sounds.another);
+    this.playMusic(sounds.another);
   }
 
   public playMusic(sound: p5.SoundFile) {

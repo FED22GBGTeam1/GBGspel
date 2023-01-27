@@ -39,9 +39,14 @@ class PlayingGameScene {
    * Array of power ups.
    */
   private powerUps: Powerup[];
+  /**
+   * Tracks the duration for the powerup.
+   */
   private time: number;
   public bg1: CityBackground
   public bg2: CityBackground
+
+  private pressEnterGameOver: Button
 
   constructor(game: IGame) {
     this.game = game
@@ -73,6 +78,8 @@ class PlayingGameScene {
 
     this.startTime = Date.now();
     this.elapsedTime = 0;
+
+    this.pressEnterGameOver = new Button ("Press Enter", new p5.Vector(width / 2, height / 2), new p5.Vector(150, 50));
 
     this.bg1 = new CityBackground(createVector(0, 0), createVector(width, height), "assets/city.png", 1+this.acceleration);
     this.bg2 = new CityBackground(createVector(width, 0), createVector(width, height), "assets/city.png",  1+this.acceleration);
@@ -106,9 +113,9 @@ class PlayingGameScene {
     this.enemyShot();
     this.enemyCrash();
     this.enemyExplode();
-    this.amIAlive();
     this.bg1.update();
     this.bg2.update();
+    this.amIAlive();
 
   }
 
@@ -118,6 +125,11 @@ class PlayingGameScene {
     this.bg2.draw();
     this.drawEntities();
     this.character.draw();
+
+    if(this.character.isAlive === false) {
+      this.pressEnterGameOver.draw();
+    }
+    
 
   }
 
@@ -442,7 +454,7 @@ class PlayingGameScene {
   }
 
   private amIAlive() {
-    if (this.character.isAlive === false && this.character.poweredUp === false) {
+    if (this.character.isAlive === false) {
       this.startingSpeed = 0;
       this.acceleration = 0;
       this.bg1.velocity = 0;
@@ -454,13 +466,21 @@ class PlayingGameScene {
       }
       for (const enemy of this.enemies) {
         enemy.velocity = 0
-
       }
-      setTimeout(() => {
-        this.game.goToGameOver();
-        //gameHandler.activeScene = "over";
-      }, 450);
+      this.gameOverButton();
     }
+  }
+  
+  private gameOverButton() {
+    //Skapa knapp, vid knapptryck kör funktionen nedan.
+    const wasPressed = this.pressEnterGameOver.update();
+    if (wasPressed) {
+      this.game.goToGameOver();
+    }
+      
+    // setTimeout(() => {
+    //   this.gameOverButton();
+    // }, 450);
   }
 
 
