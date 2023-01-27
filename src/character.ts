@@ -24,6 +24,11 @@ class Character extends animatedObject {
   public isShooting: boolean;
   public isSpaceBarPressed:boolean
   public shootTimeout: number;
+  public characterGravity: number;
+  public characterVelocity: number;
+  public maxFallingVelocity: number;
+  
+
 
   constructor(
     position: p5.Vector,
@@ -32,7 +37,8 @@ class Character extends animatedObject {
     velocity: number,
     totalFrames: number,
     frameDuration: number,
-    frame:number
+    frame:number,
+    
   ) {
     super(position, size, imagePath, velocity, totalFrames,
       frameDuration, frame)
@@ -46,6 +52,10 @@ class Character extends animatedObject {
     //this.speed = 4;
     //this.maxSpeed = 15;
     this.isSpaceBarPressed = false
+    this.characterGravity = 0.02;
+    this.characterVelocity = 0;
+    this.maxFallingVelocity = 2;
+
   }
 
   public update() {
@@ -54,6 +64,7 @@ class Character extends animatedObject {
     this.moveCharacter();
     this.swapCharacterImage();
     this.shoot();
+  
 }
 public shoot() {
   if (keyIsDown(32) && this.shootTimeout < 0 && this.isShooting === false) {
@@ -63,23 +74,23 @@ public shoot() {
   }
   private moveCharacter() {
     if (keyIsDown(UP_ARROW) && this.position.y > 0 && this.isAlive === true) {
-      this.position.y -= this.velocity;
-      //this.playSound(weee);
+    this.position.y -= this.velocity;
     }
     if (keyIsDown(DOWN_ARROW) && this.position.y + this.size.y < height && this.isAlive === true) {
-      this.position.y += this.velocity;
-
+    this.position.y += this.velocity;
     }
     if (keyIsDown(RIGHT_ARROW) && this.position.x + this.size.x < width && this.isAlive === true) {
-      this.position.x += this.velocity;
-      //this.playSound(wooo);
+    this.position.x += this.velocity;
     }
     if (keyIsDown(LEFT_ARROW) && this.position.x > 0 && this.isAlive === true) {
-      this.position.x -= this.velocity;
-      //this.playSound(wooo);
+    this.position.x -= this.velocity;
     }
-
-  }
+    if (this.position.y + this.size.y < height) { // remove the check for this.position.y > 0
+    this.characterVelocity += this.characterGravity;
+    this.characterVelocity = constrain(this.characterVelocity, this.maxFallingVelocity, this.maxFallingVelocity);
+    this.position.y += this.characterVelocity;
+    }
+    }
   
   public swapCharacterImage() {
     if (this.isAlive === true && this.poweredUp === true && this.isShooting=== false)  {
