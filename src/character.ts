@@ -100,7 +100,7 @@ public shoot() {
     }
     if (this.isAlive === true && this.poweredUp === true && this.isShooting=== true)  {
       this.image = images.shootGreen
-      this.frameDuration = 300
+      this.frameDuration = 90
     }
   } 
 
