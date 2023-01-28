@@ -54,10 +54,10 @@ class GameHandler implements IGame {
     public draw() {
       switch(this.activeScene) {
         case "start":
-          this.startPageScene.draw()
+          this.startPageScene.draw();
           break;
           case "play":
-            this.playingGameScene.draw()
+            this.playingGameScene.draw();
         break;
       case "over":
         this.gameOverScene.draw();

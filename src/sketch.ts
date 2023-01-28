@@ -31,6 +31,7 @@ interface Images {
   shootGreen: p5.Image; 
   bullet: p5.Image; 
   city:p5.Image;
+  stats: p5.Image
 
 
 }
@@ -76,7 +77,8 @@ function preload() {
     enemy: loadImage('assets/seagull.png'),
     shootGreen: loadImage('assets/skjut-green.png'),
     bullet: loadImage('assets/bullet.png'),
-    city:loadImage('assets/city.png')
+    city:loadImage('assets/city.png'),
+    stats: loadImage('assets/stats.png')
     };
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
 }
