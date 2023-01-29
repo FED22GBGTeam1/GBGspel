@@ -29,7 +29,7 @@ class StartPageScene {
   //You are on a mission to save Gothenburg from the evil seagulls.
   //Fly your boat over the city, avoid crashing into buildings and shoot the seagulls before they kill you.
   //{Donut} = 5 seconds of immortality
-  //{Fish} & {Seagull} = Extra points
+  //{Fish} & {Seagull} = Extra points..
 
 
   public draw() {
