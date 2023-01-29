@@ -36,6 +36,10 @@ class PlayingGameScene {
    */
   public fishAmount: number;
   /**
+   * Amount of fish gathered.
+   */
+  public seagullsKilled: number;
+  /**
    * Array of power ups.
    */
   private powerUps: Powerup[];
@@ -69,6 +73,7 @@ class PlayingGameScene {
     this.buildings = new Building(createVector(width, height - 140 * (678 / 146)), createVector(140, 140 * (678 / 146)), 'assets/building.png', 0);
     this.fishes = [];
     this.fishAmount = 0;
+    this.seagullsKilled = 0;
 
     this.acceleration = 0.1;
 
@@ -112,7 +117,6 @@ class PlayingGameScene {
     this.enemyCrash();
     this.enemyShot();
     this.enemyCrash();
-    this.enemyExplode();
     this.bg1.update();
     this.bg2.update();
     this.amIAlive();
@@ -125,20 +129,46 @@ class PlayingGameScene {
     this.bg2.draw();
     this.drawEntities();
     this.character.draw();
-
+    this.showCurrentStats()
     if(this.character.isAlive === false) {
       this.pressEnterGameOver.draw();
     }
-    
-
   }
+  showCurrentStats() {
+      push();
+      image(images.stats, (width/2) - (750/2), 0, 750, 51)
+      pop();
+
+      push();
+      textAlign(LEFT);
+      textSize(18);
+      fill(255)
+      text(this.elapsedTime, (width/2) - (750/2) + 80, 32);
+      pop()
+
+      push();
+      textAlign(LEFT);
+      textSize(18);
+      fill(255)
+      text(this.seagullsKilled, (width/2) - (750/2) + 540, 32);
+      pop()
+
+      push();
+      textAlign(LEFT);
+      textSize(18);
+      fill(255)
+      text(this.fishAmount, (width/2) - (750/2) + 680, 32);
+      pop()
+}
+
 
   /**
    * Calculates how long the game went on for.
    */
   private trackTime() {
-    this.elapsedTime = Date.now() - this.startTime;
-    //console.log(this.elapsedTime);
+    if (this.character.isAlive) {
+      this.elapsedTime = Date.now() - this.startTime;
+    }
 
   }
 
@@ -181,16 +211,10 @@ class PlayingGameScene {
       this.character.shootTimeout = 500;
       setTimeout(() => {
         this.character.isShooting = false;
-      }, 500)
-      
+      }, 500)     
     }
 }
-  /**
-   * Creates buildings and pushes them into an array.
-   */
-  // private createBuildings() {
-  //   // new Building(createVector(width+width, height-100*(678/146)), createVector(100, 100*(678/146)), 'assets/building.png', 0));
-  // }
+
   /**
    * Create clouds and push them into an array.
    */
@@ -228,7 +252,6 @@ class PlayingGameScene {
 
     }
   }
-
   /**
    * Creates enemies and pushes them into an array.
    */
@@ -238,14 +261,13 @@ class PlayingGameScene {
         new p5.Vector(width, random(height)),
         new p5.Vector(100, 100),
         "assets/seagull.png",
-        this.startingSpeed+random(-2,3),
+        this.startingSpeed+random(-2,1),
         4,
         200,
         0
       ))
     }
   }
-
   /**
    * Creates fish and pushes them into an array.
    */
@@ -401,25 +423,6 @@ class PlayingGameScene {
       }
     }
   }
-  private enemyExplode() {
-    for (let i = 0; i < this.enemies.length; i++) {
-      if ( 
-        this.character.position.x + this.character.size.x > this.enemies[i].position.x &&
-        this.character.position.x < this.enemies[i].position.x + this.enemies[i].size.x &&
-        this.character.position.y + this.character.size.y > this.enemies[i].position.y &&
-        this.character.position.y < this.enemies[i].position.y + this.enemies[i].size.y
-        && this.character.poweredUp === true
-      ) {
-        this.enemies[i].image = images.redExplosion
-        this.enemies[i].totalFrames = 8
-        this.enemies[i].framesDuration = 90
-        setTimeout(() => {
-          this.enemies.splice(i, 1);
-        }, 450)
-        break;
-      }
-    }
-  }
   public enemyShot() {
     let collisionDistance = 100
     for (let i = 0; i < this.bullets.length; i++) {
@@ -429,13 +432,12 @@ class PlayingGameScene {
         }
         if (this.bullets[i].position.dist(this.enemies[j].position) < collisionDistance) {
           this.bullets.splice(i, 1);
-          //if (this.bullets[i].position.x > width || this.bullets[i].position.x < 0) {
-          // this.bullets.splice(i, 1);
-          //}
           this.enemies[j].image = images.redExplosion
           this.enemies[j].totalFrames = 8
           this.enemies[j].framesDuration = 90
           this.enemies[j].velocity = 0
+          this.seagullsKilled +=1
+          console.log(this.seagullsKilled)
           setTimeout(() => {
             this.enemies.splice(j, 1);
           }, 450)
@@ -452,7 +454,6 @@ class PlayingGameScene {
       this.character.poweredUp = false;
     }
   }
-
   private amIAlive() {
     if (this.character.isAlive === false) {
       this.startingSpeed = 0;

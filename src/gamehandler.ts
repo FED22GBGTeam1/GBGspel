@@ -51,7 +51,7 @@ class GameHandler implements IGame {
         break;
       default:
     }
-  }
+
 
   /** Ritar ut baserat på klassens attribut */
   public draw() {
