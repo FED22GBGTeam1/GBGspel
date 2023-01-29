@@ -36,8 +36,8 @@ interface Images {
   stats: p5.Image;
   instructions: p5.Image;
   textbackground: p5.Image;
-
-
+  catlogo: p5.Image;
+  seagullstart: p5.Image;
 }
 
 interface Fonts {
@@ -91,6 +91,8 @@ function preload() {
     stats: loadImage('assets/stats.png'),
     instructions: loadImage('assets/instructions.png'),
     textbackground: loadImage('assets/textbackground.png'),
+    catlogo: loadImage('assets/catlogo.png'),
+    seagullstart: loadImage('assets/seagullstart.png')
   };
   fonts = {
     strawberry: loadFont('assets/strawberry.ttf'),
@@ -113,8 +115,9 @@ function setup() {
 
   sounds.hast.setVolume(0.06);
   sounds.another.setVolume(0.06);
-  images.instructions.resize(600,0);
-  images.textbackground.resize(860,180);
+  images.catlogo.resize(230,0);
+  images.instructions.resize(300,0);
+  //images.textbackground.resize(860,100);
   gameHandler = new GameHandler();
 
 }

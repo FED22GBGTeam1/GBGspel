@@ -20,7 +20,7 @@ class GameOverScene {
     this.finalScore = 0;
 
     this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2), new p5.Vector(200, 40));
-    this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 + 100), createVector(200, 40));
+    this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 +50), createVector(200, 40));
     this.backgroundObjects = [];
   }
 
@@ -54,7 +54,9 @@ class GameOverScene {
     //text game over
     push()
     textAlign(CENTER)
+    fill(255)
     textSize(42)
+    textFont(fonts.strawberry);
     text('GAME OVER', width / 2, height / 2 - 100)
     //buttons
     textSize(32)
