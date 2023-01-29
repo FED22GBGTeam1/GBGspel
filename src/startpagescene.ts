@@ -43,8 +43,8 @@ class StartPageScene {
     this.startButton.draw();
     //image(images.controls, width/2-(1508/2-380), height/2-290);
     push();
-    image(images.instructions, width/2 - ((width / 2) / 3), 640);
     imageMode(CENTER);
+    image(images.instructions, width/2, 800);
     image(images.textbackground, windowWidth/2, 630);
     pop();
     push();
