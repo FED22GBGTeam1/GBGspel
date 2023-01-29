@@ -26,7 +26,9 @@ class GameOverScene {
   
     this.loadStartMenu();
     this.replayGame();
-    this.calculateScore();  
+    this.calculateScore();
+    this.checkAndSaveScore();
+    this.game.fetchHighScore();
   
     // console.log("test gameover = " + this.game.collectedFish.valueOf())
     // console.log(this.game.elapsedTime.valueOf());
@@ -84,6 +86,13 @@ class GameOverScene {
     const fishScore = this.game.collectedFish.valueOf() * 200;
     this.finalScore = fishScore + this.game.elapsedTime.valueOf();
     return this.finalScore;
-  } 
+  }
+
+  public checkAndSaveScore() {
+    if (this.finalScore > this.game.highScore) {
+      localStorage.setItem("highScore", this.finalScore.toString());
+      this.game.highScore = this.finalScore;
+    }
+  }
 
 }

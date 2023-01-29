@@ -6,4 +6,5 @@ interface IGame {
   playAgain(): void;
   goToStart(): void;
   goToGameOver(): void;
+  fetchHighScore(): void;
 }
