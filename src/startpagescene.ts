@@ -5,7 +5,7 @@ class StartPageScene {
 
   constructor(game: IGame) {
     this.game = game;
-    this.startButton = new Button("Start Game!", createVector(width/2-100, height/2-100), createVector(200,100));
+    this.startButton = new Button("Start Game!", createVector(width/2-80, height/2 +100), createVector(160,50));
     this.backgroundObjects = [];
   }
 
@@ -40,21 +40,27 @@ class StartPageScene {
     //textSize(32);
     //text("Flying Cat Game", width/2, height/2-200);
     
-    this.startButton.draw();
     //image(images.controls, width/2-(1508/2-380), height/2-290);
     push();
     imageMode(CENTER);
-    image(images.instructions, width/2, 800);
-    image(images.textbackground, windowWidth/2, 630);
+    image(images.catlogo, width /2, height / 2 - 160)
+    image(images.textbackground, windowWidth/2, windowHeight/2 + 38, width/2, height/6);
+    image(images.instructions, width/2, windowHeight/2 + 200);
+    this.startButton.draw();
     pop();
     push();
+    imageMode(CENTER);
     textAlign(CENTER);
-    textSize(20)
+    textSize(14)
+    fill('white');
     textFont(fonts.strawberry);
-    text("You are on a mission to save Gothenburg from invading seagulls.", width/2, 600,)
-    text("Fly your boat over the city, avoid crashing into buildings and shoot the seagulls before they kill you.", width/2, 630,)
-    text("{Donut} = 5 seconds of immortality", width/2, 670,)
-    text("{Fish} & {Seagull} = Extra points", width/2, 700,)
+    text("You are on a mission to save Gothenburg from invading seagulls.", width/2, windowHeight/2 +5,)
+    text("Fly your boat over the city, avoid crashing into buildings and shoot the seagulls before they kill you.", width/2, windowHeight/2 + 25,)
+    image(images.boat, width/2 -80, windowHeight/2 + 50, width/55, height/35)
+    text("      = 5 seconds of immortality", width/2, windowHeight/2 + 55,)
+    image(images.fisk, width/2 -70, windowHeight/2 + 70, width/50, height/38)
+    image(images.seagullstart, width/2 -20, windowHeight/2 + 70, width/50, height/30)
+    text("       +        = Extra points", width/2, windowHeight/2 + 75,)
     pop()
 
 
@@ -65,7 +71,7 @@ class StartPageScene {
   public playGame() {}
   public displayCredits() {}
   private createClouds() {
-    if (random(2) < 0.002) {
+    if (random(2) < 0.009) {
       this.backgroundObjects.push(
         new Cloud(
           new p5.Vector(width, random(height)),
