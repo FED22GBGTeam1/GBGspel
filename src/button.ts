@@ -10,7 +10,7 @@ class Button {
     this.position = position;
     this.size = size;
     this.mouseWasPressed = false;
-    this.color = "white";
+    this.color = "rgb(253,2,47)";
   }
 
   public update() {
@@ -24,9 +24,9 @@ class Button {
 
     // hover-effect:
     if (mouseX > leftSide && mouseX < rightSide && mouseY > topSide && mouseY < bottomSide) {
-      this.color = "lightgray";
+      this.color = "rgb(225, 199, 0)";
     } else {
-      this.color = "white";
+      this.color = "rgb(253,2,47)";
     }
 
     // hur vet jag om användaren tryckte på knappen?
@@ -45,16 +45,19 @@ class Button {
 
   public draw() {
     push()
-
+    stroke(225, 199, 0)
+    strokeWeight(3)
     fill(this.color);
     rect(this.position.x, this.position.y, this.size.x, this.size.y, 20);
+    //fill('black')
+    pop()
 
-    fill('black')
+    push()
+    fill(255,255,255)
     textAlign(CENTER, CENTER)
+    textFont(fonts.strawberry);
     textSize(26);
     text(this.text, this.position.x, this.position.y, this.size.x, this.size.y);
-    
-
     pop();
   }
 }

@@ -10,6 +10,7 @@ class GameHandler implements IGame {
   */
   public elapsedTime: number;
   public collectedFish: number;
+  public seagullsKilled: number;
 
   private startPageScene: StartPageScene;
   private playingGameScene: PlayingGameScene;
@@ -25,6 +26,7 @@ class GameHandler implements IGame {
     this.playingGameScene = new PlayingGameScene(this);
     this.gameOverScene = new GameOverScene(this);
     this.collectedFish = this.playingGameScene.fishAmount;
+    this.seagullsKilled = this.playingGameScene.seagullsKilled;
     this.elapsedTime = this.playingGameScene.elapsedTime;
 
     this.musicIsPlaying = false;
@@ -48,9 +50,11 @@ class GameHandler implements IGame {
         this.gameOverScene.update();
         this.elapsedTime = this.playingGameScene.elapsedTime;
         this.collectedFish = this.playingGameScene.fishAmount;
+        this.seagullsKilled = this.playingGameScene.seagullsKilled;
         break;
       default:
     }
+  }
 
 
   /** Ritar ut baserat på klassens attribut */
