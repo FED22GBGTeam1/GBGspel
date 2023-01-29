@@ -84,7 +84,7 @@ class PlayingGameScene {
     this.startTime = Date.now();
     this.elapsedTime = 0;
 
-    this.pressEnterGameOver = new Button ("Press Enter", new p5.Vector(width / 2, height / 3), new p5.Vector(150, 50));
+    this.pressEnterGameOver = new Button ("Calculate Score", new p5.Vector(width / 2, height / 3), new p5.Vector(300, 50));
 
     this.bg1 = new CityBackground(createVector(0, 0), createVector(width, height), "assets/city.png", 1+this.acceleration);
     this.bg2 = new CityBackground(createVector(width, 0), createVector(width, height), "assets/city.png",  1+this.acceleration);
@@ -167,7 +167,8 @@ class PlayingGameScene {
    */
   private trackTime() {
     if (this.character.isAlive) {
-      this.elapsedTime = Date.now() - this.startTime;
+      this.elapsedTime = Math.floor(Date.now() - this.startTime) / 10;
+      this.elapsedTime = Math.round(this.elapsedTime);
     }
 
   }

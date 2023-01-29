@@ -1,3 +1,5 @@
+//import { Font } from "p5";
+
 //---- GLOBAL VARIABLES ----//
 let gameHandler: GameHandler;
 
@@ -22,20 +24,28 @@ interface Images {
   cloud2: p5.Image;
   cloud3: p5.Image;
   katt: p5.Image;
-  kattPower:p5.Image;
+  kattPower: p5.Image;
   shoot: p5.Image;
-  explosion:p5.Image;
-  redExplosion:p5.Image;
+  explosion: p5.Image;
+  redExplosion: p5.Image;
   enemy: p5.Image;
-  animation:p5.Image;
-  shootGreen: p5.Image; 
-  bullet: p5.Image; 
-  city:p5.Image;
-  stats: p5.Image
+  animation: p5.Image;
+  shootGreen: p5.Image;
+  bullet: p5.Image;
+  city: p5.Image;
+  stats: p5.Image;
+  instructions: p5.Image;
+  textbackground: p5.Image;
 
 
 }
+
+interface Fonts {
+  strawberry: p5.Font
+}
+
 let images: Images;
+let fonts: Fonts;
 
 
 // function mouseClicked(event:string) {
@@ -77,9 +87,14 @@ function preload() {
     enemy: loadImage('assets/seagull.png'),
     shootGreen: loadImage('assets/skjut-green.png'),
     bullet: loadImage('assets/bullet.png'),
-    city:loadImage('assets/city.png'),
-    stats: loadImage('assets/stats.png')
-    };
+    city: loadImage('assets/city.png'),
+    stats: loadImage('assets/stats.png'),
+    instructions: loadImage('assets/instructions.png'),
+    textbackground: loadImage('assets/textbackground.png'),
+  };
+  fonts = {
+    strawberry: loadFont('assets/strawberry.ttf'),
+  }
   // sound: p5.SoundFile = loadSound('../assets/mySound.wav');
 }
 
@@ -98,8 +113,10 @@ function setup() {
 
   sounds.hast.setVolume(0.06);
   sounds.another.setVolume(0.06);
+  images.instructions.resize(600,0);
+  images.textbackground.resize(860,180);
   gameHandler = new GameHandler();
-  
+
 }
 
 /**
@@ -110,9 +127,9 @@ function setup() {
 function draw() {
   gameHandler.update();
   gameHandler.draw();
-   // game.update();
+  // game.update();
   // game.draw();
-  
+
   // character.update();
   // character.draw();
   // building.draw();
