@@ -1,13 +1,13 @@
 class GameHandler implements IGame {
 
   //private music: string;
-  
+
   //Ska bytas till highScore istället för nummer.
   public highScore: number;
   public activeScene: "start" | "play" | "over";
-   /**
-   * How long the game went on for.
-   */
+  /**
+  * How long the game went on for.
+  */
   public elapsedTime: number;
   public collectedFish: number;
 
@@ -16,7 +16,7 @@ class GameHandler implements IGame {
   private gameOverScene: GameOverScene;
 
   public musicIsPlaying: boolean;
-  
+
 
   constructor() {
     this.highScore = 0;
@@ -27,13 +27,16 @@ class GameHandler implements IGame {
     this.collectedFish = this.playingGameScene.fishAmount;
     this.elapsedTime = this.playingGameScene.elapsedTime;
 
-    this.musicIsPlaying = false;    
-    
+    this.musicIsPlaying = false;
+
   }
 
   /** Gör förändringar på klassens attribut */
   public update() {
-    switch(this.activeScene) {
+    this.fetchHighScore();
+    console.log("Highscore: " + this.highScore);
+
+    switch (this.activeScene) {
       case "start":
         //this.startPageScene.playAgain()
         this.startPageScene.update()
@@ -41,30 +44,30 @@ class GameHandler implements IGame {
       case "play":
         this.playingGameScene.update()
         break;
-        case "over":
-          this.gameOverScene.update();
-          this.elapsedTime = this.playingGameScene.elapsedTime;
-          this.collectedFish = this.playingGameScene.fishAmount;
+      case "over":
+        this.gameOverScene.update();
+        this.elapsedTime = this.playingGameScene.elapsedTime;
+        this.collectedFish = this.playingGameScene.fishAmount;
         break;
-        default:  
-      }
+      default:
     }
-    
-    /** Ritar ut baserat på klassens attribut */
-    public draw() {
-      switch(this.activeScene) {
-        case "start":
-          this.startPageScene.draw()
-          break;
-          case "play":
-            this.playingGameScene.draw()
+  }
+
+  /** Ritar ut baserat på klassens attribut */
+  public draw() {
+    switch (this.activeScene) {
+      case "start":
+        this.startPageScene.draw()
+        break;
+      case "play":
+        this.playingGameScene.draw()
         break;
       case "over":
         this.gameOverScene.draw();
         break;
-      default:  
+      default:
     }
-  }  
+  }
 
   public playAgain() {
     sounds.another.stop();
@@ -95,9 +98,15 @@ class GameHandler implements IGame {
       sound.play();
       this.musicIsPlaying = true;
     }
-  }  
+  }
 
+  public fetchHighScore() {
+    let storedScore = localStorage.getItem("highScore");
+    if (storedScore) {
+      this.highScore = parseInt(storedScore);
+    }
+
+  }
 }
-
 
 
