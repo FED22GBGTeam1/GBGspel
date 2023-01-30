@@ -2,8 +2,8 @@
 
 class Bullet extends Gameobject {
 
-    constructor(position: p5.Vector, size: p5.Vector, imagePath:string, velocity: number, ) {
-        super(position, size, imagePath, velocity)
+    constructor(position: p5.Vector, size: p5.Vector, image:p5.Image, velocity: number, ) {
+        super(position, size, image, velocity)
         this.velocity = 30
     }
     public draw() {

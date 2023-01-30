@@ -36,7 +36,6 @@ class GameHandler implements IGame {
   /** Gör förändringar på klassens attribut */
   public update() {
     this.fetchHighScore();
-    console.log("Highscore: " + this.highScore);
 
     switch (this.activeScene) {
       case "start":

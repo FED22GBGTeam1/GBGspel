@@ -33,14 +33,14 @@ class Character extends animatedObject {
   constructor(
     position: p5.Vector,
     size: p5.Vector,
-    imagePath: string,
+    image: p5.Image,
     velocity: number,
     totalFrames: number,
     frameDuration: number,
     frame:number,
     
   ) {
-    super(position, size, imagePath, velocity, totalFrames,
+    super(position, size, image, velocity, totalFrames,
       frameDuration, frame)
     this.isAlive = true;
 
@@ -55,7 +55,6 @@ class Character extends animatedObject {
     this.characterGravity = 0.02;
     this.characterVelocity = 0;
     this.maxFallingVelocity = 2;
-
   }
 
   public update() {
