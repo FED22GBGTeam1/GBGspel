@@ -53,6 +53,8 @@ class PlayingGameScene {
   // ska den vara public lr private?
   public isEnemyDead: boolean;
 
+
+
   constructor(game: IGame) {
     this.game = game;
     this.startingSpeed = 5;
@@ -80,6 +82,8 @@ class PlayingGameScene {
     this.fishes = [];
     this.fishAmount = 0;
     this.seagullsKilled = 0;
+
+
 
     this.acceleration = 0.1;
 
@@ -163,7 +167,7 @@ class PlayingGameScene {
     textAlign(LEFT);
     textSize(18);
     fill(255);
-    text(this.elapsedTime, width / 2 - 750 / 2 + 80, 32);
+    text("Score: " + this.elapsedTime, width / 2 - 750 / 2 + 80, 32);
     pop();
 
     push();
@@ -476,12 +480,17 @@ class PlayingGameScene {
         this.character.position.y <
           this.enemies[i].position.y + this.enemies[i].size.y &&
         this.character.poweredUp === false
-      ) {
+        ) 
+        {
         this.enemies[i].image = images.redExplosion;
         this.enemies[i].totalFrames = 8;
         this.enemies[i].framesDuration = 80;
         // this.enemies.splice(i, 1)
         this.character.isAlive = false;
+        this.enemies[i].image = images.redExplosion
+        this.enemies[i].totalFrames = 8
+        this.enemies[i].framesDuration = 80
+        // this.enemies.splice(i, 1)
         break;
       }
     }
