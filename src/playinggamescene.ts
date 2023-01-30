@@ -178,7 +178,7 @@ class PlayingGameScene {
       gameObject.update(this.startingSpeed + this.acceleration);
     }
     for (const backgroundObject of this.backgroundObjects) {
-      backgroundObject.update(this.startingSpeed + this.acceleration);
+      backgroundObject.update(-(this.startingSpeed + this.acceleration)/5);
     }
     for (const fish of this.fishes) {
       fish.update(this.startingSpeed + this.acceleration);
@@ -218,7 +218,7 @@ class PlayingGameScene {
     if (random(2) < 0.004) {
       this.backgroundObjects.push(
         new Cloud(
-          new p5.Vector(width, random(height / 3)),
+          new p5.Vector(-350, random(height / 10)-20),
           new p5.Vector(random(180, 350), random(100, 270)),
           images.cloud1,
           random(3),
@@ -228,7 +228,7 @@ class PlayingGameScene {
     } else if (random(15) > 14.99) {
       this.backgroundObjects.push(
         new Cloud(
-          new p5.Vector(width, random(height / 3)),
+          new p5.Vector(-400, random(height / 10)-20),
           new p5.Vector(random(250, 400), random(90, 150)),
           images.cloud2,
           random(3),
@@ -238,14 +238,13 @@ class PlayingGameScene {
     } else if (random(10) > 9.99) {
       this.backgroundObjects.push(
         new Cloud(
-          new p5.Vector(width, random(height / 3)),
+          new p5.Vector(-450, random(height / 10)-20),
           new p5.Vector(random(250, 450), random(100, 150)),
           images.cloud3,
           random(3),
           random(3)
         )
       );
-
     }
   }
   /**
@@ -314,14 +313,18 @@ class PlayingGameScene {
    * Draws out the gamescene.
    */
   private drawEntities() {
+
+    for (const backgroundObject of this.backgroundObjects) {
+      backgroundObject.draw();
+    }
+
+    this.buildings.draw();
+    
     for (const gameObject of this.gameObjects) {
       gameObject.draw();
     }
     for (const enemies of this.enemies) {
       enemies.draw();
-    }
-    for (const backgroundObject of this.backgroundObjects) {
-      backgroundObject.draw();
     }
     for (const fish of this.fishes) {
       fish.draw();
@@ -332,8 +335,6 @@ class PlayingGameScene {
     for (const bullet of this.bullets) {
       bullet.draw();
     }
-    this.buildings.draw();
-
   }
 
   /**
