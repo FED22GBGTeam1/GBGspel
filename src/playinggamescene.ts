@@ -52,6 +52,8 @@ class PlayingGameScene {
 
   private pressEnterGameOver: Button
 
+  // private seagullIsDead: boolean;
+
   constructor(game: IGame) {
     this.game = game
     this.startingSpeed = 5;
@@ -74,6 +76,8 @@ class PlayingGameScene {
     this.fishes = [];
     this.fishAmount = 0;
     this.seagullsKilled = 0;
+
+
 
     this.acceleration = 0.1;
 
@@ -420,7 +424,7 @@ class PlayingGameScene {
   }
   private enemyCrash() {
     for (let i = 0; i < this.enemies.length; i++) {
-      if ( 
+      if (
         this.character.position.x + this.character.size.x > this.enemies[i].position.x &&
         this.character.position.x < this.enemies[i].position.x + this.enemies[i].size.x &&
         this.character.position.y + this.character.size.y > this.enemies[i].position.y &&
@@ -430,7 +434,7 @@ class PlayingGameScene {
         this.enemies[i].image = images.redExplosion
         this.enemies[i].totalFrames = 8
         this.enemies[i].framesDuration = 80
-        //this.enemies.splice(i, 1)
+        // this.enemies.splice(i, 1)
         break;
       }
     }
