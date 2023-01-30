@@ -48,9 +48,9 @@ class Building extends Gameobject {
         return images.building;
     }
   }
-    public draw() {
-      image(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
-    }
+    // public draw() {
+    //   image(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
+    // }
     // gör extra saker för just Building
 }
 
