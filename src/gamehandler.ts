@@ -38,7 +38,6 @@ class GameHandler implements IGame {
   /** Gör förändringar på klassens attribut */
   public update() {
     this.fetchHighScore();
-
     switch (this.activeScene) {
       case "start":
         //this.startPageScene.playAgain()
@@ -104,6 +103,7 @@ class GameHandler implements IGame {
       sound.loop();
       this.currentSong = sound;
       this.musicIsPlaying = true;
+      console.log(this.currentSong);
     }
   }
 
