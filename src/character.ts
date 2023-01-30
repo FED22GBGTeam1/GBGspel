@@ -63,18 +63,19 @@ class Character extends animatedObject {
     this.moveCharacter();
     this.swapCharacterImage();
     this.shoot();
-  
 }
+
 public shoot() {
   if (keyIsDown(32) && this.shootTimeout < 0 && this.isShooting === false) {
       this.isShooting = true;
       //this.shootTimeout = 1000;
     }
+
   }
   private moveCharacter() {
     if (keyIsDown(UP_ARROW) && this.position.y > 0 && this.isAlive === true) {
     this.position.y -= this.velocity;
-    }
+    } 
     if (keyIsDown(DOWN_ARROW) && this.position.y + this.size.y < height && this.isAlive === true) {
     this.position.y += this.velocity;
     }
@@ -88,6 +89,12 @@ public shoot() {
     this.characterVelocity += this.characterGravity;
     this.characterVelocity = constrain(this.characterVelocity, this.maxFallingVelocity, this.maxFallingVelocity);
     this.position.y += this.characterVelocity;
+    }
+
+    if (keyIsDown(UP_ARROW) && this.position.y == 0) {
+      this.maxFallingVelocity = 0;
+    } else if (this.position.y >= 0) {
+      this.maxFallingVelocity = 2;
     }
     }
   
