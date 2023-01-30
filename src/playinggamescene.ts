@@ -147,7 +147,7 @@ class PlayingGameScene {
       textAlign(LEFT);
       textSize(18);
       fill(255)
-      text(this.elapsedTime, (width/2) - (750/2) + 80, 32);
+      text("Score: " + this.elapsedTime, (width/2) - (750/2) + 80, 32);
       pop()
 
       push();
