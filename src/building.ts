@@ -39,7 +39,7 @@ class Building extends Gameobject {
         this.position = createVector(width, height - this.size.y);
         return images.lipstick;
       case 5:
-        this.size = createVector(60, 700);
+        this.size = createVector(60, height/2);
         this.position = createVector(width, height - this.size.y);
         return images.torn;
       default:
