@@ -20,7 +20,6 @@ interface Images {
   building: p5.Image;
   lipstick:p5.Image
   torn:p5.Image;
-  controls: p5.Image;
   fisk: p5.Image;
   cloud1: p5.Image;
   cloud2: p5.Image;
@@ -78,7 +77,6 @@ function preload() {
     building: loadImage('assets/hus.png'),
     lipstick: loadImage('assets/lipstick.png'),
     torn: loadImage('assets/torn.png'),
-    controls: loadImage('assets/newPicturee.png'),
     fisk: loadImage('assets/fisk.png'),
     cloud1: loadImage('assets/cloud1.png'),
     cloud2: loadImage('assets/cloud2.png'),
