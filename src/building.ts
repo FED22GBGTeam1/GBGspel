@@ -31,7 +31,7 @@ class Building extends Gameobject {
       case 1:
       case 2:
       case 3:
-        this.size = createVector(random(140,325), random(200,height/2));
+        this.size = createVector(random(width/6,width/10), random(200,height/2));
         this.position = createVector(width, height - this.size.y);
         return images.building;
       case 4:
@@ -39,7 +39,7 @@ class Building extends Gameobject {
         this.position = createVector(width, height - this.size.y);
         return images.lipstick;
       case 5:
-        this.size = createVector(60, height/2+height/4);
+        this.size = createVector(width/24, height/2+height/4);
         this.position = createVector(width, height - this.size.y);
         return images.torn;
       default:

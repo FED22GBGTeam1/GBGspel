@@ -39,7 +39,7 @@ class GameHandler implements IGame {
 
     switch (this.activeScene) {
       case "start":
-        //this.startPageScene.playAgain()
+        this.startPageScene.playAgain()
         this.startPageScene.update()
         break;
       case "play":
