@@ -56,8 +56,8 @@ class StartPageScene {
     textFont(fonts.strawberry);
     text("You are on a mission to save Gothenburg from invading seagulls.", width/2, windowHeight/2 +5,)
     text("Fly your boat over the city, avoid crashing into buildings and shoot the seagulls before they kill you.", width/2, windowHeight/2 + 25,)
-    image(images.donut, width/2 -80, windowHeight/2 + 50, width/55, height/35)
-    text("      = 5 seconds of immortality", width/2, windowHeight/2 + 55,)
+    image(images.donut, width/2 -140, windowHeight/2 + 50, width/55, height/35)
+    text("      = 5 seconds of immortality and unlimited bullets", width/2, windowHeight/2 + 55,)
     image(images.fisk, width/2 -70, windowHeight/2 + 70, width/50, height/38)
     image(images.seagullstart, width/2 -20, windowHeight/2 + 70, width/50, height/30)
     text("       +        = Extra points", width/2, windowHeight/2 + 75,)
