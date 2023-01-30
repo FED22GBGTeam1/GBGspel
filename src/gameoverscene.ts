@@ -14,6 +14,8 @@ class GameOverScene {
   private finalScore: number;
   private backgroundObjects: Gameobject[];
 
+  private scoreFade: number;
+
   /**
    * constructor for the GameOverScene class
    * @param game 
@@ -24,13 +26,15 @@ class GameOverScene {
     this.fishScore = 0;
     this.birdScore = 0;
     this.scoreColor = 'white';
+    this.scoreFade = 0;
 
-    this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2 +150), new p5.Vector(200, 40));
-    this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 +200), createVector(200, 40));
+    this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2 + 150), new p5.Vector(200, 40));
+    this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 + 200), createVector(200, 40));
     this.backgroundObjects = [];
   }
 
   public update() {
+    this.scoreFade += deltaTime;
     for (const backgroundObject of this.backgroundObjects) {
       backgroundObject.update(3);
     }
@@ -53,10 +57,10 @@ class GameOverScene {
       backgroundObject.draw();
     }
 
-       push();
+    push();
     imageMode(CENTER);
-    image(images.gameover, width /2, height / 2 - 200)
-    image(images.textbackground, windowWidth/2, windowHeight/2 +5, width/3, height/3 +10);
+    image(images.gameover, width / 2, height / 2 - 200)
+    image(images.textbackground, windowWidth / 2, windowHeight / 2 + 5, width / 3, height / 3 + 10);
     pop();
     push();
     imageMode(CENTER);
@@ -64,26 +68,40 @@ class GameOverScene {
     textSize(20);
     fill('white');
     textFont(fonts.strawberry);
-    text("Current highscore: " + this.game.highScore.valueOf(), width/2, windowHeight/2 -70,)
+    text("Current highscore: " + this.game.highScore.valueOf(), width / 2, windowHeight / 2 - 70,)
     textSize(16);
     textAlign(LEFT);
-    text(": " + this.fishScore + " points", width/2 -25, windowHeight/2 + -30,)
-    textAlign(CENTER);
-    text("+", width/2 -10, windowHeight/2 + -10,)
-    textAlign(LEFT);
-    text(": " + this.birdScore + " points", width/2 -25, windowHeight/2 + 10,)
-    textAlign(CENTER);
-    text("+", width/2 -10, windowHeight/2 + 30,)
-    text("Distance travelled: " + this.game.elapsedTime.valueOf() + " meter", width/2, windowHeight/2 + 50,)
-    text("=", width/2 -10, windowHeight/2 + 70,)
-    textSize(20);
-    fill(this.scoreColor);
-    text("Your score: " + this.finalScore + "!", width/2, windowHeight/2 + 90,)
-    image(images.fisk, width/2 -45, windowHeight/2 -36, width/50, height/38)
-    image(images.seagullstart, width/2 -40, windowHeight/2+5, width/50, height/30)
-    this.goToStartButton.draw();
-    this.playAgainButton.draw();
-    pop()
+    if (this.scoreFade > 200) {
+      text(": " + this.fishScore + " points", width / 2 - 25, windowHeight / 2 + -30,)
+      image(images.fisk, width / 2 - 45, windowHeight / 2 - 36, width / 50, height / 38)
+    };
+    if (this.scoreFade > 700) {
+      textAlign(CENTER);
+      text("+", width / 2 - 10, windowHeight / 2 + -10,)
+    }
+    if (this.scoreFade > 1300) {
+      textAlign(LEFT);
+      image(images.seagullstart, width / 2 - 40, windowHeight / 2 + 5, width / 50, height / 30)
+      text(": " + this.birdScore + " points", width / 2 - 25, windowHeight / 2 + 10,)      
+    }
+    if (this.scoreFade > 1800) {
+      textAlign(CENTER);
+      text("+", width / 2 - 10, windowHeight / 2 + 30,)           
+    }
+    if (this.scoreFade > 2300) {
+      text("Distance travelled: " + this.game.elapsedTime.valueOf() + " meter", width / 2, windowHeight / 2 + 50,)
+      text("=", width / 2 - 10, windowHeight / 2 + 70,)                
+    }
+    if (this.scoreFade > 2800) {
+      textSize(20);
+      fill(this.scoreColor);
+      text("Your score: " + this.finalScore + "!", width / 2, windowHeight / 2 + 90,)              
+    }
+    if (this.scoreFade > 3500) {
+      this.goToStartButton.draw();
+      this.playAgainButton.draw();
+      pop()                  
+    }
   }
 
   /**
