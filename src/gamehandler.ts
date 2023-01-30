@@ -17,11 +17,12 @@ class GameHandler implements IGame {
   private gameOverScene: GameOverScene;
 
   public musicIsPlaying: boolean;
+  public currentSong: p5.SoundFile;
 
 
   constructor() {
     this.highScore = 0;
-    this.activeScene = "start";
+    this.activeScene = "over";
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene(this);
     this.gameOverScene = new GameOverScene(this);
@@ -30,6 +31,7 @@ class GameHandler implements IGame {
     this.elapsedTime = this.playingGameScene.elapsedTime;
 
     this.musicIsPlaying = false;
+    this.currentSong = sounds.hast;
 
   }
 
@@ -99,6 +101,18 @@ class GameHandler implements IGame {
   public playMusic(sound: p5.SoundFile) {
     if (this.musicIsPlaying === false) {
       sound.play();
+      sound.loop();
+      this.currentSong = sound;
+      this.musicIsPlaying = true;
+    }
+  }
+
+  public pauseMusic() {
+    if (this.musicIsPlaying === true) {
+      this.currentSong.pause();
+      this.musicIsPlaying = false;
+    } else {
+      this.currentSong.play();
       this.musicIsPlaying = true;
     }
   }
