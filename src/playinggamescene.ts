@@ -120,6 +120,7 @@ class PlayingGameScene {
     this.bg1.update();
     this.bg2.update();
     this.amIAlive();
+    this.removeShootTimeOut();
 
   }
 
@@ -159,8 +160,6 @@ class PlayingGameScene {
       text(this.fishAmount, (width/2) - (750/2) + 680, 32);
       pop()
 }
-
-
   /**
    * Calculates how long the game went on for.
    */
@@ -171,7 +170,6 @@ class PlayingGameScene {
     }
 
   }
-
   /**
    * Checks for updates to the different game objects.
    */
@@ -198,13 +196,12 @@ class PlayingGameScene {
     }
     this.buildings.update(this.startingSpeed + this.acceleration);
   }
-
   /**
    * creates bullets when the character is shooting
    */
   public renderBullets() {
     if(this.character.isShooting === true && this.character.shootTimeout < 0) {
-      this.bullets.push(new Bullet(new p5.Vector(this.character.position.x, this.character.position.y),
+      this.bullets.push(new Bullet(new p5.Vector(this.character.position.x+this.character.size.x-45, this.character.position.y+20),
       new p5.Vector(10, 10),
       images.bullet,
       30))
@@ -214,7 +211,6 @@ class PlayingGameScene {
       }, 500)     
     }
 }
-
   /**
    * Create clouds and push them into an array.
    */
@@ -264,7 +260,20 @@ class PlayingGameScene {
         this.startingSpeed+random(-2,1),
         4,
         200,
-        0
+        0,
+        (random(-2,2))
+      ))
+      //spawnar röda måsar som är extra snabba efter att du spelat i 30 sekunder
+    }if (this.elapsedTime> 3000  && random(2) < 0.015) {
+      this.enemies.push(new Enemy(
+        new p5.Vector(width, random(height)),
+        new p5.Vector(100, 100),
+        images.redEnemy,
+        this.startingSpeed+random(5,6),
+        4,
+        200,
+        0,
+        random(3)
       ))
     }
   }
@@ -295,11 +304,15 @@ class PlayingGameScene {
       ))
     }
   }
-
+  //gives player unlimited bulletts during powerup
+  removeShootTimeOut() {
+    if (this.character.poweredUp === true) {
+      this.character.shootTimeout = 0;
+    } 
+  }
   /**
    * Draws out the gamescene.
    */
-
   private drawEntities() {
     for (const gameObject of this.gameObjects) {
       gameObject.draw();
@@ -379,18 +392,15 @@ class PlayingGameScene {
         this.character.position.y < this.fishes[i].position.y + this.fishes[i].size.y
       ) {
         this.fishAmount += 1;
-        console.log(this.fishAmount);
         this.fishes.splice(i, 1);
         break;
       }
     }
   }
-
   /**
    * Checks for collision with collectable powerups.
   */
   private collectedPowerup() {
-
     for (let i = 0; i < this.powerUps.length; i++) {
       if (
         this.character.position.x + this.character.size.x > this.powerUps[i].position.x &&
@@ -402,6 +412,7 @@ class PlayingGameScene {
         this.time = 5000;
         this.powerUps.splice(i, 1);
         this.character.poweredUp = true;
+        
         break;
       }
     }

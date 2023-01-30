@@ -55,7 +55,6 @@ class Character extends animatedObject {
     this.characterGravity = 0.02;
     this.characterVelocity = 0;
     this.maxFallingVelocity = 2;
-
   }
 
   public update() {

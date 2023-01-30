@@ -30,7 +30,6 @@ interface Images {
   redExplosion: p5.Image;
   enemy: p5.Image;
   redEnemy:p5.Image;
-  animation: p5.Image;
   shootGreen: p5.Image;
   bullet: p5.Image;
   city: p5.Image;
@@ -73,7 +72,7 @@ function preload() {
   wooo = loadSound('assets/wooo.mp3');
   images = {
     donut: loadImage('assets/donut.png'),
-    building: loadImage('assets/building.png'),
+    building: loadImage('assets/hus.png'),
     controls: loadImage('assets/newPicturee.png'),
     fisk: loadImage('assets/fisk.png'),
     cloud1: loadImage('assets/cloud1.png'),
@@ -81,7 +80,6 @@ function preload() {
     cloud3: loadImage('assets/cloud3.png'),
     katt: loadImage('assets/fly.png'),
     kattPower: loadImage('assets/fly-powerup.png'),
-    animation: loadImage('assets/animation.png'),
     shoot: loadImage('assets/skjut.png'),
     explosion: loadImage('assets/exp.png'),
     redExplosion: loadImage('assets/exp-red.png'),
