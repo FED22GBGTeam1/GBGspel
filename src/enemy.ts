@@ -2,7 +2,8 @@
 
 class Enemy extends animatedObject{
     public framesDuration: any;
-    public yVelocity:number
+    public yVelocity:number;
+    public killed: boolean;
 
     constructor(
         position: p5.Vector,
@@ -17,6 +18,7 @@ class Enemy extends animatedObject{
         super(position, size, image, velocity, totalFrames,
           frameDuration,frame)
           this.yVelocity= yVelocity
+          this.killed = false
     }
     public update(startingSpeed: number) {
             super.update(startingSpeed);

@@ -62,9 +62,6 @@ class StartPageScene {
     image(images.seagullstart, width/2 -20, windowHeight/2 + 70, width/50, height/30)
     text("       +        = Extra points", width/2, windowHeight/2 + 75,)
     pop()
-
-
-
   }
 
   public renderStartPage() {}

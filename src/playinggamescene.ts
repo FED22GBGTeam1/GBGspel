@@ -257,7 +257,7 @@ class PlayingGameScene {
         new p5.Vector(width, random(height)),
         new p5.Vector(100, 100),
         images.enemy,
-        this.startingSpeed+random(-2,1),
+        this.startingSpeed+this.acceleration+random(-2,1),
         4,
         200,
         0,
@@ -269,7 +269,7 @@ class PlayingGameScene {
         new p5.Vector(width, random(height)),
         new p5.Vector(100, 100),
         images.redEnemy,
-        this.startingSpeed+random(5,6),
+        this.startingSpeed+this.acceleration+random(5,6),
         4,
         200,
         0,
@@ -441,18 +441,18 @@ class PlayingGameScene {
         if (!this.bullets[i] || !this.enemies[j]) {
           continue;
         }
-        if (this.bullets[i].position.dist(this.enemies[j].position) < collisionDistance) {
+        if (this.bullets[i].position.dist(this.enemies[j].position) < collisionDistance && !this.enemies[j].killed) {
           this.bullets.splice(i, 1);
           this.enemies[j].image = images.redExplosion
           this.enemies[j].totalFrames = 8
           this.enemies[j].framesDuration = 90
           this.enemies[j].velocity = 0
-          this.seagullsKilled +=1
+          this.enemies[j].killed = true;
           console.log(this.seagullsKilled)
           setTimeout(() => {
             this.enemies.splice(j, 1);
+            this.seagullsKilled +=1
           }, 450)
-
         }
       }
     }
