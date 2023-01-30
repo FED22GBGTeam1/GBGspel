@@ -13,7 +13,6 @@ class CityBackground extends Gameobject {
           this.position.x = this.size.x;
         }
     }
-    
     public draw() {
         image(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
     }

@@ -70,7 +70,7 @@ class PlayingGameScene {
     this.gameObjects = [];
     this.backgroundObjects = [];
     this.enemies = [];
-    this.buildings = new Building(createVector(width, height - 140 * (678 / 146)), createVector(140, 140 * (678 / 146)), images.building, 0);
+    this.buildings = new Building(createVector(width, height), createVector(140, height), images.building, 0);
     this.fishes = [];
     this.fishAmount = 0;
     this.seagullsKilled = 0;
@@ -264,7 +264,7 @@ class PlayingGameScene {
         (random(-2,2))
       ))
       //spawnar röda måsar som är extra snabba efter att du spelat i 30 sekunder
-    }if (this.elapsedTime> 3000  && random(2) < 0.015) {
+    }if (this.elapsedTime> 3000  && random(2) < 0.009) {
       this.enemies.push(new Enemy(
         new p5.Vector(width, random(height)),
         new p5.Vector(100, 100),

@@ -14,19 +14,38 @@ class Building extends Gameobject {
     super(position, size, image, velocity);
     this.position = position;
     this.size = size;
-    this.image = image;
     this.velocity = 0
+    this.image = this.getRandomImage()
   }
 
   public update(startingSpeed: number) {
     super.update(startingSpeed);
 
     if(this.position.x + this.size.x < 0) {
-      
-      this.position.x = width;
-      this.size.x = random(130,160);
-      this.size.y = random(height/4, height*3/4);
-      this.position.y = height - this.size.y;
+      this.image = this.getRandomImage()
+    }
+  }
+  private getRandomImage(): p5.Image {
+    let r = Math.floor(Math.random() * 5) + 1;
+    switch (r) {
+      case 1:
+      case 2:
+      case 3:
+        this.size = createVector(random(140,300), random(200,550));
+        this.position = createVector(width, height - this.size.y);
+        return images.building;
+      case 4:
+        this.size = createVector(300, 450);
+        this.position = createVector(width, height - this.size.y);
+        return images.lipstick;
+      case 5:
+        this.size = createVector(60, 700);
+        this.position = createVector(width, height - this.size.y);
+        return images.torn;
+      default:
+        this.size = createVector(140, 140 * (678 / 146));
+        this.position = createVector(width, height - this.size.y);
+        return images.building;
     }
   }
     public draw() {
