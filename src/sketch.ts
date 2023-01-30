@@ -16,8 +16,8 @@ let wooo: p5.SoundFile;
 let canPlay = true;
 
 interface Images {
-  boat: p5.Image;
-  buildings: p5.Image;
+  donut: p5.Image;
+  building: p5.Image;
   controls: p5.Image;
   fisk: p5.Image;
   cloud1: p5.Image;
@@ -29,6 +29,7 @@ interface Images {
   explosion: p5.Image;
   redExplosion: p5.Image;
   enemy: p5.Image;
+  redEnemy:p5.Image;
   animation: p5.Image;
   shootGreen: p5.Image;
   bullet: p5.Image;
@@ -71,8 +72,8 @@ function preload() {
   weee = loadSound('assets/weee.mp3');
   wooo = loadSound('assets/wooo.mp3');
   images = {
-    boat: loadImage('assets/donut.png'),
-    buildings: loadImage('assets/building.png'),
+    donut: loadImage('assets/donut.png'),
+    building: loadImage('assets/building.png'),
     controls: loadImage('assets/newPicturee.png'),
     fisk: loadImage('assets/fisk.png'),
     cloud1: loadImage('assets/cloud1.png'),
@@ -85,6 +86,7 @@ function preload() {
     explosion: loadImage('assets/exp.png'),
     redExplosion: loadImage('assets/exp-red.png'),
     enemy: loadImage('assets/seagull.png'),
+    redEnemy: loadImage('assets/RedSeagull.png'),
     shootGreen: loadImage('assets/skjut-green.png'),
     bullet: loadImage('assets/bullet.png'),
     city: loadImage('assets/city.png'),

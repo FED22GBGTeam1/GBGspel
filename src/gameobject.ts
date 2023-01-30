@@ -5,10 +5,10 @@ abstract class Gameobject {
     public velocity: number;
     
 
-    constructor(position: p5.Vector, size: p5.Vector, imagePath: string, velocity: number) {
+    constructor(position: p5.Vector, size: p5.Vector, image:p5.Image, velocity: number) {
         this.position = position;
         this.size = size;
-        this.image = loadImage(imagePath);
+        this.image = image;
         this.velocity = velocity
     }
 

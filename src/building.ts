@@ -10,11 +10,11 @@ class Building extends Gameobject {
   // Gör att man kan stänga av dödligheten vid krock (powerup)
   // private deadlyCollision: boolean;
 
-  constructor(position: p5.Vector, size: p5.Vector, imagePath: string, velocity: number) {
-    super(position, size, imagePath, velocity);
+  constructor(position: p5.Vector, size: p5.Vector, image: p5.Image, velocity: number) {
+    super(position, size, image, velocity);
     this.position = position;
     this.size = size;
-    this.image = loadImage(imagePath);
+    this.image = image;
     this.velocity = 0
   }
 

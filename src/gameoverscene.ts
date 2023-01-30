@@ -114,7 +114,7 @@ class GameOverScene {
         new Cloud(
           new p5.Vector(width, random(height)),
           new p5.Vector(random(180, 450), random(100, 370)),
-          "assets/cloud1.png",
+          images.cloud1,
           random(3),
           random(3)
         )
@@ -124,7 +124,7 @@ class GameOverScene {
         new Cloud(
           new p5.Vector(width, random(height)),
           new p5.Vector(random(250, 400), random(90, 150)),
-          "assets/cloud2.png",
+          images.cloud2,
           random(3),
           random(3)
         )
@@ -134,7 +134,7 @@ class GameOverScene {
         new Cloud(
           new p5.Vector(width, random(height)),
           new p5.Vector(random(250, 650), random(100, 250)),
-          "assets/cloud3.png",
+          images.cloud3,
           random(3),
           random(3)
         )

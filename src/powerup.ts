@@ -2,8 +2,8 @@
 //duration: number, först eller sist?
 class Powerup extends Item {
 
-    constructor(position: p5.Vector, size: p5.Vector, imagePath: string, velocity: number, duration: number) {
-        super (position, size, imagePath, velocity)
+    constructor(position: p5.Vector, size: p5.Vector, image:p5.Image, velocity: number, duration: number) {
+        super (position, size, image, velocity)
     }
     public update(startingSpeed: number) {
         this.position.sub(startingSpeed, 0);

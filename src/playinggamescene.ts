@@ -60,7 +60,7 @@ class PlayingGameScene {
     this.character = new Character(
       createVector(50, 300),
       createVector(195, 100),
-      "./assets/fly.png",
+      images.katt,
       10,
       8,
       80,
@@ -70,7 +70,7 @@ class PlayingGameScene {
     this.gameObjects = [];
     this.backgroundObjects = [];
     this.enemies = [];
-    this.buildings = new Building(createVector(width, height - 140 * (678 / 146)), createVector(140, 140 * (678 / 146)), 'assets/building.png', 0);
+    this.buildings = new Building(createVector(width, height - 140 * (678 / 146)), createVector(140, 140 * (678 / 146)), images.building, 0);
     this.fishes = [];
     this.fishAmount = 0;
     this.seagullsKilled = 0;
@@ -86,8 +86,8 @@ class PlayingGameScene {
 
     this.pressEnterGameOver = new Button ("Calculate Score", new p5.Vector(width / 2, height / 3), new p5.Vector(300, 50));
 
-    this.bg1 = new CityBackground(createVector(0, 0), createVector(width, height), "assets/city.png", 1+this.acceleration);
-    this.bg2 = new CityBackground(createVector(width, 0), createVector(width, height), "assets/city.png",  1+this.acceleration);
+    this.bg1 = new CityBackground(createVector(0, 0), createVector(width, height), images.city, 1+this.acceleration);
+    this.bg2 = new CityBackground(createVector(width, 0), createVector(width, height), images.city,  1+this.acceleration);
   }
   //     currentSpeed: currentSpeed
   //     this.currentSpeed = currentSpeed;
@@ -138,7 +138,6 @@ class PlayingGameScene {
       push();
       image(images.stats, (width/2) - (750/2), 0, 750, 51)
       pop();
-
       push();
       textAlign(LEFT);
       textSize(18);
@@ -207,7 +206,7 @@ class PlayingGameScene {
     if(this.character.isShooting === true && this.character.shootTimeout < 0) {
       this.bullets.push(new Bullet(new p5.Vector(this.character.position.x, this.character.position.y),
       new p5.Vector(10, 10),
-      "assets/bullet.png",
+      images.bullet,
       30))
       this.character.shootTimeout = 500;
       setTimeout(() => {
@@ -225,7 +224,7 @@ class PlayingGameScene {
         new Cloud(
           new p5.Vector(width, random(height / 3)),
           new p5.Vector(random(180, 350), random(100, 270)),
-          "assets/cloud1.png",
+          images.cloud1,
           random(3),
           random(3)
         )
@@ -235,7 +234,7 @@ class PlayingGameScene {
         new Cloud(
           new p5.Vector(width, random(height / 3)),
           new p5.Vector(random(250, 400), random(90, 150)),
-          "assets/cloud2.png",
+          images.cloud2,
           random(3),
           random(3)
         )
@@ -245,7 +244,7 @@ class PlayingGameScene {
         new Cloud(
           new p5.Vector(width, random(height / 3)),
           new p5.Vector(random(250, 450), random(100, 150)),
-          "assets/cloud3.png",
+          images.cloud3,
           random(3),
           random(3)
         )
@@ -261,7 +260,7 @@ class PlayingGameScene {
       this.enemies.push(new Enemy(
         new p5.Vector(width, random(height)),
         new p5.Vector(100, 100),
-        "assets/seagull.png",
+        images.enemy,
         this.startingSpeed+random(-2,1),
         4,
         200,
@@ -277,7 +276,7 @@ class PlayingGameScene {
       this.fishes.push(new Item(
         new p5.Vector(width, random(height)),
         new p5.Vector(65, 45),
-        "assets/fisk.png",
+        images.fisk,
         random(3),
       ))
     }
@@ -290,7 +289,7 @@ class PlayingGameScene {
       this.powerUps.push(new Powerup(
         new p5.Vector(width, random(height)),
         new p5.Vector(65, 60),
-        "assets/donut.png",
+        images.donut,
         this.startingSpeed+this.acceleration,
         5000,
       ))
