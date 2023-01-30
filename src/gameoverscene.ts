@@ -97,11 +97,10 @@ class GameOverScene {
       fill(this.scoreColor);
       text("Your score: " + this.finalScore + "!", width / 2, windowHeight / 2 + 90,)              
     }
-    if (this.scoreFade > 3500) {
       this.goToStartButton.draw();
       this.playAgainButton.draw();
       pop()                  
-    }
+    
   }
 
   /**
