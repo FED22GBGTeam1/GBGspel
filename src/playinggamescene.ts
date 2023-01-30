@@ -86,9 +86,11 @@ class PlayingGameScene {
     this.time = 0;
 
     this.startTime = Date.now();
-    this.elapsedTime = 0;
+    this.elapsedTime = 0; 
 
-    this.pressEnterGameOver = new Button ("Calculate Score", new p5.Vector(width / 2, height / 3), new p5.Vector(300, 50));
+    
+
+    this.pressEnterGameOver = new Button ("Calculate Score", new p5.Vector(width / 2 -150, height / 2), new p5.Vector(300, 50));
 
     this.bg1 = new CityBackground(createVector(0, 0), createVector(width, height), images.city, 1+this.acceleration);
     this.bg2 = new CityBackground(createVector(width, 0), createVector(width, height), images.city,  1+this.acceleration);
@@ -147,7 +149,8 @@ class PlayingGameScene {
       textAlign(LEFT);
       textSize(18);
       fill(255)
-      text("Score: " + this.elapsedTime, (width/2) - (750/2) + 80, 32);
+
+      text("Meter: " + this.elapsedTime, (width/2) - (750/2) + 20, 32);
       pop()
 
       push();
@@ -440,7 +443,7 @@ class PlayingGameScene {
     }
   }
   public enemyShot() {
-    let collisionDistance = 100
+    let collisionDistance = 80
     for (let i = 0; i < this.bullets.length; i++) {
       for (let j = 0; j < this.enemies.length; j++) {   
         if (!this.bullets[i] || !this.enemies[j]) {

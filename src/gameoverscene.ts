@@ -5,6 +5,9 @@ class GameOverScene {
   private game: IGame
   private playAgainButton: Button
   private goToStartButton: Button
+  private fishScore: number;
+  private birdScore: number;
+  private scoreColor: string;
   /**
    * Fish and distance added together.
    */
@@ -18,9 +21,12 @@ class GameOverScene {
   constructor(game: IGame) {
     this.game = game
     this.finalScore = 0;
+    this.fishScore = 0;
+    this.birdScore = 0;
+    this.scoreColor = 'white';
 
-    this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2), new p5.Vector(200, 40));
-    this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 +50), createVector(200, 40));
+    this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2 +150), new p5.Vector(200, 40));
+    this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 +200), createVector(200, 40));
     this.backgroundObjects = [];
   }
 
@@ -36,10 +42,6 @@ class GameOverScene {
     this.game.fetchHighScore();
     this.createClouds();
 
-    // console.log("test gameover = " + this.game.collectedFish.valueOf())
-    // console.log(this.game.elapsedTime.valueOf());
-    // console.log(this.finalScore);
-
   }
 
   /**
@@ -51,22 +53,36 @@ class GameOverScene {
       backgroundObject.draw();
     }
 
-    //text game over
-    push()
-    textAlign(CENTER)
-    fill(255)
-    textSize(42)
+       push();
+    imageMode(CENTER);
+    image(images.gameover, width /2, height / 2 - 200)
+    image(images.textbackground, windowWidth/2, windowHeight/2 +5, width/3, height/3 +10);
+    pop();
+    push();
+    imageMode(CENTER);
+    textAlign(CENTER);
+    textSize(20);
+    fill('white');
     textFont(fonts.strawberry);
-    text('GAME OVER', width / 2, height / 2 - 100)
-    //buttons
-    textSize(32)
-    this.playAgainButton.draw();
+    text("Current highscore: " + this.game.highScore.valueOf(), width/2, windowHeight/2 -70,)
+    textSize(16);
+    textAlign(LEFT);
+    text(": " + this.fishScore + " points", width/2 -25, windowHeight/2 + -30,)
+    textAlign(CENTER);
+    text("+", width/2 -10, windowHeight/2 + -10,)
+    textAlign(LEFT);
+    text(": " + this.birdScore + " points", width/2 -25, windowHeight/2 + 10,)
+    textAlign(CENTER);
+    text("+", width/2 -10, windowHeight/2 + 30,)
+    text("Distance travelled: " + this.game.elapsedTime.valueOf() + " meter", width/2, windowHeight/2 + 50,)
+    text("=", width/2 -10, windowHeight/2 + 70,)
+    textSize(20);
+    fill(this.scoreColor);
+    text("Your score: " + this.finalScore + "!", width/2, windowHeight/2 + 90,)
+    image(images.fisk, width/2 -45, windowHeight/2 -36, width/50, height/38)
+    image(images.seagullstart, width/2 -40, windowHeight/2+5, width/50, height/30)
     this.goToStartButton.draw();
-    //highSCore
-    textSize(32)
-    //text("High Score: " + this.game.highScore.valueOf(), width / 2, height / 2 -45);
-    text("Final Score: " + this.finalScore.valueOf(), width / 2, height / 2 - 60);
-    text("Fish: " + this.game.collectedFish.valueOf(), width / 2, height / 2 - 140);
+    this.playAgainButton.draw();
     pop()
   }
 
@@ -95,9 +111,9 @@ class GameOverScene {
    * @returns number
    */
   public calculateScore() {
-    const fishScore = this.game.collectedFish.valueOf() * 200;
-    const birdScore = this.game.seagullsKilled.valueOf() * 100;
-    this.finalScore = fishScore + birdScore + this.game.elapsedTime.valueOf();
+    this.fishScore = this.game.collectedFish.valueOf() * 200;
+    this.birdScore = this.game.seagullsKilled.valueOf() * 100;
+    this.finalScore = this.fishScore + this.birdScore + this.game.elapsedTime.valueOf();
     return this.finalScore;
   }
 
@@ -105,6 +121,7 @@ class GameOverScene {
     if (this.finalScore > this.game.highScore) {
       localStorage.setItem("highScore", this.finalScore.toString());
       this.game.highScore = this.finalScore;
+      this.scoreColor = 'lightgreen';
     }
   }
 
