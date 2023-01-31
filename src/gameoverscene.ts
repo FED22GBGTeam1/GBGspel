@@ -31,7 +31,7 @@ class GameOverScene {
 
     this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2 + 150), new p5.Vector(200, 40));
     this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 + 200), createVector(200, 40));
-    this.pauseMusicButton = new Button("Pause", createVector(width / 2 - 100, height / 2 + 300), createVector(200, 40));
+    this.pauseMusicButton = new Button("Pause", createVector(width / 2 - 100, height / 2 + 250), createVector(200, 40), CORNER);
     this.backgroundObjects = [];
   }
 
@@ -111,7 +111,7 @@ class GameOverScene {
   * method to update handle the playAgain button
   */
   public replayGame() {
-    const wasPressed = this.playAgainButton.update();
+    const wasPressed = this.playAgainButton.update(width * 0.5);
     if (wasPressed) {
       this.game.playAgain();
     }
@@ -121,7 +121,7 @@ class GameOverScene {
    * Method to handle the start menu button
    */
   public loadStartMenu() {
-    const wasPressed = this.goToStartButton.update();
+    const wasPressed = this.goToStartButton.update(width * 0.5);
     if (wasPressed) {
       this.game.goToStart();
     }
