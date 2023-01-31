@@ -84,10 +84,17 @@ class Button {
       this.position.x = xPos;
     }
 
-    const leftSide = this.position.x;
-    const rightSide = this.position.x + this.size.x;
-    const topSide = this.position.y;
-    const bottomSide = this.position.y + this.size.y;
+    // Update the calculation of the sides
+    let x = this.position.x;
+    let y = this.position.y;
+    if (this.align !== CORNER) {
+      x = this.position.x - this.size.x * 0.5;
+      y = this.position.y - this.size.y * 0.5;
+    }
+    const leftSide = x;
+    const rightSide = x + this.size.x;
+    const topSide = y;
+    const bottomSide = y + this.size.y;
 
     // hover-effect:
     if (mouseX > leftSide && mouseX < rightSide && mouseY > topSide && mouseY < bottomSide) {
