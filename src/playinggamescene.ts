@@ -53,6 +53,8 @@ class PlayingGameScene {
   // ska den vara public lr private?
   public isEnemyDead: boolean;
 
+  private soundEffectTimeOut: number;
+
 
 
   constructor(game: IGame) {
@@ -62,7 +64,7 @@ class PlayingGameScene {
     this.position = createVector(0, 0);
     this.character = new Character(
       createVector(50, 300),
-      createVector(width/9, height/10),
+      createVector(width / 9, height / 10),
       images.katt,
       10,
       8,
@@ -91,14 +93,15 @@ class PlayingGameScene {
     this.isEnemyDead = false;
 
     this.time = 0;
+    this.soundEffectTimeOut = 1000;
 
     this.startTime = Date.now();
-    this.elapsedTime = 0; 
+    this.elapsedTime = 0;
 
 
-    
 
-    this.pressEnterGameOver = new Button ("Calculate Score", new p5.Vector(width / 2 -150, height / 2), new p5.Vector(300, 50));
+
+    this.pressEnterGameOver = new Button("Calculate Score", new p5.Vector(width / 2 - 150, height / 2), new p5.Vector(300, 50));
 
     this.bg1 = new CityBackground(
       createVector(0, 0),
@@ -120,6 +123,7 @@ class PlayingGameScene {
 
   public update() {
     this.time -= deltaTime;
+    this.soundEffectTimeOut -= deltaTime;
     this.trackTime();
 
     //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
@@ -229,9 +233,9 @@ class PlayingGameScene {
             this.character.position.x + this.character.size.x - 45,
             this.character.position.y + 20
           ),
-          new p5.Vector(width/150, height/100),
+          new p5.Vector(width / 150, height / 100),
           images.bullet,
-          width/100
+          width / 100
         )
       );
       this.character.shootTimeout = 500;
@@ -248,7 +252,7 @@ class PlayingGameScene {
       this.backgroundObjects.push(
         new Cloud(
           new p5.Vector(width, random(height / 10) - 20),
-          new p5.Vector(random(width/10, width/4), random(height/10, height/8)),
+          new p5.Vector(random(width / 10, width / 4), random(height / 10, height / 8)),
           images.cloud1,
           random(3),
           random(3)
@@ -258,7 +262,7 @@ class PlayingGameScene {
       this.backgroundObjects.push(
         new Cloud(
           new p5.Vector(width, random(height / 10) - 20),
-          new p5.Vector(random(width/10, width/4), random(height/10, height/8)),
+          new p5.Vector(random(width / 10, width / 4), random(height / 10, height / 8)),
           images.cloud2,
           random(3),
           random(3)
@@ -268,7 +272,7 @@ class PlayingGameScene {
       this.backgroundObjects.push(
         new Cloud(
           new p5.Vector(width, random(height / 10) - 20),
-          new p5.Vector(random(width/10, width/4), random(height/10, height/8)),
+          new p5.Vector(random(width / 10, width / 4), random(height / 10, height / 8)),
           images.cloud3,
           random(3),
           random(3)
@@ -284,7 +288,7 @@ class PlayingGameScene {
       this.enemies.push(
         new Enemy(
           new p5.Vector(width, random(height)),
-          new p5.Vector(width/19, height/10),
+          new p5.Vector(width / 19, height / 10),
           images.enemy,
           this.startingSpeed + this.acceleration + random(-2, 1),
           4,
@@ -300,7 +304,7 @@ class PlayingGameScene {
       this.enemies.push(
         new Enemy(
           new p5.Vector(width, random(height)),
-          new p5.Vector(width/19, height/10),
+          new p5.Vector(width / 19, height / 10),
           images.redEnemy,
           this.startingSpeed + this.acceleration + random(5, 6),
           4,
@@ -310,6 +314,9 @@ class PlayingGameScene {
           false
         )
       );
+      if (this.character.isAlive === true) {
+        this.playSoundEffect(sounds.kaka);
+      }
     }
   }
   /**
@@ -320,7 +327,7 @@ class PlayingGameScene {
       this.fishes.push(
         new Item(
           new p5.Vector(width, random(height)),
-          new p5.Vector(width/30, height/25),
+          new p5.Vector(width / 30, height / 25),
           images.fisk,
           random(3)
         )
@@ -335,7 +342,7 @@ class PlayingGameScene {
       this.powerUps.push(
         new Powerup(
           new p5.Vector(width, random(height)),
-          new p5.Vector(width/36, height/22),
+          new p5.Vector(width / 36, height / 22),
           images.donut,
           this.startingSpeed + this.acceleration,
           5000
@@ -382,13 +389,13 @@ class PlayingGameScene {
   private detectCollision() {
     if (
       this.character.position.x + this.character.size.x >
-        this.buildings.position.x &&
+      this.buildings.position.x &&
       this.character.position.x <
-        this.buildings.position.x + this.buildings.size.x &&
+      this.buildings.position.x + this.buildings.size.x &&
       this.character.position.y + this.character.size.y >
-        this.buildings.position.y &&
+      this.buildings.position.y &&
       this.character.position.y <
-        this.buildings.position.y + this.buildings.size.y
+      this.buildings.position.y + this.buildings.size.y
     ) {
       if (this.character.poweredUp === false) {
         this.character.isAlive = false;
@@ -397,10 +404,10 @@ class PlayingGameScene {
     for (const gameObject of this.gameObjects) {
       if (
         this.character.position.x + this.character.size.x >
-          gameObject.position.x &&
+        gameObject.position.x &&
         this.character.position.x < gameObject.position.x + gameObject.size.x &&
         this.character.position.y + this.character.size.y >
-          gameObject.position.y &&
+        gameObject.position.y &&
         this.character.position.y < gameObject.position.y + gameObject.size.y
       ) {
         if (this.character.poweredUp === false) {
@@ -430,13 +437,13 @@ class PlayingGameScene {
     for (let i = 0; i < this.fishes.length; i++) {
       if (
         this.character.position.x + this.character.size.x >
-          this.fishes[i].position.x &&
+        this.fishes[i].position.x &&
         this.character.position.x <
-          this.fishes[i].position.x + this.fishes[i].size.x &&
+        this.fishes[i].position.x + this.fishes[i].size.x &&
         this.character.position.y + this.character.size.y >
-          this.fishes[i].position.y &&
+        this.fishes[i].position.y &&
         this.character.position.y <
-          this.fishes[i].position.y + this.fishes[i].size.y
+        this.fishes[i].position.y + this.fishes[i].size.y
       ) {
         this.fishAmount += 1;
         this.fishes.splice(i, 1);
@@ -451,17 +458,18 @@ class PlayingGameScene {
     for (let i = 0; i < this.powerUps.length; i++) {
       if (
         this.character.position.x + this.character.size.x >
-          this.powerUps[i].position.x &&
+        this.powerUps[i].position.x &&
         this.character.position.x <
-          this.powerUps[i].position.x + this.powerUps[i].size.x &&
+        this.powerUps[i].position.x + this.powerUps[i].size.x &&
         this.character.position.y + this.character.size.y >
-          this.powerUps[i].position.y &&
+        this.powerUps[i].position.y &&
         this.character.position.y <
-          this.powerUps[i].position.y + this.powerUps[i].size.y
+        this.powerUps[i].position.y + this.powerUps[i].size.y
       ) {
         this.time = 5000;
         this.powerUps.splice(i, 1);
         this.character.poweredUp = true;
+        this.playSoundEffect(sounds.mums);
 
         break;
       }
@@ -472,16 +480,15 @@ class PlayingGameScene {
       if (
         !this.enemies[i].isEnemyDead &&
         this.character.position.x + this.character.size.x >
-          this.enemies[i].position.x &&
+        this.enemies[i].position.x &&
         this.character.position.x <
-          this.enemies[i].position.x + this.enemies[i].size.x &&
+        this.enemies[i].position.x + this.enemies[i].size.x &&
         this.character.position.y + this.character.size.y >
-          this.enemies[i].position.y &&
+        this.enemies[i].position.y &&
         this.character.position.y <
-          this.enemies[i].position.y + this.enemies[i].size.y &&
+        this.enemies[i].position.y + this.enemies[i].size.y &&
         this.character.poweredUp === false
-        ) 
-        {
+      ) {
         this.enemies[i].image = images.redExplosion;
         this.enemies[i].totalFrames = 8;
         this.enemies[i].framesDuration = 80;
@@ -505,10 +512,11 @@ class PlayingGameScene {
         }
         if (
           this.bullets[i].position.dist(this.enemies[j].position) <
-            collisionDistance &&
+          collisionDistance &&
           !this.enemies[j].isEnemyDead
         ) {
           this.bullets.splice(i, 1);
+          this.playSoundEffect(sounds.deadseagull);
           this.enemies[j].image = images.redExplosion;
           this.enemies[j].totalFrames = 8;
           this.enemies[j].framesDuration = 90;
@@ -559,4 +567,11 @@ class PlayingGameScene {
     //   this.gameOverButton();
     // }, 450);
   }
+
+  public playSoundEffect(sound: p5.SoundFile) {
+    if (this.soundEffectTimeOut < 0 && this.character.soundTimeout < 500)
+      sound.play();
+    this.soundEffectTimeOut = 1000;
+  }
+
 }

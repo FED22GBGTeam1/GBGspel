@@ -8,7 +8,10 @@ class Character extends animatedObject {
   /**
    * Starts at 2000. At 0 sounds can be played.
    */
-  private soundTimeout: number;
+  public soundTimeout: number;
+
+  private deathSoundTO: boolean;
+
   /**
    *
    */
@@ -51,11 +54,14 @@ class Character extends animatedObject {
     this.characterGravity = 0.02;
     this.characterVelocity = 0;
     this.maxFallingVelocity = 2;
+
+    this.deathSoundTO = true;
   }
 
   public update() {
     this.soundTimeout -= deltaTime;
     this.shootTimeout -= deltaTime;
+
     this.moveCharacter();
     this.swapCharacterImage();
     this.shoot();
@@ -64,6 +70,7 @@ class Character extends animatedObject {
   public shoot() {
     if (keyIsDown(32) && this.shootTimeout < 0 && this.isShooting === false) {
       this.isShooting = true;
+      this.playSound(sounds.pewpew);
       //this.shootTimeout = 1000;
     }
   }
@@ -75,7 +82,8 @@ class Character extends animatedObject {
       keyIsDown(DOWN_ARROW) &&
       this.position.y + this.size.y < height &&
       this.isAlive === true
-    ) {
+      ) {
+      this.playSound(sounds.meow);
       this.position.y += this.velocity;
     }
     if (
@@ -124,6 +132,7 @@ class Character extends animatedObject {
       this.frameDuration = 90;
     }
     if (this.isAlive === false) {
+      this.deathSound();
       this.image = images.explosion;
       this.totalFrames = 8;
       this.frameDuration = 90;
@@ -157,7 +166,15 @@ class Character extends animatedObject {
   public playSound(sound: p5.SoundFile) {
     if (this.soundTimeout < 0) {
       sound.play();
-      this.soundTimeout = 2000;
+      this.soundTimeout = 5000;
     }
   }
+
+  public deathSound() {
+    if (this.deathSoundTO == true) {
+      sounds.boom.play();
+      this.deathSoundTO = false;
+    }
+  }
+
 }

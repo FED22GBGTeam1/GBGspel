@@ -8,6 +8,13 @@ interface Sounds {
   wooo: p5.SoundFile;
   hast: p5.SoundFile;
   another: p5.SoundFile;
+  deadseagull: p5.SoundFile;
+  meow: p5.SoundFile;
+  pewpew: p5.SoundFile;
+  kaka: p5.SoundFile;
+  boom: p5.SoundFile;
+  mums: p5.SoundFile;
+
 }
 let sounds: Sounds;
 
@@ -69,6 +76,13 @@ function preload() {
     wooo: loadSound('assets/wooo.mp3'),
     hast: loadSound('assets/Hast.mp3'),
     another: loadSound('assets/Another.mp3'),
+    deadseagull: loadSound('assets/seagulldeath.mp3'),
+    meow: loadSound('assets/meow.mp3'),
+    pewpew: loadSound('assets/pewpew.mp3'),
+    kaka: loadSound('assets/kaka.mp3'),
+    boom: loadSound('assets/boom.mp3'),
+    mums: loadSound('assets/mums.mp3'),
+    
   };
   weee = loadSound('assets/weee.mp3');
   wooo = loadSound('assets/wooo.mp3');
@@ -119,6 +133,12 @@ function setup() {
 
   sounds.hast.setVolume(0.06);
   sounds.another.setVolume(0.06);
+  sounds.deadseagull.setVolume(0.2);
+  sounds.meow.setVolume(0.2);
+  sounds.pewpew.setVolume(0.2);
+
+
+
   images.catlogo.resize(230,0);
   images.instructions.resize(300,0);
   images.gameover.resize(400,0);
