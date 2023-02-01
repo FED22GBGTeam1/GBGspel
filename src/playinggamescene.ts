@@ -306,7 +306,7 @@ class PlayingGameScene {
           new p5.Vector(width, random(height)),
           new p5.Vector(width / 19, height / 10),
           images.redEnemy,
-          this.startingSpeed + this.acceleration + random(5, 6),
+          this.startingSpeed + this.acceleration + random(4, 6),
           4,
           200,
           0,
@@ -569,7 +569,7 @@ class PlayingGameScene {
   }
 
   public playSoundEffect(sound: p5.SoundFile) {
-    if (this.soundEffectTimeOut < 0 && this.character.soundTimeout < 500)
+    if (this.soundEffectTimeOut < 0 )
       sound.play();
     this.soundEffectTimeOut = 1000;
   }
