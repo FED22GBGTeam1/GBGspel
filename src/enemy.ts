@@ -12,12 +12,11 @@ class Enemy extends animatedObject{
         velocity: number,
         totalFrames: number,
         frameDuration: number,
-        frame:number,
         yVelocity:number,
         isEnemyDead: boolean
       ) {
         super(position, size, image, velocity, totalFrames,
-          frameDuration,frame)
+          frameDuration)
           this.yVelocity= yVelocity;
           this.isEnemyDead = isEnemyDead;
     }

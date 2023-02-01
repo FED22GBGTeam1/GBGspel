@@ -56,14 +56,6 @@ interface Fonts {
 let images: Images;
 let fonts: Fonts;
 
-
-// function mouseClicked(event:string) {
-//   console.log(event)
-// }
-
-//test
-
-
 /**
  * Built in preload function in P5
  * This is a good place to load assets such as
@@ -127,10 +119,6 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
-  // configure default volume
-  //sounds.hast.play();
-
-
   sounds.hast.setVolume(0.06);
   sounds.another.setVolume(0.06);
   sounds.deadseagull.setVolume(0.2);
@@ -155,15 +143,6 @@ function setup() {
 function draw() {
   gameHandler.update();
   gameHandler.draw();
-  // game.update();
-  // game.draw();
-
-  // character.update();
-  // character.draw();
-  // building.draw();
-  // building.update();
-  // building.mousePressed();
-
 }
 
 

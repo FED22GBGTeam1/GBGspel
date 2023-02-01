@@ -106,7 +106,6 @@ class GameOverScene {
       pop()                  
     
   }
-
   /**
   * method to update handle the playAgain button
   */
@@ -160,7 +159,6 @@ class GameOverScene {
           new p5.Vector(random(180, 450), random(100, 370)),
           images.cloud1,
           random(3),
-          random(3)
         )
       );
     } else if (random(15) > 14.99) {
@@ -170,7 +168,6 @@ class GameOverScene {
           new p5.Vector(random(250, 400), random(90, 150)),
           images.cloud2,
           random(3),
-          random(3)
         )
       );
     } else if (random(10) > 9.99) {
@@ -180,7 +177,6 @@ class GameOverScene {
           new p5.Vector(random(250, 650), random(100, 250)),
           images.cloud3,
           random(3),
-          random(3)
         )
       );
     }
