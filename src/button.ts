@@ -1,9 +1,27 @@
 class Button {
+  /**
+   * Inner text of the button.
+   */
   private text: string;
+  /**
+   * Buttons position.
+   */
   private position: p5.Vector;
+  /**
+   * Buttons size.
+   */
   private size: p5.Vector;
+  /**
+   * Checks if the mouse was pressed or not.
+   */
   private mouseWasPressed: boolean;
+  /**
+   * Inner color of the button.
+   */
   private color: string;
+  /**
+   * The alignment mode for the object.
+   */
   private align: p5.RECT_MODE;
 
   constructor(
@@ -20,6 +38,14 @@ class Button {
     this.color = "rgb(253,2,47)";
   }
 
+  /**
+   * Updates the position of the object based on the given `xPos` value
+   * and updates the color based on the mouse position.
+   * Also checks if the mouse was released and returns `true`
+   * if the mouse was released inside the object.
+   * @param xPos {number} - The new x position of the object.
+   * @returns {boolean} - `true` if the mouse was released inside the object.
+   */
   public update(xPos?: number) {
     if (xPos) {
       this.position.x = xPos;
@@ -37,7 +63,7 @@ class Button {
     const topSide = y;
     const bottomSide = y + this.size.y;
 
-    // hover-effect:
+    // Hover-effect:
     if (
       mouseX > leftSide &&
       mouseX < rightSide &&
@@ -65,7 +91,9 @@ class Button {
     }
     return false;
   }
-
+  /**
+   * Draw the buttons 
+   */
   public draw() {
     push();
     rectMode(this.align);
@@ -80,8 +108,8 @@ class Button {
     textAlign(CENTER, CENTER);
     textFont(fonts.strawberry);
     textSize(26);
-    const x = this.align === CORNER? this.position.x: this.position.x - this.size.x * 0.5;
-    const y = this.align === CORNER? this.position.y: this.position.y - this.size.y * 0.5;
+    const x = this.align === CORNER ? this.position.x : this.position.x - this.size.x * 0.5;
+    const y = this.align === CORNER ? this.position.y : this.position.y - this.size.y * 0.5;
     text(this.text, x, y, this.size.x, this.size.y);
     pop();
   }
