@@ -10,11 +10,10 @@ class animatedObject extends Gameobject {
   constructor(
     position: p5.Vector,
     size: p5.Vector,
-    image:p5.Image,
+    image: p5.Image,
     velocity: number,
     totalFrames: number,
-    frameDuration: number,
-    frame:number
+    frameDuration: number
   ) {
     super(position, size, image, velocity);
     this.position = position;

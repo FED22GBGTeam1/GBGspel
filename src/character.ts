@@ -1,28 +1,12 @@
 /// <reference path="animated-object.ts" />
 
 class Character extends animatedObject {
-  /**
-   * Checks if the character is alive.
-   */
   public isAlive: boolean;
   /**
    * Starts at 2000. At 0 sounds can be played.
    */
   public soundTimeout: number;
-
   private deathSoundTO: boolean;
-
-  /**
-   *
-   */
-  //private speed: number;
-  /**
-   *
-   */
-  //private maxSpeed: number;
-  /**
-   * Checks if the character got an active powerup or not.
-   */
   public poweredUp: Boolean;
   public isShooting: boolean;
   public isSpaceBarPressed: boolean;
@@ -37,24 +21,19 @@ class Character extends animatedObject {
     image: p5.Image,
     velocity: number,
     totalFrames: number,
-    frameDuration: number,
-    frame: number
+    frameDuration: number
   ) {
-    super(position, size, image, velocity, totalFrames, frameDuration, frame);
+    super(position, size, image, velocity, totalFrames, frameDuration);
     this.isAlive = true;
 
     this.poweredUp = false;
     this.isShooting = false;
-
     this.soundTimeout = 1500;
     this.shootTimeout = 0;
-    //this.speed = 4;
-    //this.maxSpeed = 15;
     this.isSpaceBarPressed = false;
     this.characterGravity = 0.02;
     this.characterVelocity = 0;
     this.maxFallingVelocity = 2;
-
     this.deathSoundTO = true;
   }
 
@@ -82,7 +61,7 @@ class Character extends animatedObject {
       keyIsDown(DOWN_ARROW) &&
       this.position.y + this.size.y < height &&
       this.isAlive === true
-      ) {
+    ) {
       this.playSound(sounds.meow);
       this.position.y += this.velocity;
     }
@@ -113,7 +92,7 @@ class Character extends animatedObject {
       this.maxFallingVelocity = 2;
     }
   }
-
+  //Changes the cat sprite depending on if its dead, poweredeup or shooting.
   public swapCharacterImage() {
     if (
       this.isAlive === true &&
@@ -121,7 +100,6 @@ class Character extends animatedObject {
       this.isShooting === false
     ) {
       this.image = images.kattPower;
-      this.frameDuration = 90;
     }
     if (
       this.isAlive === true &&
@@ -129,13 +107,11 @@ class Character extends animatedObject {
       this.isShooting === false
     ) {
       this.image = images.katt;
-      this.frameDuration = 90;
     }
     if (this.isAlive === false) {
       this.deathSound();
       this.image = images.explosion;
       this.totalFrames = 8;
-      this.frameDuration = 90;
     }
     if (
       this.isAlive === true &&
@@ -150,7 +126,6 @@ class Character extends animatedObject {
       this.isShooting === true
     ) {
       this.image = images.shootGreen;
-      this.frameDuration = 90;
     }
   }
 
@@ -176,5 +151,4 @@ class Character extends animatedObject {
       this.deathSoundTO = false;
     }
   }
-
 }

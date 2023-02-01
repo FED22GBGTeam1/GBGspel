@@ -26,21 +26,11 @@ class StartPageScene {
     this.createClouds();
   }
 
-  //You are on a mission to save Gothenburg from the evil seagulls.
-  //Fly your boat over the city, avoid crashing into buildings and shoot the seagulls before they kill you.
-  //{Donut} = 5 seconds of immortality
-  //{Fish} & {Seagull} = Extra points..
-
-
   public draw() {
     background(50, 145, 300);
     for (const backgroundObject of this.backgroundObjects) {
       backgroundObject.draw();
     }
-    //textSize(32);
-    //text("Flying Cat Game", width/2, height/2-200);
-    
-    //image(images.controls, width/2-(1508/2-380), height/2-290);
     push();
     imageMode(CENTER);
     image(images.catlogo, width /2, height / 2 - 160)
@@ -75,7 +65,6 @@ class StartPageScene {
           new p5.Vector(random(180, 450), random(100, 370)),
           images.cloud1,
           random(3),
-          random(3)
         )
       );
     } else if (random(15) > 14.99) {
@@ -85,7 +74,6 @@ class StartPageScene {
           new p5.Vector(random(250, 400), random(90, 150)),
           images.cloud2,
           random(3),
-          random(3)
         )
       );
     } else if (random(10) > 9.99) {
@@ -95,7 +83,6 @@ class StartPageScene {
           new p5.Vector(random(250, 650), random(100, 250)),
           images.cloud3,
           random(3),
-          random(3)
         )
       );
     }

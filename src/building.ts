@@ -6,10 +6,6 @@ class Building extends Gameobject {
   image: p5.Image;
   velocity: number;
 
-
-  // Gör att man kan stänga av dödligheten vid krock (powerup)
-  // private deadlyCollision: boolean;
-
   constructor(position: p5.Vector, size: p5.Vector, image: p5.Image, velocity: number) {
     super(position, size, image, velocity);
     this.position = position;
@@ -25,6 +21,10 @@ class Building extends Gameobject {
       this.image = this.getRandomImage()
     }
   }
+  /**
+   * 
+   * 
+   */
   private getRandomImage(): p5.Image {
     let r = Math.floor(Math.random() * 5) + 1;
     switch (r) {
@@ -48,14 +48,6 @@ class Building extends Gameobject {
         return images.building;
     }
   }
-    // public draw() {
-    //   image(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
-    // }
-    // gör extra saker för just Building
 }
 
-  // public draw() {
-  //   super.draw()
-  //   // lägg till en färgad ram omkring...
-  // }
 
