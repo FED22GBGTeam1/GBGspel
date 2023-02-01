@@ -19,7 +19,7 @@ class Bullet extends Gameobject {
       this.size.y
     );
   }
-  public update(startingSpeed: number) {
+  public update() {
     this.position.add(this.velocity, 0);
   }
 }

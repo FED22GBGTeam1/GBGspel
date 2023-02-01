@@ -16,7 +16,7 @@ class PlayingGameScene {
    */
   private character: Character;
   /**
-   * 
+   * /---------------------------------------------------------------------------------------
    */
   public position: p5.Vector;
   /**
@@ -24,15 +24,15 @@ class PlayingGameScene {
    */
   private backgroundObjects: Gameobject[];
   /**
-   * Array with buildings.
+   * Building entity.
    */
-  private buildings: Building;
+  private building: Building;
   /**
    * Array with enemies.
    */
   private enemies: Enemy[];
   /**
-   * 
+   * Array with bullets.
    */
   private bullets: Bullet[];
   /**
@@ -52,7 +52,7 @@ class PlayingGameScene {
    */
   public fishAmount: number;
   /**
-   * Amount of enemies gathered.
+   * Amount of enemies killed.
    */
   public seagullsKilled: number;
   /**
@@ -64,31 +64,27 @@ class PlayingGameScene {
    */
   private time: number;
   /**
-   * 
+   * Image of the city.
    */
   public bg1: CityBackground;
   /**
-   * 
+   * Image of the city.
    */
   public bg2: CityBackground;
-
   /**
-   * 
+   * Button that will load in the game over scene.
    */
-  private pressEnterGameOver: Button;
+  private calcScoreGameOver: Button;
   /**
-   * 
+   * Button that pauses/plays background music.
    */
   private pauseMusicButton: Button;
-
-  // ska den vara public lr private?
   /**
-   * 
+   * Checks if a seagull is dead or not.
    */
   public isEnemyDead: boolean;
-
   /**
-   * 
+   * A timeout for sound effects. (1000 ms)
    */
   private soundEffectTimeOut: number;
 
@@ -108,7 +104,7 @@ class PlayingGameScene {
     this.bullets = [];
     this.backgroundObjects = [];
     this.enemies = [];
-    this.buildings = new Building(
+    this.building = new Building(
       createVector(width, height),
       createVector(140, height),
       images.building,
@@ -128,7 +124,7 @@ class PlayingGameScene {
 
     this.startTime = Date.now();
     this.elapsedTime = 0;
-    this.pressEnterGameOver = new Button(
+    this.calcScoreGameOver = new Button(
       "Calculate Score",
       new p5.Vector(width / 2 - 150, height / 2),
       new p5.Vector(300, 50)
@@ -180,7 +176,7 @@ class PlayingGameScene {
   }
 
   /**
-   * 
+   * Draws the scene.
    */
   public draw() {
     background(50, 145, 300);
@@ -191,10 +187,15 @@ class PlayingGameScene {
     this.showCurrentStats();
     this.pauseMusicButton.draw();
     if (this.character.isAlive === false) {
-      this.pressEnterGameOver.draw();
+      this.calcScoreGameOver.draw();
     }
   }
-  showCurrentStats() {
+
+  /**
+   * Displays the current stats of the game, meters run, number of seagulls killed and amount of fish collected
+   */
+  private showCurrentStats() {
+    //meters
     push();
     image(images.stats, width / 2 - 640 / 2, 0, 750, 41);
     pop();
@@ -204,14 +205,14 @@ class PlayingGameScene {
     fill(255);
     text("Meters: " + this.elapsedTime, width / 2 - 640 / 2 + 20, 28);
     pop();
-
+    //seaugulls
     push();
     textAlign(LEFT);
     textSize(18);
     fill(255);
     text(this.seagullsKilled, width / 2 - 640 / 2 + 540, 28);
     pop();
-
+    //fish
     push();
     textAlign(LEFT);
     textSize(18);
@@ -261,9 +262,9 @@ class PlayingGameScene {
       enemy.update(this.startingSpeed);
     }
     for (const bullet of this.bullets) {
-      bullet.update(bullet.velocity);
+      bullet.update();
     }
-    this.buildings.update(this.startingSpeed + this.acceleration);
+    this.building.update(this.startingSpeed + this.acceleration);
   }
 
   /**
@@ -397,7 +398,6 @@ class PlayingGameScene {
           new p5.Vector(width / 36, height / 22),
           images.donut,
           this.startingSpeed + this.acceleration,
-          5000
         )
       );
     }
@@ -409,7 +409,7 @@ class PlayingGameScene {
    * Draws out the gamescene entities (minus the character).
    */
   private drawEntities() {
-    this.buildings.draw();
+    this.building.draw();
 
     for (const enemies of this.enemies) {
       enemies.draw();
@@ -429,17 +429,18 @@ class PlayingGameScene {
 
   /**
    * Checks for collision between the character and buildings.
+   * If it occurs and the character is not powered up the character dies.
    */
   private detectCollision() {
     if (
       this.character.position.x + this.character.size.x >
-      this.buildings.position.x &&
+      this.building.position.x &&
       this.character.position.x <
-      this.buildings.position.x + this.buildings.size.x &&
+      this.building.position.x + this.building.size.x &&
       this.character.position.y + this.character.size.y >
-      this.buildings.position.y &&
+      this.building.position.y &&
       this.character.position.y <
-      this.buildings.position.y + this.buildings.size.y
+      this.building.position.y + this.building.size.y
     ) {
       if (this.character.poweredUp === false) {
         this.character.isAlive = false;
@@ -496,6 +497,7 @@ class PlayingGameScene {
   
   /**
    * Checks for collision between the character and seagulls.
+   * If it occurs and the character is not powered up the character dies.
    */
   public enemyCrash() {
     for (let i = 0; i < this.enemies.length; i++) {
@@ -514,12 +516,10 @@ class PlayingGameScene {
         this.enemies[i].image = images.redExplosion;
         this.enemies[i].totalFrames = 8;
         this.enemies[i].framesDuration = 80;
-        // this.enemies.splice(i, 1)
         this.character.isAlive = false;
         this.enemies[i].image = images.redExplosion;
         this.enemies[i].totalFrames = 8;
         this.enemies[i].framesDuration = 80;
-        // this.enemies.splice(i, 1)
         break;
       }
     }
@@ -527,6 +527,7 @@ class PlayingGameScene {
 
   /**
    * Checks for collision between the bullet and seagulls.
+   * If they collide the seagull dies.
    */
   public enemyShot() {
     let collisionDistance = 100;
@@ -579,23 +580,12 @@ class PlayingGameScene {
       this.acceleration = 0;
       this.bg1.velocity = 0;
       this.bg2.velocity = 0;
-      this.buildings.velocity = 0;
+      this.building.velocity = 0;
 
       for (const enemy of this.enemies) {
         enemy.velocity = 0;
       }
       this.gameOverButton();
-    }
-  }
-
-  //------------------------------------------------------BUTTONS------------------------------------------------------------------//
- /**
-   * Listens for button press and creates a new instance of the game over page.
-   */
-  private gameOverButton() {
-    const wasPressed = this.pressEnterGameOver.update();
-    if (wasPressed) {
-      this.game.goToGameOver();
     }
   }
 
@@ -605,6 +595,18 @@ class PlayingGameScene {
   public playSoundEffect(sound: p5.SoundFile) {
     if (this.soundEffectTimeOut < 0) sound.play();
     this.soundEffectTimeOut = 1000;
+  }
+
+  //------------------------------------------------------BUTTONS------------------------------------------------------------------//
+
+ /**
+   * Listens for button press and creates a new instance of the game over page.
+   */
+  private gameOverButton() {
+    const wasPressed = this.calcScoreGameOver.update();
+    if (wasPressed) {
+      this.game.goToGameOver();
+    }
   }
 
   /**
