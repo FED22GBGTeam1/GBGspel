@@ -9,5 +9,5 @@ interface IGame {
   goToStart(): void;
   goToGameOver(): void;
   fetchHighScore(): void;
-  pauseMusic(): void;
+  playMusic(sound: p5.SoundFile): void;
 }

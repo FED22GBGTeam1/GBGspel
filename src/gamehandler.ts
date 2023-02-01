@@ -31,7 +31,7 @@ class GameHandler implements IGame {
     this.elapsedTime = this.playingGameScene.elapsedTime;
 
     this.musicIsPlaying = false;
-    this.currentSong = sounds.hast;
+    this.currentSong = sounds.another;
 
   }
 
@@ -97,23 +97,17 @@ class GameHandler implements IGame {
     this.playMusic(sounds.another);
   }
 
-  public playMusic(sound: p5.SoundFile) {
+  public playMusic(sound: p5.SoundFile): void {
     if (this.musicIsPlaying === false) {
       sound.play();
       sound.loop();
       this.currentSong = sound;
       this.musicIsPlaying = true;
-      console.log(this.currentSong);
-    }
-  }
-
-  public pauseMusic() {
-    if (this.musicIsPlaying === true) {
-      this.currentSong.pause();
-      this.musicIsPlaying = false;
+      // console.log(this.currentSong);
+      // console.log(sound);
     } else {
-      this.currentSong.play();
-      this.musicIsPlaying = true;
+      sound.stop();
+      this.musicIsPlaying = false;
     }
   }
 

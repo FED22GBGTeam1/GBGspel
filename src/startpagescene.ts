@@ -2,10 +2,12 @@ class StartPageScene {
   private game: IGame
   public startButton: Button;
   private backgroundObjects: Gameobject[];
+  private pauseMusicButton: Button;
 
   constructor(game: IGame) {
     this.game = game;
     this.startButton = new Button("Start Game!", createVector(width/2-80, height/2 +100), createVector(160,50));
+    this.pauseMusicButton = new Button("P", createVector(20, 20), createVector(40, 40), CORNER);
     this.backgroundObjects = [];
   }
 
@@ -17,13 +19,14 @@ class StartPageScene {
     }
     
   }
-  
+
   public update() {
     this.playAgain();
     for (const backgroundObject of this.backgroundObjects) {
       backgroundObject.update(2);
     }
     this.createClouds();
+    this.listenForPause();
   }
 
   public draw() {
@@ -37,6 +40,7 @@ class StartPageScene {
     image(images.textbackground, windowWidth/2, windowHeight/2 + 38, width/2, height/6);
     image(images.instructions, width/2, windowHeight/2 + 200);
     this.startButton.draw();
+    this.pauseMusicButton.draw();
     pop();
     push();
     imageMode(CENTER);
@@ -86,6 +90,11 @@ class StartPageScene {
         )
       );
     }
+  }
+  public listenForPause() {
+    const wasPressed = this.pauseMusicButton.update()
+    if (wasPressed)
+    this.game.playMusic(sounds.another);
   }
 }
 

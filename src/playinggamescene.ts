@@ -42,6 +42,7 @@ class PlayingGameScene {
   public bg2: CityBackground;
 
   private pressEnterGameOver: Button;
+  private pauseMusicButton: Button;
 
   // ska den vara public lr private?
   public isEnemyDead: boolean;
@@ -101,6 +102,7 @@ class PlayingGameScene {
       images.city,
       1 + this.acceleration
     );
+    this.pauseMusicButton = new Button("P", createVector(20, 20), createVector(40, 40), CORNER);
   }
 
   public update() {
@@ -131,6 +133,7 @@ class PlayingGameScene {
     this.bg2.update();
     this.amIAlive();
     this.removeShootTimeOut();
+    this.listenForPause();
   }
 
   public draw() {
@@ -140,6 +143,7 @@ class PlayingGameScene {
     this.drawEntities();
     this.character.draw();
     this.showCurrentStats();
+    this.pauseMusicButton.draw();
     if (this.character.isAlive === false) {
       this.pressEnterGameOver.draw();
     }
@@ -513,5 +517,11 @@ class PlayingGameScene {
   public playSoundEffect(sound: p5.SoundFile) {
     if (this.soundEffectTimeOut < 0) sound.play();
     this.soundEffectTimeOut = 1000;
+  }
+
+  public listenForPause() {
+    const wasPressed = this.pauseMusicButton.update()
+    if (wasPressed)
+    this.game.playMusic(sounds.hast);
   }
 }
