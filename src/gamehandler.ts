@@ -1,24 +1,44 @@
 class GameHandler implements IGame {
-
-  //private music: string;
-
-  //Ska bytas till highScore istället för nummer.
+  /**
+   * Highest score stored in local storage.
+   */
   public highScore: number;
-  public activeScene: "start" | "play" | "over";
+  /**
+   * Current scene being displayed.
+   */
+  private activeScene: "start" | "play" | "over";
   /**
   * How long the game went on for.
   */
   public elapsedTime: number;
+  /**
+   * Amount of fish gathered.
+   */
   public collectedFish: number;
+  /**
+   * Amount of seagulls killed.
+   */
   public seagullsKilled: number;
-
+  /**
+   * Start page.
+   */
   private startPageScene: StartPageScene;
+  /**
+   * Game scene.
+   */
   private playingGameScene: PlayingGameScene;
+  /**
+   * Game over page.
+   */
   private gameOverScene: GameOverScene;
-
+  /**
+   * Checks if background music is currently playing.
+   */
   public musicIsPlaying: boolean;
+  /**
+   * The background song currently being played.
+   */
   public currentSong: p5.SoundFile;
-
 
   constructor() {
     this.highScore = 0;
@@ -29,18 +49,17 @@ class GameHandler implements IGame {
     this.collectedFish = this.playingGameScene.fishAmount;
     this.seagullsKilled = this.playingGameScene.seagullsKilled;
     this.elapsedTime = this.playingGameScene.elapsedTime;
-
     this.musicIsPlaying = false;
     this.currentSong = sounds.another;
-
   }
 
-  /** Gör förändringar på klassens attribut */
+  /**
+   * Update the game state.
+   */
   public update() {
     this.fetchHighScore();
     switch (this.activeScene) {
       case "start":
-        //this.startPageScene.playAgain()
         this.startPageScene.update()
         break;
       case "play":
@@ -56,8 +75,9 @@ class GameHandler implements IGame {
     }
   }
 
-
-  /** Ritar ut baserat på klassens attribut */
+  /**
+   * Draws other the different pages.
+   */
   public draw() {
     switch (this.activeScene) {
       case "start":
@@ -73,6 +93,12 @@ class GameHandler implements IGame {
     }
   }
 
+  //------------------------------------------------------SCENE SWAPS------------------------------------------------------------------//
+
+  /**
+   * Function to go to the playing game scene and play the 'hast' song.
+   * The 'another' song is stopped.
+   */
   public playAgain() {
     sounds.another.stop();
     this.musicIsPlaying = false;
@@ -81,6 +107,10 @@ class GameHandler implements IGame {
     this.playMusic(sounds.hast);
   }
 
+  /**
+   * Function to go to the start scene and play the 'another' song.
+   * The 'another' song is stopped.
+   */
   public goToStart() {
     sounds.another.stop();
     this.musicIsPlaying = false;
@@ -89,6 +119,10 @@ class GameHandler implements IGame {
     this.playMusic(sounds.another);
   }
 
+  /**
+   * Function to go to the game over scene and play the 'another' song.
+   * The 'hast' song is stopped.
+   */
   public goToGameOver() {
     sounds.hast.stop();
     this.musicIsPlaying = false;
@@ -97,20 +131,30 @@ class GameHandler implements IGame {
     this.playMusic(sounds.another);
   }
 
+  //------------------------------------------------------MUSIC------------------------------------------------------------------//
+
+  /**
+ * Play or stop the given music file, depending on the value of `musicIsPlaying`.
+ * 
+ * @param {p5.SoundFile} sound - The music file to be played or stopped.
+ */
   public playMusic(sound: p5.SoundFile): void {
     if (this.musicIsPlaying === false) {
       sound.play();
       sound.loop();
       this.currentSong = sound;
       this.musicIsPlaying = true;
-      // console.log(this.currentSong);
-      // console.log(sound);
     } else {
       sound.stop();
       this.musicIsPlaying = false;
     }
   }
 
+  //------------------------------------------------------HIGHSCORE------------------------------------------------------------------//
+
+  /**
+   * This function retrieves the high score stored in the local storage.
+   */
   public fetchHighScore() {
     let storedScore = localStorage.getItem("highScore");
     if (storedScore) {

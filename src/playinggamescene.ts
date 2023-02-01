@@ -1,14 +1,39 @@
 class PlayingGameScene {
+  /**
+   * The speed at which entities travel across the screen.
+   */
   public startingSpeed: number;
+  /**
+   * The rate of acceleration of the game entities.
+   */
   private acceleration: number;
+  /**
+   * Instance of Gamehandler, sent through the IGame interface.
+   */
   private game: IGame;
-
+  /**
+   * The playable character.
+   */
   private character: Character;
+  /**
+   * 
+   */
   public position: p5.Vector;
+  /**
+   * Array with clouds.
+   */
   private backgroundObjects: Gameobject[];
-
+  /**
+   * Array with buildings.
+   */
   private buildings: Building;
+  /**
+   * Array with enemies.
+   */
   private enemies: Enemy[];
+  /**
+   * 
+   */
   private bullets: Bullet[];
   /**
    * Checks the time when the game starts.
@@ -38,15 +63,33 @@ class PlayingGameScene {
    * Tracks the duration for the powerup.
    */
   private time: number;
+  /**
+   * 
+   */
   public bg1: CityBackground;
+  /**
+   * 
+   */
   public bg2: CityBackground;
 
+  /**
+   * 
+   */
   private pressEnterGameOver: Button;
+  /**
+   * 
+   */
   private pauseMusicButton: Button;
 
   // ska den vara public lr private?
+  /**
+   * 
+   */
   public isEnemyDead: boolean;
 
+  /**
+   * 
+   */
   private soundEffectTimeOut: number;
 
   constructor(game: IGame) {
@@ -108,34 +151,37 @@ class PlayingGameScene {
   public update() {
     this.time -= deltaTime;
     this.soundEffectTimeOut -= deltaTime;
+    this.acceleration += 0.001;
     this.trackTime();
 
-    //Pausa spel, Rör på banan, öka accelation, uppdatera score/fiskar, pause/unpause.
-    // this.spawnObjects();
-    this.character.update();
     this.createClouds();
-    // this.createBuildings();
     this.createEnemys();
     this.createFish();
     this.createPowerUp();
+
+    this.character.update();
     this.updateEntities();
+
     this.detectCollision();
     this.collectedItem();
-    this.acceleration += 0.001;
     this.collectedPowerup();
-    this.amIPowerful();
-    //this.updateCharacterImage();
     this.renderBullets();
     this.enemyCrash();
     this.enemyShot();
     this.enemyCrash();
+
     this.bg1.update();
     this.bg2.update();
-    this.amIAlive();
+
     this.removeShootTimeOut();
+    this.amIPowerful();
+    this.amIAlive();
     this.listenForPause();
   }
 
+  /**
+   * 
+   */
   public draw() {
     background(50, 145, 300);
     this.bg1.draw();
@@ -174,15 +220,29 @@ class PlayingGameScene {
     pop();
   }
 
+  //------------------------------------------------------TIME TRACKER------------------------------------------------------------------//
+
   /**
    * Calculates how long the game went on for.
-   */
+  */
   private trackTime() {
     if (this.character.isAlive) {
       this.elapsedTime = Math.floor(Date.now() - this.startTime) / 10;
       this.elapsedTime = Math.round(this.elapsedTime);
     }
   }
+
+  /**
+   * Removes the timeout on shooting, so you can spray and pray while powered up.
+   */
+  removeShootTimeOut() {
+    if (this.character.poweredUp === true) {
+      this.character.shootTimeout = 0;
+    }
+  }
+
+  //------------------------------------------------------CREATE ENTITIES------------------------------------------------------------------//
+
   /**
    * Checks for updates to the different game objects.
    */
@@ -205,8 +265,9 @@ class PlayingGameScene {
     }
     this.buildings.update(this.startingSpeed + this.acceleration);
   }
+
   /**
-   * creates bullets when the character is shooting
+   * Creates bullets when the character is shooting.
    */
   public renderBullets() {
     if (this.character.isShooting === true && this.character.shootTimeout < 0) {
@@ -227,6 +288,7 @@ class PlayingGameScene {
       }, 500);
     }
   }
+
   /**
    * Create clouds and push them into an array.
    */
@@ -269,8 +331,10 @@ class PlayingGameScene {
       );
     }
   }
+
   /**
-   * Creates enemies and pushes them into an array.
+   * Creates enemies (seagulls) and pushes them into an array.
+   * After having played for 30 seconds red seagulls will start to spawn.
    */
   private createEnemys() {
     if (random(2) < 0.015) {
@@ -286,7 +350,6 @@ class PlayingGameScene {
           false
         )
       );
-      //spawnar röda måsar som är extra snabba efter att du spelat i 30 sekunder
     }
     if (this.elapsedTime > 3000 && random(2) < 0.009) {
       this.enemies.push(
@@ -306,6 +369,7 @@ class PlayingGameScene {
       }
     }
   }
+
   /**
    * Creates fish and pushes them into an array.
    */
@@ -321,6 +385,7 @@ class PlayingGameScene {
       );
     }
   }
+  
   /**
    * Creates powerups and pushes them into an array.
    */
@@ -337,14 +402,11 @@ class PlayingGameScene {
       );
     }
   }
-  //gives player unlimited bulletts during powerup
-  removeShootTimeOut() {
-    if (this.character.poweredUp === true) {
-      this.character.shootTimeout = 0;
-    }
-  }
+
+  //------------------------------------------------------DRAW ENTITES------------------------------------------------------------------//
+  
   /**
-   * Draws out the gamescene.
+   * Draws out the gamescene entities (minus the character).
    */
   private drawEntities() {
     this.buildings.draw();
@@ -363,39 +425,42 @@ class PlayingGameScene {
     }
   }
 
+  //------------------------------------------------------COLLISION CHECKS------------------------------------------------------------------//
+
   /**
-   * Checks for collisions with deadly objects.
+   * Checks for collision between the character and buildings.
    */
   private detectCollision() {
     if (
       this.character.position.x + this.character.size.x >
-        this.buildings.position.x &&
+      this.buildings.position.x &&
       this.character.position.x <
-        this.buildings.position.x + this.buildings.size.x &&
+      this.buildings.position.x + this.buildings.size.x &&
       this.character.position.y + this.character.size.y >
-        this.buildings.position.y &&
+      this.buildings.position.y &&
       this.character.position.y <
-        this.buildings.position.y + this.buildings.size.y
+      this.buildings.position.y + this.buildings.size.y
     ) {
       if (this.character.poweredUp === false) {
         this.character.isAlive = false;
       }
     }
   }
+
   /**
-   * Checks for collisions with collectable fish.
+   * Checks for collision between the character and collectable fish.
    */
   private collectedItem() {
     for (let i = 0; i < this.fishes.length; i++) {
       if (
         this.character.position.x + this.character.size.x >
-          this.fishes[i].position.x &&
+        this.fishes[i].position.x &&
         this.character.position.x <
-          this.fishes[i].position.x + this.fishes[i].size.x &&
+        this.fishes[i].position.x + this.fishes[i].size.x &&
         this.character.position.y + this.character.size.y >
-          this.fishes[i].position.y &&
+        this.fishes[i].position.y &&
         this.character.position.y <
-          this.fishes[i].position.y + this.fishes[i].size.y
+        this.fishes[i].position.y + this.fishes[i].size.y
       ) {
         this.fishAmount += 1;
         this.fishes.splice(i, 1);
@@ -403,20 +468,21 @@ class PlayingGameScene {
       }
     }
   }
+
   /**
-   * Checks for collision with collectable powerups.
+   * Checks for collision between the character and collectable powerups.
    */
   private collectedPowerup() {
     for (let i = 0; i < this.powerUps.length; i++) {
       if (
         this.character.position.x + this.character.size.x >
-          this.powerUps[i].position.x &&
+        this.powerUps[i].position.x &&
         this.character.position.x <
-          this.powerUps[i].position.x + this.powerUps[i].size.x &&
+        this.powerUps[i].position.x + this.powerUps[i].size.x &&
         this.character.position.y + this.character.size.y >
-          this.powerUps[i].position.y &&
+        this.powerUps[i].position.y &&
         this.character.position.y <
-          this.powerUps[i].position.y + this.powerUps[i].size.y
+        this.powerUps[i].position.y + this.powerUps[i].size.y
       ) {
         this.time = 5000;
         this.powerUps.splice(i, 1);
@@ -427,18 +493,22 @@ class PlayingGameScene {
       }
     }
   }
+  
+  /**
+   * Checks for collision between the character and seagulls.
+   */
   public enemyCrash() {
     for (let i = 0; i < this.enemies.length; i++) {
       if (
         !this.enemies[i].isEnemyDead &&
         this.character.position.x + this.character.size.x >
-          this.enemies[i].position.x &&
+        this.enemies[i].position.x &&
         this.character.position.x <
-          this.enemies[i].position.x + this.enemies[i].size.x &&
+        this.enemies[i].position.x + this.enemies[i].size.x &&
         this.character.position.y + this.character.size.y >
-          this.enemies[i].position.y &&
+        this.enemies[i].position.y &&
         this.character.position.y <
-          this.enemies[i].position.y + this.enemies[i].size.y &&
+        this.enemies[i].position.y + this.enemies[i].size.y &&
         this.character.poweredUp === false
       ) {
         this.enemies[i].image = images.redExplosion;
@@ -454,6 +524,10 @@ class PlayingGameScene {
       }
     }
   }
+
+  /**
+   * Checks for collision between the bullet and seagulls.
+   */
   public enemyShot() {
     let collisionDistance = 100;
 
@@ -464,7 +538,7 @@ class PlayingGameScene {
         }
         if (
           this.bullets[i].position.dist(this.enemies[j].position) <
-            collisionDistance &&
+          collisionDistance &&
           !this.enemies[j].isEnemyDead
         ) {
           this.bullets.splice(i, 1);
@@ -483,6 +557,9 @@ class PlayingGameScene {
       }
     }
   }
+
+  //------------------------------------------------------STATES------------------------------------------------------------------//
+
   /**
    * Checks if the player have the immortal powerup active or not.
    */
@@ -491,6 +568,11 @@ class PlayingGameScene {
       this.character.poweredUp = false;
     }
   }
+
+  /**
+   * Checks if the character is alive or not.
+   * If not the game ends and a button leading to game over appear.
+   */
   private amIAlive() {
     if (this.character.isAlive === false) {
       this.startingSpeed = 0;
@@ -506,22 +588,31 @@ class PlayingGameScene {
     }
   }
 
+  //------------------------------------------------------BUTTONS------------------------------------------------------------------//
+ /**
+   * Listens for button press and creates a new instance of the game over page.
+   */
   private gameOverButton() {
-    //Skapa knapp, vid knapptryck kör funktionen nedan.
     const wasPressed = this.pressEnterGameOver.update();
     if (wasPressed) {
       this.game.goToGameOver();
     }
   }
 
+  /**
+   * Checks if the soundEffectTimeout has counted town to 0 before playing a sound effect.
+   */
   public playSoundEffect(sound: p5.SoundFile) {
     if (this.soundEffectTimeOut < 0) sound.play();
     this.soundEffectTimeOut = 1000;
   }
 
+  /**
+   * Listens for buttonpress and calls the playMusic funtion.
+   */
   public listenForPause() {
     const wasPressed = this.pauseMusicButton.update()
     if (wasPressed)
-    this.game.playMusic(sounds.hast);
+      this.game.playMusic(sounds.hast);
   }
 }
