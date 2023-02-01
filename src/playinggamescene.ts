@@ -165,6 +165,7 @@ class PlayingGameScene {
     this.enemyCrash();
     this.enemyShot();
     this.enemyCrash();
+    this.detectOverlap(this.building, this.fishes);
 
     this.bg1.update();
     this.bg2.update();
@@ -450,6 +451,7 @@ class PlayingGameScene {
 
   /**
    * Checks for collision between the character and collectable fish.
+   * If there is a collision the fish is deleted.
    */
   private collectedItem() {
     for (let i = 0; i < this.fishes.length; i++) {
@@ -472,6 +474,7 @@ class PlayingGameScene {
 
   /**
    * Checks for collision between the character and collectable powerups.
+   * If there is a collision the donut is deleted and character is set to powered up for 5 seconds.
    */
   private collectedPowerup() {
     for (let i = 0; i < this.powerUps.length; i++) {
@@ -490,6 +493,26 @@ class PlayingGameScene {
         this.character.poweredUp = true;
         this.playSoundEffect(sounds.mums);
 
+        break;
+      }
+    }
+  }
+
+  /**
+   * Checks for overlap between a building and fish.
+   * If an overlap is detected, the overlapping fish will be removed.
+   * @param building The building to check for overlap.
+   * @param fishes The array of fish to check for overlap.
+   */
+  private detectOverlap(building: Building, fishes: Item[]) {
+    for (let i = 0; i < fishes.length; i++) {
+      if (
+        building.position.x + building.size.x > fishes[i].position.x &&
+        building.position.x < fishes[i].position.x + fishes[i].size.x &&
+        building.position.y + building.size.y > fishes[i].position.y &&
+        building.position.y < fishes[i].position.y + fishes[i].size.y
+      ) {
+        fishes.splice(i, 1);
         break;
       }
     }
