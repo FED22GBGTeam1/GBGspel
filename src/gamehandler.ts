@@ -42,7 +42,7 @@ class GameHandler implements IGame {
 
   constructor() {
     this.highScore = 0;
-    this.activeScene = "over";
+    this.activeScene = "start";
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene(this);
     this.gameOverScene = new GameOverScene(this);
