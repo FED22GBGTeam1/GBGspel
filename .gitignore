@@ -1,2 +1,4 @@
 node_modules
 build
+bundje.js
+bundle.js.map
