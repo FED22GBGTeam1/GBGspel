@@ -19,6 +19,7 @@ class Bullet extends Gameobject {
       this.size.y
     );
   }
+  //moves the bullet to the right side 
   public update() {
     this.position.add(this.velocity, 0);
   }

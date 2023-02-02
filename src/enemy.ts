@@ -2,7 +2,9 @@
 
 class Enemy extends animatedObject{
     public framesDuration: any;
+    //yVelocity gets a random number and  makes every seagull fly upwards or downwards in that speed
     public yVelocity:number;
+    //isEnemtDead gets a random number and  makes every seagull fly upwards or downwards in that speed
     public isEnemyDead: boolean;
 
     constructor(
@@ -20,6 +22,7 @@ class Enemy extends animatedObject{
           this.yVelocity= yVelocity;
           this.isEnemyDead = isEnemyDead;
     }
+    //makes the seagull move both sideways and up och down
     public update(startingSpeed: number) {
             super.update(startingSpeed);
             this.position.sub(this.velocity, this.yVelocity);
