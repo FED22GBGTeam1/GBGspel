@@ -38,7 +38,7 @@ class PlayingGameScene {
   /**
    * How long the game went on for.
    */
-  public elapsedTime: number;
+  private elapsedTime: number;
   /**
    * Array of fish.
    */
@@ -46,11 +46,11 @@ class PlayingGameScene {
   /**
    * Amount of fish gathered.
    */
-  public fishAmount: number;
+  private fishAmount: number;
   /**
    * Amount of enemies killed.
    */
-  public seagullsKilled: number;
+  private seagullsKilled: number;
   /**
    * Array of power ups.
    */
@@ -382,7 +382,7 @@ class PlayingGameScene {
       );
     }
   }
-  
+
   /**
    * Creates powerups and pushes them into an array.
    */
@@ -400,7 +400,7 @@ class PlayingGameScene {
   }
 
   //------------------------------------------------------DRAW ENTITES------------------------------------------------------------------//
-  
+
   /**
    * Draws out the gamescene entities (minus the character).
    */
@@ -512,7 +512,7 @@ class PlayingGameScene {
       }
     }
   }
-  
+
   /**
    * Checks for collision between the character and seagulls.
    * If it occurs and the character is not powered up the character dies.
@@ -615,9 +615,9 @@ class PlayingGameScene {
 
   //------------------------------------------------------BUTTONS------------------------------------------------------------------//
 
- /**
-   * Listens for button press and creates a new instance of the game over page.
-   */
+  /**
+    * Listens for button press and creates a new instance of the game over page.
+    */
   private gameOverButton() {
     const wasPressed = this.calcScoreGameOverButton.update();
     if (wasPressed) {
@@ -632,5 +632,21 @@ class PlayingGameScene {
     const wasPressed = this.pauseMusicButton.update()
     if (wasPressed)
       this.game.playMusic(sounds.hast);
+  }
+
+  /**
+   * Returns either distance, fish or birds.
+   * @param number 
+   * @returns 1 = distance, 2 = fish, 3 = birds
+   */
+  public getGameStats(number: 1 | 2 | 3) {
+    switch (number) {
+      case 1:
+        return this.elapsedTime;
+      case 2: 
+        return this.fishAmount;
+      case 3:
+        return this.seagullsKilled;
+    }
   }
 }
