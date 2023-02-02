@@ -12,11 +12,11 @@ class GameOverScene {
    */
   private goToStartButton: Button
   /**
-   * Fish gathered * 200.
+   * Fish gathered * 220.
    */
   private fishScore: number;
   /**
-   * Birds killed * 100.
+   * Birds killed * 110.
    */
   private birdScore: number;
   /**
@@ -178,8 +178,8 @@ class GameOverScene {
    * @returns number The final score.
    */
   public calculateScore() {
-    this.fishScore = this.game.collectedFish.valueOf() * 200;
-    this.birdScore = this.game.seagullsKilled.valueOf() * 100;
+    this.fishScore = this.game.collectedFish.valueOf() * 220;
+    this.birdScore = this.game.seagullsKilled.valueOf() * 110;
     this.finalScore = this.fishScore + this.birdScore + this.game.elapsedTime.valueOf();
     return this.finalScore;
   }
