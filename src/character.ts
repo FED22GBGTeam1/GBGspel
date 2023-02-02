@@ -8,7 +8,7 @@ class Character extends animatedObject {
   /**
    * Starts at 2000. At 0 sounds can be played.
    */
-  public soundTimeout: number;
+  private soundTimeout: number;
   /**
    * Makes sure the death sound is only played once.
    */

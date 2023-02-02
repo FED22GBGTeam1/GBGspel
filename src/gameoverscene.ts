@@ -177,7 +177,7 @@ class GameOverScene {
    * Adds everything together with the distance traveled.
    * @returns number The final score.
    */
-  public calculateScore() {
+  private calculateScore() {
     this.fishScore = this.game.collectedFish.valueOf() * 220;
     this.birdScore = this.game.seagullsKilled.valueOf() * 110;
     this.finalScore = this.fishScore + this.birdScore + this.game.elapsedTime.valueOf();
@@ -187,7 +187,7 @@ class GameOverScene {
   /**
    * Checks if the final score is higher than the stored highscore. If it it sends the final score to local storage.
    */
-  public checkAndSaveScore() {
+  private checkAndSaveScore() {
     if (this.finalScore > this.game.highScore) {
       localStorage.setItem("highScore", this.finalScore.toString());
       this.game.highScore = this.finalScore;

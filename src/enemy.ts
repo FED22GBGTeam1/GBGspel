@@ -27,9 +27,6 @@ class Enemy extends animatedObject{
             super.update(startingSpeed);
             this.position.sub(this.velocity, this.yVelocity);
     }
-    draw() {
-        super.draw();
-    }
 
 }
 

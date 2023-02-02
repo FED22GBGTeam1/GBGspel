@@ -232,7 +232,7 @@ class PlayingGameScene {
   /**
    * Removes the timeout on shooting, so you can spray and pray while powered up.
    */
-  removeShootTimeOut() {
+  public removeShootTimeOut() {
     if (this.character.poweredUp === true) {
       this.character.shootTimeout = 0;
     }
