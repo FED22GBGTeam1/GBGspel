@@ -553,7 +553,7 @@ class PlayingGameScene {
    * If they collide the seagull dies.
    */
   public enemyShot() {
-    let collisionDistance = 100;
+    let collisionDistance = 80;
 
     for (let i = 0; i < this.bullets.length; i++) {
       for (let j = 0; j < this.enemies.length; j++) {
@@ -583,7 +583,6 @@ class PlayingGameScene {
   }
 
   //------------------------------------------------------STATES------------------------------------------------------------------//
-
   /**
    * Checks if the player have the immortal powerup active or not.
    */
@@ -592,10 +591,10 @@ class PlayingGameScene {
       this.character.poweredUp = false;
     }
   }
-
   /**
    * Checks if the character is alive or not.
    * If not the game ends and a button leading to game over appear.
+   * It also makes the building and background stop moving when you have crashed.
    */
   private amIAlive() {
     if (this.character.isAlive === false) {

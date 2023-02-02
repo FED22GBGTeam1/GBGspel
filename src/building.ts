@@ -23,7 +23,7 @@ class Building extends Gameobject {
   }
   /**
    * 
-   * 
+   * Method returns a random image and the size the building gets if  the case goes to that picture. Case 1,2 and 3 gets the regular "house, so it's more commonly occuring"
    */
   private getRandomImage(): p5.Image {
     let r = Math.floor(Math.random() * 5) + 1;

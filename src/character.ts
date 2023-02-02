@@ -164,7 +164,6 @@ class Character extends animatedObject {
       this.image = images.shootGreen;
     }
   }
-
   /**
    * Checks if 2 seconds have passed since last sound was played,
    * and then plays another sound.
@@ -176,7 +175,6 @@ class Character extends animatedObject {
       this.soundTimeout = 5000;
     }
   }
-
   /**
    * Plays a sound when the character dies.
    */
