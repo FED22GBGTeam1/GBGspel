@@ -126,7 +126,7 @@ class PlayingGameScene {
     this.elapsedTime = 0;
     this.calcScoreGameOver = new Button(
       "Calculate Score",
-      new p5.Vector(width / 2 - 50, height / 3),
+      new p5.Vector(width / 2, height / 3),
       new p5.Vector(300, 50)
     );
     this.bg1 = new CityBackground(
