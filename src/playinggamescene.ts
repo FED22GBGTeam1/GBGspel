@@ -16,10 +16,6 @@ class PlayingGameScene {
    */
   private character: Character;
   /**
-   * /---------------------------------------------------------------------------------------
-   */
-  public position: p5.Vector;
-  /**
    * Array with clouds.
    */
   private backgroundObjects: Gameobject[];
@@ -74,7 +70,7 @@ class PlayingGameScene {
   /**
    * Button that will load in the game over scene.
    */
-  private calcScoreGameOver: Button;
+  private calcScoreGameOverButton: Button;
   /**
    * Button that pauses/plays background music.
    */
@@ -90,9 +86,8 @@ class PlayingGameScene {
 
   constructor(game: IGame) {
     this.game = game;
-    this.startingSpeed = 5;
+    this.startingSpeed = 7;
     this.acceleration = 0;
-    this.position = createVector(0, 0);
     this.character = new Character(
       createVector(50, 300),
       createVector(width / 9, height / 10),
@@ -124,7 +119,7 @@ class PlayingGameScene {
 
     this.startTime = Date.now();
     this.elapsedTime = 0;
-    this.calcScoreGameOver = new Button(
+    this.calcScoreGameOverButton = new Button(
       "Calculate Score",
       new p5.Vector(width / 2, height / 3),
       new p5.Vector(300, 50)
@@ -161,7 +156,7 @@ class PlayingGameScene {
     this.detectCollision();
     this.collectedItem();
     this.collectedPowerup();
-    this.renderBullets();
+    this.spawnBullets();
     this.enemyCrash();
     this.enemyShot();
     this.enemyCrash();
@@ -188,7 +183,7 @@ class PlayingGameScene {
     this.showCurrentStats();
     this.pauseMusicButton.draw();
     if (this.character.isAlive === false) {
-      this.calcScoreGameOver.draw();
+      this.calcScoreGameOverButton.draw();
     }
   }
 
@@ -196,29 +191,29 @@ class PlayingGameScene {
    * Displays the current stats of the game, meters run, number of seagulls killed and amount of fish collected
    */
   private showCurrentStats() {
-    //meters
+    //Meters
     push();
-    image(images.stats, width / 2 - 640 / 2, 0, 750, 41);
+    image(images.stats, width / 2 - 750 / 2, 0, 750, 41);
     pop();
     push();
     textAlign(LEFT);
     textSize(18);
     fill(255);
-    text("Meters: " + this.elapsedTime, width / 2 - 640 / 2 + 20, 28);
+    text("Meters: " + this.elapsedTime, width / 2 - 750 / 2 + 20, 28);
     pop();
-    //seaugulls
+    //Seagulls
     push();
     textAlign(LEFT);
     textSize(18);
     fill(255);
-    text(this.seagullsKilled, width / 2 - 640 / 2 + 540, 28);
+    text(this.seagullsKilled, width / 2 - 750 / 2 + 540, 28);
     pop();
-    //fish
+    //Fish
     push();
     textAlign(LEFT);
     textSize(18);
     fill(255);
-    text(this.fishAmount, width / 2 - 640 / 2 + 680, 28);
+    text(this.fishAmount, width / 2 - 750 / 2 + 680, 28);
     pop();
   }
 
@@ -271,7 +266,7 @@ class PlayingGameScene {
   /**
    * Creates bullets when the character is shooting.
    */
-  public renderBullets() {
+  public spawnBullets() {
     if (this.character.isShooting === true && this.character.shootTimeout < 0) {
       this.bullets.push(
         new Bullet(
@@ -376,7 +371,7 @@ class PlayingGameScene {
    * Creates fish and pushes them into an array.
    */
   private createFish() {
-    if (random(2) < 0.012) {
+    if (random(2) < 0.040) {
       this.fishes.push(
         new Item(
           new p5.Vector(width, random(height)),
@@ -624,7 +619,7 @@ class PlayingGameScene {
    * Listens for button press and creates a new instance of the game over page.
    */
   private gameOverButton() {
-    const wasPressed = this.calcScoreGameOver.update();
+    const wasPressed = this.calcScoreGameOverButton.update();
     if (wasPressed) {
       this.game.goToGameOver();
     }
