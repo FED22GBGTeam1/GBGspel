@@ -527,7 +527,7 @@ class PlayingGameScene {
         this.isEnemyDead = false;
         this.startTime = Date.now();
         this.elapsedTime = 0;
-        this.calcScoreGameOver = new Button("Calculate Score", new p5.Vector(width / 2 - 150, height / 2), new p5.Vector(300, 50));
+        this.calcScoreGameOver = new Button("Calculate Score", new p5.Vector(width / 2 - 50, height / 3), new p5.Vector(300, 50));
         this.bg1 = new CityBackground(createVector(0, 0), createVector(width, height), images.city, 1 + this.acceleration);
         this.bg2 = new CityBackground(createVector(width, 0), createVector(width, height), images.city, 1 + this.acceleration);
         this.pauseMusicButton = new Button("P", createVector(20, 20), createVector(40, 40), CORNER);
