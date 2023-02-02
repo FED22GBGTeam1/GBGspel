@@ -389,8 +389,8 @@ class GameOverScene {
         this.birdScore = 0;
         this.scoreColor = 'white';
         this.scoreFade = 0;
-        this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2 + 150), new p5.Vector(200, 40));
-        this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 + 200), createVector(200, 40));
+        this.playAgainButton = new Button("Play Again", new p5.Vector(width / 2 - 100, height / 2 + 170), new p5.Vector(200, 40));
+        this.goToStartButton = new Button("Startmenu", createVector(width / 2 - 100, height / 2 + 225), createVector(200, 40));
         this.pauseMusicButton = new Button("P", createVector(20, 20), createVector(40, 40), CORNER);
         this.backgroundObjects = [];
     }
