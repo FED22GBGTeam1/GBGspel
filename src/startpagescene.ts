@@ -18,7 +18,7 @@ class StartPageScene {
 
   constructor(game: IGame) {
     this.game = game;
-    this.startButton = new Button("Start Game!", createVector(width / 2 - 80, height / 2 + 100), createVector(160, 50));
+    this.startButton = new Button("Start Game!", createVector(width / 2 - 20, height / 2 + 140), createVector(160, 50));
     this.pauseMusicButton = new Button("P", createVector(20, 20), createVector(40, 40), CORNER);
     this.backgroundObjects = [];
   }

@@ -299,7 +299,7 @@ class Enemy extends animatedObject {
 class GameHandler {
     constructor() {
         this.highScore = 0;
-        this.activeScene = "over";
+        this.activeScene = "start";
         this.startPageScene = new StartPageScene(this);
         this.playingGameScene = new PlayingGameScene(this);
         this.gameOverScene = new GameOverScene(this);
@@ -550,6 +550,7 @@ class PlayingGameScene {
         this.enemyCrash();
         this.enemyShot();
         this.enemyCrash();
+        this.detectOverlap(this.building, this.fishes);
         this.bg1.update();
         this.bg2.update();
         this.removeShootTimeOut();
@@ -725,6 +726,17 @@ class PlayingGameScene {
             }
         }
     }
+    detectOverlap(building, fishes) {
+        for (let i = 0; i < fishes.length; i++) {
+            if (building.position.x + building.size.x > fishes[i].position.x &&
+                building.position.x < fishes[i].position.x + fishes[i].size.x &&
+                building.position.y + building.size.y > fishes[i].position.y &&
+                building.position.y < fishes[i].position.y + fishes[i].size.y) {
+                fishes.splice(i, 1);
+                break;
+            }
+        }
+    }
     enemyCrash() {
         for (let i = 0; i < this.enemies.length; i++) {
             if (!this.enemies[i].isEnemyDead &&
@@ -892,7 +904,7 @@ function windowResized() {
 class StartPageScene {
     constructor(game) {
         this.game = game;
-        this.startButton = new Button("Start Game!", createVector(width / 2 - 80, height / 2 + 100), createVector(160, 50));
+        this.startButton = new Button("Start Game!", createVector(width / 2 - 20, height / 2 + 140), createVector(160, 50));
         this.pauseMusicButton = new Button("P", createVector(20, 20), createVector(40, 40), CORNER);
         this.backgroundObjects = [];
     }
