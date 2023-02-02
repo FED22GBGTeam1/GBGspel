@@ -3,8 +3,10 @@ class CityBackground extends Gameobject {
     constructor(position: p5.Vector, size: p5.Vector, image:p5.Image, velocity: number) {
         super (position, size, image, velocity);
     }
+    /**
+     * Placerar bild 2 när bild 1 tar slut, sedan bild 1 när bild 2 tar slut för en evig loop.
+     */
     public update() {
-      //placerar bild 2 när bild 1 tar slut, sedan bild 1 när bild 2 tar slut för en evig loop.
         this.position.x -= this.velocity;
         this.position.x -= this.velocity;
         if (this.position.x <= -this.size.x) {

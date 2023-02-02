@@ -554,7 +554,6 @@ class PlayingGameScene {
    */
   public enemyShot() {
     let collisionDistance = 80;
-
     for (let i = 0; i < this.bullets.length; i++) {
       for (let j = 0; j < this.enemies.length; j++) {
         if (!this.bullets[i] || !this.enemies[j]) {
