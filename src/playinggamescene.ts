@@ -114,7 +114,7 @@ class PlayingGameScene {
     this.powerUps = [];
     this.isEnemyDead = false;
     this.time = 0;
-    this.soundEffectTimeOut = 1000;
+    this.soundEffectTimeOut = 500;
     this.isEnemyDead = false
 
     this.startTime = Date.now();
@@ -610,7 +610,7 @@ class PlayingGameScene {
    */
   public playSoundEffect(sound: p5.SoundFile) {
     if (this.soundEffectTimeOut < 0) sound.play();
-    this.soundEffectTimeOut = 1000;
+    this.soundEffectTimeOut = 500;
   }
 
   //------------------------------------------------------BUTTONS------------------------------------------------------------------//
