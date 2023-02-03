@@ -172,7 +172,7 @@ class Character extends animatedObject {
   public playSound(sound: p5.SoundFile) {
     if (this.soundTimeout < 0) {
       sound.play();
-      this.soundTimeout = 1000;
+      this.soundTimeout = 2000;
     }
   }
   /**
