@@ -46,9 +46,9 @@ class GameHandler implements IGame {
     this.startPageScene = new StartPageScene(this);
     this.playingGameScene = new PlayingGameScene(this);
     this.gameOverScene = new GameOverScene(this);
-    this.collectedFish = this.playingGameScene.getGameStats(2);
-    this.seagullsKilled = this.playingGameScene.getGameStats(3);
-    this.elapsedTime = this.playingGameScene.getGameStats(1);
+    this.collectedFish = this.playingGameScene.getGameStats("fish");
+    this.seagullsKilled = this.playingGameScene.getGameStats("birds");
+    this.elapsedTime = this.playingGameScene.getGameStats("meter");
     this.musicIsPlaying = false;
     this.currentSong = sounds.another;
   }
@@ -67,9 +67,9 @@ class GameHandler implements IGame {
         break;
       case "over":
         this.gameOverScene.update();
-        this.elapsedTime = this.playingGameScene.getGameStats(1);
-        this.collectedFish = this.playingGameScene.getGameStats(2);
-        this.seagullsKilled = this.playingGameScene.getGameStats(3);
+        this.elapsedTime = this.playingGameScene.getGameStats("meter");
+        this.collectedFish = this.playingGameScene.getGameStats("fish");
+        this.seagullsKilled = this.playingGameScene.getGameStats("birds");
         break;
       default:
     }

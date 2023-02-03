@@ -637,15 +637,15 @@ class PlayingGameScene {
   /**
    * Returns either distance, fish or birds.
    * @param number 
-   * @returns 1 = distance, 2 = fish, 3 = birds
+   * @returns distance, fish, birds
    */
-  public getGameStats(number: 1 | 2 | 3) {
-    switch (number) {
-      case 1:
+  public getGameStats(string: "meter" | "fish" | "birds") {
+    switch (string) {
+      case "meter":
         return this.elapsedTime;
-      case 2: 
+      case "fish": 
         return this.fishAmount;
-      case 3:
+      case "birds":
         return this.seagullsKilled;
     }
   }
