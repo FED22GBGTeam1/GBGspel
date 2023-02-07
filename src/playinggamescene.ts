@@ -405,6 +405,10 @@ class PlayingGameScene {
    * Draws out the gamescene entities (minus the character).
    */
   private drawEntities() {
+    for (const cloud of this.backgroundObjects) {
+      cloud.draw();
+    }
+    
     this.building.draw();
 
     for (const enemies of this.enemies) {
